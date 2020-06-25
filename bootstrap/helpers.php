@@ -113,7 +113,8 @@
 	}
 
 	function rtlLocale () {
-		return app()->getLocale() === 'ar';
+		return app()->getLocale() === 've';
+		//return app()->getLocale() === 'ar';
 	}
 
 
@@ -123,7 +124,8 @@
 
 
 	function numberFormatter($value) {
-		$number = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+		$number = new NumberFormatter("es", NumberFormatter::SPELLOUT);
+		//$number = new NumberFormatter("en", NumberFormatter::SPELLOUT);
         return title_case($number->format($value));
 	}
 

@@ -108,7 +108,6 @@
                 <div class="header" style="font-size: 20px !important;">
                     {{settings('currency_code')}}
                     {{bangla_digit($todays_stats['total_transactions_today'])}}
-                    Bs {{bangla_digit($todays_stats['total_transactions_today'] * $dolar)}}
                     <small style="font-size: 12px !important;">
                       ({{trans('core.today')}})
                     </small>

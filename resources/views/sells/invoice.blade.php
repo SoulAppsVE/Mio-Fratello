@@ -245,7 +245,7 @@
 		    	<span class="amount-in-words">
 			    	{{trans('core.amount')}} (In Words)
 			        <br>
-			        <b>{{settings('currency_code')}} {{twoPlaceDecimal($transaction->net_total)}}</b>
+			        <b>{{settings('currency_code')}} {{numberFormatter($transaction->net_total)}}</b>
 			    	<br>
 			    	<br>
 			    </span>

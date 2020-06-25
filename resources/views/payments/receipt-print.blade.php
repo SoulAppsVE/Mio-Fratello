@@ -100,8 +100,7 @@
           <span class="amount-in-words">
             {{trans('core.amount')}} (In Words)
               <br>
-             <!-- <b>{{settings('currency_code')}} {{numberFormatter($payment->amount)}}</b>-->
-             <b>{{settings('currency_code')}} {{$payment->amount}}</b>
+             <b>{{settings('currency_code')}} {{numberFormatter($payment->amount)}}</b>
             <br>
             <br>
           </span>

@@ -197,7 +197,15 @@ return [
     'report_product' => 'Reporte por Producto',
     'to' => 'a',
     'add_new_warehouse' => 'Agregar nueva Tienda',
-    'back' => 'Regresar',
+    'opening_stocks' => 'Abrir Stock',
 
 
+    'purchase_history' => 'Historia de Compras',
+    'sell_history' => 'Historia de Ventas',
+    'damage_history' => 'Historia Producto Dañado',
+
+    'sale_items' => 'Items Venta',
+    'payment_history' => 'Historia de Pagos',
+    'make_payment' => 'Pagar Deuda',
+    'today' => 'Hoy',
 ];

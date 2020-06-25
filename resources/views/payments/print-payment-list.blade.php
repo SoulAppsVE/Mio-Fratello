@@ -1,4 +1,4 @@
-@extends('printer')
+@extends('app')
 
 <style>
 	thead tr th{
