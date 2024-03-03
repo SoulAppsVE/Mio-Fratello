@@ -20,9 +20,11 @@
 	<div id="printableArea" class="panel-body">
 		<h4 class="text-center">	
 			<b>{{trans('core.report_sell')}}:</b>
-		 	{{carbonDate($from, 'y-m-d')}} 
+		 	<!--{{carbonDate($from, 'y-m-d')}} -->
+			 {{ \Carbon\Carbon::parse($from)->toDateString() }}
 		 	<b>{{trans('core.to')}}</b> 
-		 	{{carbonDate($to, 'y-m-d')}} 
+		 	<!--{{carbonDate($to, 'y-m-d')}}--> 
+			 {{ \Carbon\Carbon::parse($to)->toDateString() }}
 		 </h4><br />
 
 		<table class="table table-bordered" width="100%">	
@@ -65,7 +67,7 @@
 					<td class="text-center">
 						{{$transaction->warehouse->name}}
 					</td>
-					<td class="text-center">{{carbonDate($transaction->date, 'y-m-d')}}</td>
+					<td class="text-center">{{ date('d/m/Y h:i A', strtotime($transaction->date)) }}</td>
 				</tr>
 			@endforeach			
 		</table>
@@ -98,7 +100,7 @@
 				<td>
 					{{settings('currency_code')}}
 					{{twoPlaceDecimal($transactions->sum('total_cost_price'))}} 
-					<small>{{trans('core.excluding_tax')}}</small>
+
 				</td>
 			</tr>
 

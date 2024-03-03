@@ -1,13 +1,13 @@
 <!-- Content Header (Page header) -->
 <div id="page-title">
-    <h3>
+ <!--   <h3>
         @section('contentheader') 
             {{ settings('site_name') }}
             <small style=" font-size: 12px; letter-spacing: 2px;" class="hidden-xs">
                 <b>{{Auth::user()->warehouse->name}}</b>
             </small>
         @show
-    </h3>
+    </h3>-->
     <!-- <p>
         @section('contentheader_description') 
             Ultimate tool to manage inventory and stock. 

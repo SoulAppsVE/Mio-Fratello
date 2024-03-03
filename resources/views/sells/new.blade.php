@@ -27,7 +27,7 @@
 		    </label>
 		    <div class="col-md-5">
 		      <select class="form-control selectpicker" v-model="customer"  data-live-search="true">
-		      	<option value="1">{{trans('core.walk_in_customer')}}</option>
+		      	<option value="1">Cliente predeterminado</option>
 		      	@foreach($customers as $customer)
 		      		<option value="{{$customer->id}}">{{$customer->name}}</option>
 		      	@endforeach
@@ -38,8 +38,10 @@
 		@endif
 
     	<div>
+          <div class="table-responsive">
     		<table class="table table-bordered bg-sells">
-    			<thead class="{{settings('theme')}}">
+
+    			<thead style="background-color:#1b2f4c ">
 					<tr style="color: #FFF !important;">
 						<td class="text-center font-white" style="width: 20%;">
 							{{trans('core.product')}}
@@ -88,9 +90,7 @@
 					<tr>
 						<td colspan="{{colSpanNumber()}}" @if(!rtlLocale()) style="text-align: right; font-weight: bold;" @endif>
 							{{trans('core.total')}} 
-							<span class=" font-size-9">
-								{{trans('core.excluding_tax')}}
-							</span>
+
 						</td>
 						<td colspan="2">
 							<input type="text" class="form-control text-center" :value="total" disabled="true" />
@@ -208,14 +208,15 @@
 
 					<tr>
 						<td colspan="6">
-							<button type="submit" @click.prevent="postForm" :disabled="submitted" class="btn btn-success pull-right"> 
+							<button type="submit" @click.prevent="postForm" :disabled="submitted" class="btn botom pull-right"> 
 								<i class="fa fa-spinner fa-pulse fa-fw" v-if="submitted"></i> 
 								{{trans('core.submit')}} 
 							</button>
 						</td>
 					</tr>
 				</tfoot>
-    		</table>  	 
+    		</table> 
+          </div> 
 		</div>
 	</form>
 </div>
@@ -243,18 +244,19 @@
 		</td>
 
 		<td>
-			<input type="text" v-model="sell.price" class="form-control text-center" >
-			<p v-if="sell.min_price > 0" style="font-size: 10px; font-weight: bold; text-align: center;">
-				{{trans('core.min_retail_price')}}: 
-				{{ settings('currency_code') }} @{{sell.min_price}} 
+			<input type="text" v-model="sell.price" class="form-control text-center" readonly>
+			<p v-if="sell.cost_price > 0" style="font-size: 10px; font-weight: bold; text-align: center;">
+				<!--{{trans('core.min_retail_price')}}: -->
+                Precio de Costo:
+				{{ settings('currency_code') }} @{{sell.cost_price}} 
 			</p>
 		</td>
 		<td>
-			<input type="text" v-model="sell.quantity" class="form-control text-center">
+			<input type="text" v-model="sell.quantity" class="form-control text-center" @input="validateQuantity">
 			<span v-if="sell.product_id != 0">
-				<p v-if="sell.quantity > sell.stock" style="color: red; font-size: 10px; font-weight: bold; text-align: center;">
-					<span v-if="sell.stock > 0">{{trans('core.in_stock')}}: @{{sell.stock}}</span>
-					<span v-else-if="sell.stock <= 0" >{{trans('core.out_of_stock')}}</span>
+				<p style="color: red; font-size: 10px; font-weight: bold; text-align: center;">
+					<span v-if="sell.stock > 0">STOCK: @{{sell.stock}}</span>
+					<span v-else-if="sell.stock <= 0" >SIN STOCK: @{{sell.stock}}</span>
 				</p>
 			</span>
 		</td>
@@ -268,7 +270,7 @@
 			<button @click.prevent="remove(id)" class="btn btn-danger" v-if="id != 1">
 				<i class="fa fa-times"></i>
 			</button>
-			<button @click.prevent="add()" class="btn btn-success" v-else >
+			<button @click.prevent="add()" class="btn botom" v-else >
 				<i class="fa fa-plus"></i>
 			</button>
 		</td>
@@ -304,9 +306,24 @@
 	    			this.sell.unit_tax_rate = $('option:selected', event.target).data('taxrate')
 	    			this.sell.tax_type = $('option:selected', event.target).data('taxtype')
 	    			this.sell.min_price = $('option:selected', event.target).data('minprice')
-	    		}
+	    		},
+              
+                validateQuantity: function () {
+                  if (parseInt(this.sell.quantity) > parseInt(this.sell.stock)) {javascript:void(0)
+                     swal({
+                          icon: 'warning',
+                          title: 'Cantidad No Disponible',
+                          text: 'Stock actual: ' + this.sell.stock,
+                          confirmButtonText: 'OK',
+                      });
+                      //alert("La cantidad ingresada es mayor que el stock disponible (" + this.sell.stock + ")");
+                      this.sell.quantity = this.sell.stock; // Puedes reiniciar la cantidad a la cantidad máxima disponible si lo deseas.
+                  }
+              }
 	    	},
 	    	mounted: function () {
+              
+              
 	    		this.$watch('sell.price', function (value) {
 	    			if(this.enable_product_tax === 1){
 		    			var unitTax = this.sell.unit_tax_rate
@@ -418,6 +435,8 @@
 		    	},
 		    },
 		    methods:{
+              
+             
 		        addInput: function () {
 		        	var newInputId = 1
 		        	for (var i = 0; i < this.sells.length; i++) {
@@ -428,6 +447,8 @@
 		        		$('.selectPickerLive').selectpicker()
 		        	})
 		        },
+               
+              
 		        removeInput: function (id) {
 		        	console.log('PASSED ID', id)
 		           var index = this.sells.findIndex(function (sell) {
@@ -440,7 +461,7 @@
 		        	this.submitted = true
 
 		        	if(parseFloat(this.paid) > this.netTotal){
-		        		 swal("Sorry", "Paid amount (" + this.paid + ") cant\'be greater than total amount (" + this.netTotal + ")", "error");
+		        		 swal("Disculpe", "Monto de pago (" + this.paid + ") no puede ser mayor que la cantidad total (" + this.netTotal + ")", "error");
 		        		this.submitted = false
 		        		return false;
 		        	}
@@ -453,7 +474,7 @@
 					  .catch(function (error) {
 					  	self.submitted = false
 					  	console.log(JSON.stringify(error))
-					    swal('Something went wrong..', error.response.data.message, 'error')
+					    swal('Algo salió mal..', error.response.data.message, 'error')
 					  });
 		        },
 		        bootExternalLibraries: function () {

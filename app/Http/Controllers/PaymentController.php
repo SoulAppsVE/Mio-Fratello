@@ -8,7 +8,7 @@ use App\Transaction;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -193,4 +193,68 @@ class PaymentController extends Controller
     {
         return view('payments.receipt-print', compact('payment'));
     }
+  
+  
+   //REQUERIMIENTO VICTOR
+
+    private $parametros = ['from', 'to'];
+
+    public function getList(Request $request)
+    {
+
+        $from = $request->get('from');
+        $to = $request->get('to')?:date('Y-m-d');
+        $to = Carbon::createFromFormat('Y-m-d',$to);
+        $to = filterTo($to);
+
+        $clients = Client::all();
+
+        /*$payments = DB::table('payments')
+                     ->select('client_id',DB::raw("SUM(payments.amount) as amount"))
+                     ->groupBy('client_id')
+                     ->orderBy('amount', 'desc');*/
+      
+      
+      
+      $payments = DB::table('payments')
+                  ->join('clients', 'payments.client_id', '=', 'clients.id')
+                  ->select('payments.client_id', DB::raw("SUM(payments.amount) as amount"))
+                  ->where('clients.client_type', 'retailer')
+                  ->groupBy('payments.client_id')
+                  ->orderBy('amount', 'desc');
+
+      
+        /*$payments = DB::table('sells')
+                     ->select('client_id',DB::raw("SUM(sells.sub_total) as amount"))
+                     ->groupBy('client_id')
+                     ->orderBy('amount', 'desc');  */           
+
+        if($request->get('from') || $request->get('to')) {
+            if(!is_null($from)){
+                $from = Carbon::createFromFormat('Y-m-d',$from);
+                $from = filterFrom($from);
+                $payments->whereBetween('payments.created_at',[$from,$to]);
+                $payments->where('payments.deleted_at','=',NULL);
+            }else{
+
+                $payments->where('payments.created_at','<=',$to);
+            }
+        }
+
+
+  
+
+        return view('payments.list_client_sell')
+                ->withClients($clients)
+                ->withPayments($payments->paginate(40));
+    }  
+  
+      public function postList(Request $request) {
+        $paramss = array_filter($request->only($this->parametros));
+        return redirect()->action('PaymentController@getList', $paramss);
+     }
+  
+  
+  
+  
 }

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('printer')
 
 <style>
 	thead tr th{
@@ -52,7 +52,8 @@
                     @foreach($printable_payments as $payment)
 					<tr>
 						<td class="text-center tooltip-button" data-placement="bottom" title="{{ carbonDate($payment->date, 'g:i:a') }}">
-                                {{carbonDate($payment->date, 'y-m-d')}}
+                                <!--{{carbonDate($payment->date, 'y-m-d')}}-->
+                          {{ date('d/m/Y h:i A', strtotime($payment->date)) }}
                             </td>
 
     						<td class="text-center">#{{ref($payment->id)}}</td>

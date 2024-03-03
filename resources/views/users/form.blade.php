@@ -2,7 +2,7 @@
 
 @section('contentheader')
     @if($user->id)
-        {{trans('core.editing')}} <b>{{$user->name}}</b>
+        Editar <b>{{$user->name}}</b>
     @else
         {{trans('core.add_new_user')}}
     @endif
@@ -31,16 +31,16 @@
     {!! Form::model($user, ['method' => 'post', 'files' => true, 'class' => 'form-horizontal bordered-row', 'id' => 'ism_form']) !!}
 
         <div class="form-group">
-            <label class="control-label col-sm-3">{{ trans('core.first_name') }}<span class="required">*</span></label>
+            <label class="control-label col-sm-3">Nombre<span class="required">*</span></label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" placeholder="First name" name="first_name" value="{{$user->first_name}}" />
+                <input type="text" class="form-control" placeholder="Nombre" name="first_name" value="{{$user->first_name}}" />
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-3">{{ trans('core.last_name') }}<span class="required">*</span></label>
+            <label class="control-label col-sm-3">CI/RIF<span class="required">*</span></label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" placeholder="Last name" name="last_name" value="{{$user->last_name}}" />
+                <input type="text" class="form-control" placeholder="CI/RIF" name="last_name" value="{{$user->last_name}}" />
             </div>
         </div>
 
@@ -54,21 +54,21 @@
         <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('core.password') }}<span class="required">*</span></label>
             <div class="col-sm-6">
-                <input type="password" class="form-control" placeholder="Password" name="password"/>
+                <input type="password" class="form-control" placeholder="Contraseña" name="password"/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('core.confirm_password') }}<span class="required">*</span></label>
             <div class="col-sm-6">
-                <input type="password" class="form-control" placeholder="Retype password" name="password_confirmation"/>
+                <input type="password" class="form-control" placeholder="Vuelva a escribir la contraseña" name="password_confirmation"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-3">{{ trans('core.role') }}</label>
+            <label class="control-label col-sm-3">{{ trans('core.role') }}<span class="required">*</span></label>
             <div class="col-sm-6">
-                <select name="role" class="form-control selectpicker" data-live-search="true" title="Please select a role..." @if($user->hasRole("Super User")) disabled="true" @endif>
+                <select name="role" class="form-control selectpicker" data-live-search="true" title="Por favor seleccione un rol..." @if($user->hasRole("Super User")) disabled="true" @endif>
                 @foreach($roles as $role)
                     <option value="{{$role->id}}" @if($user->hasRole($role->name)) selected @endif>{{$role->name}}</option>
                 @endforeach
@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+  <!--      <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('core.warehouse') }}</label>
             <div class="col-sm-6">
                 <select name="warehouse_id" class="form-control selectpicker" data-live-search="true">
@@ -87,12 +87,12 @@
                 @endforeach
                 </select>
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('core.phone') }}</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" placeholder="Phone" name="phone" value="{{$user->phone}}"/>
+                <input type="text" class="form-control" placeholder="Teléfono" name="phone" value="{{$user->phone}}"/>
             </div>
         </div>
 
@@ -122,7 +122,7 @@
 
 
         <div class="bg-default content-box text-center pad20A mrg25T">
-            <input class="btn btn-lg btn-primary" type="submit" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
+            <input class="btn btn-lg botom" type="submit" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
         </div>
 
     {{ Form::close() }}

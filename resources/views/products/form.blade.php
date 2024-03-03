@@ -55,7 +55,7 @@
 					</div>
 
 					<button 
-						class="btn btn-info col-sm-1 tooltip-button" 
+						class="btn botom col-sm-1 tooltip-button" 
 						type="button" 
 						onclick="document.getElementById('code').value = generateCode()" 
 						title="Click here to generate random code"
@@ -67,15 +67,8 @@
 
 				<div class="form-group">
 					<label class="col-sm-2 control-label"> {{ trans('core.category_name')}} <span class="required">*</span></label>
-					<div class="col-sm-4">
-						{!! Form::select('category_id', $categories, $product->category_id, ['class' => 'form-control selectpicker', 'id' => 'category_id', 'placeholder' => 'Please select a category', 'data-live-search' => "true"]) !!}
-					</div>
-
-					<label class="col-sm-2 control-label"> 
-						{{ trans('core.subcategory_name')}}
-					</label>
-					<div class="col-sm-4">		
-						{!! Form::select('subcategory_id', $subcategories, $product->subcategory_id, ['class' => 'form-control selectpickerLive', 'placeholder' => 'Please select a Subcategory', 'data-live-search' => "true", 'id' => 'subcategoryOptions']) !!}
+					<div class="col-sm-10">
+						{!! Form::select('category_id', $categories, $product->category_id, ['class' => 'form-control selectpicker', 'id' => 'category_id', 'placeholder' => 'Seleccione una categoría', 'data-live-search' => "true"]) !!}
 					</div>
 				</div>
 
@@ -85,19 +78,28 @@
 						<span class="required">*</span>
 					</label>
 					<div class="col-sm-4">
-						{!! Form::text('cost_price', $product->cost_price, ['class' => 'form-control number']) !!}
+						{!! Form::text('cost_price', $product->cost_price, ['class' => 'form-control number','id' => 'cost_price' ]) !!}
 					</div>
 
+					<!--<label class="col-sm-1 control-label"> 
+						  % Ganancia
+					</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="porcentaje" id="porcentaje">
+					</div>-->
+
 					<label class="col-sm-2 control-label"> 
-						{{ trans('core.mrp')}}
+						Precio de Venta
 						<span class="required">*</span>
 					</label>
 					<div class="col-sm-4">
-						{!! Form::text('mrp', $product->mrp, ['class' => 'form-control number']) !!}
+						<!--<span class="form-control" id="mrp" readonly>$</span>-->
+						{!! Form::text('mrp', $product->mrp, ['class' => 'form-control number','id' => 'mrp']) !!}
 					</div>
+
 				</div>
 
-				<div class="form-group">
+				<!--<div class="form-group">
 					<label class="col-sm-2 control-label" > 
 						{{ trans('core.minimum_retails_price')}}
 					</label>
@@ -124,7 +126,7 @@
 						</div>
 
 					@endif
-				</div>
+				</div>-->
 				
 
 				<div class="form-group">
@@ -133,13 +135,18 @@
 						{!! Form::text('unit', $product->unit, ['class' => 'form-control']) !!}
 					</div>
 
-					<label for="featured" class="col-sm-2 control-label">
+					<!--<label for="featured" class="col-sm-2 control-label">
 						Status
 					</label>
 					<div class="col-sm-4 tooltip-button" title="Only active products shows in new sell & purchases">		
 						{!! Form::select('status', [1 => 'Active', 0=> 'Inactive'],$product->status, ['class' => 'form-control selectpickerLive', 'data-live-search' => "true"]) !!}
+					</div>-->
+					<label class="col-sm-2 control-label tooltip-button" title="“Existencias iniciales"> 
+						{{ trans('core.opening_stocks')}}
+					</label>
+					<div class="col-sm-4">
+						{!! Form::text('opening_stock', $product->opening_stock, ['class' => 'form-control number']) !!}
 					</div>
-
 					
 				</div>
 
@@ -151,19 +158,13 @@
 				</div> -->
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label tooltip-button" title="Opening stock is the value of goods available for sale in the beginning of an accounting period"> 
-						{{ trans('core.opening_stocks')}}
-					</label>
-					<div class="col-sm-4">
-						{!! Form::text('opening_stock', $product->opening_stock, ['class' => 'form-control number']) !!}
-					</div>
 
-					<label class="col-sm-2 control-label"> 
+					<!--<label class="col-sm-2 control-label"> 
 						{{ trans('core.alert_range')}} 
 					</label>
 					<div class="col-sm-4">
 						{!! Form::text('alert_quantity', $product->alert_quantity, ['class' => 'form-control']) !!}
-					</div>
+					</div>-->
 				</div>
 
 				<div class="form-group">
@@ -190,7 +191,7 @@
 			</div>
 	
 		    <div class="bg-default content-box text-center pad20A mrg25T">
-                <input type="submit" class="btn btn-lg btn-primary" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
+                <input type="submit" class="btn btn-lg botom" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
             </div>
 		{!! Form::close() !!}
 	</div>
@@ -215,6 +216,19 @@
                         }
                     }); 
                 }
+            });
+        });
+
+
+        $(document).ready(function(){
+            $('#porcentaje').on('change',function(){
+               var cost_price = $("#cost_price").val();
+               var porcentaje = $("#porcentaje").val();
+               var result = (( cost_price * porcentaje ) / 100);
+               var mrp = parseFloat(cost_price) +  parseFloat(result);
+               console.log(mrp);
+               $('#mrp').val($('#mrp').text());
+               $('#mrp').html(parseFloat(mrp));
             });
         });
 

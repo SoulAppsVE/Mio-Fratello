@@ -5,7 +5,7 @@
 @endsection
 
 @section('contentheader')
-    401 Unauthorized
+    401 No autorizado
 @endsection
 
 @section('$contentheader_description')
@@ -16,9 +16,9 @@
     <div class="error-page">
         <h2 class="headline text-red"> 401</h2>
         <div class="error-content">
-            <h3><i class="fa fa-warning text-red"></i> Unauthorized</h3>
+            <h3><i class="fa fa-warning text-red"></i> No autorizado</h3>
             <p>
-                The request has not been applied because it lacks valid authentication credentials for the target resource, you may <a href='{{ url('/home') }}'>return to dashboard</a>
+                La solicitud no se ha aplicado porque carece de credenciales de autenticación válidas para el recurso de destino, es posible que <a href='{{ url('/home') }}'>volver al Inicio</a>
             </p>
         </div><!-- /.error-content -->
     </div><!-- /.error-page -->

@@ -14,7 +14,7 @@
 
       function submitted () {
         document.getElementById('submitButton').disabled=true;
-        document.getElementById('submitButton').value='Submitting, please wait...';
+        document.getElementById('submitButton').value='Guardando...';
         document.getElementById("ism_form").submit();
       }
 
@@ -61,8 +61,8 @@
               window.location.href = '{{route("settings.backup")}}';
           }
 
-          //Logout (f11)
-          if (evt.keyCode==122){
+          //Logout (f12)
+          if (evt.keyCode==123){
               evt.preventDefault();
               window.location.href = '{{url("logout")}}';
           }

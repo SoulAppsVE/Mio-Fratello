@@ -68,9 +68,7 @@
 					<tr>
 						<td colspan="3" @if(!rtlLocale()) style="text-align: right; font-weight: bold;" @endif>
 							{{trans('core.total')}} 
-							<span v-if="enableProductTax == 1">
-								{{trans('core.excluding_tax')}}
-							</span>
+			
 						</td>
 						<td colspan="2">
 							<input type="text" class="form-control text-center" :value="total" disabled="true" />
@@ -180,7 +178,6 @@
 		</div>
 	</form>
 </div>
-
 
 <template id="sell">
 	<tr>

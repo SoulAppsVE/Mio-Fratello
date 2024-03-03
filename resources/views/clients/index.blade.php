@@ -11,7 +11,7 @@
 @section('main-content')
 	<div class="panel-heading">
 		@if(auth()->user()->can('customer.create'))
-		<a  href="{{route('client.new')}}" class="btn btn-success btn-alt btn-xs" style="border-radius: 0px !important;" >
+		<a  href="{{route('client.new')}}" class="btn botom btn-alt btn-xs" style="border-radius: 0px !important;" >
 			<i class='fa fa-plus'></i> 
 			{{trans('core.add_new_customer')}}
 		</a>
@@ -30,7 +30,7 @@
 	            </a>
 	        </span>
         @else
-            <a class="btn btn-primary btn-alt btn-xs pull-right" id="searchButton">
+            <a class="btn botom btn-alt btn-xs pull-right" id="searchButton">
 				<i class="fa fa-search"></i>
 				{{ trans('core.search') }}
 			</a>
@@ -40,11 +40,10 @@
 	<div class="panel-body">
 		<div class="table-responsive" style="min-height: 150px;">
 			<table class="table table-bordered table-striped">
-				<thead class="{{settings('theme')}}">
+				<thead style="background-color:#1b2f4c ">
 					<td class="text-center font-white"># &nbsp;&nbsp;</td>
 					<td class="text-center font-white">{{trans('core.name')}}</td>
-					<td class="text-center font-white">{{trans('core.company_name')}}</td>
-					<td class="text-center font-white">{{trans('core.total_due')}}</td>
+					<td class="text-center font-white">Total Deuda</td>
 					<td class="text-center font-white">{{trans('core.phone')}}</td>
 					<td class="text-center font-white">{{trans('core.actions')}}</td>
 				</thead>
@@ -54,7 +53,6 @@
 						<tr>
 							<td class="text-center">{{$loop->iteration}}</td>
 							<td class="text-center">{{title_case($client->name)}}</td>
-							<td class="text-center">{{title_case($client->company_name)}}</td>
 							<td class="text-center">
 								<?php 
 									$due = ($client->transactions->sum('net_total') + $client->payments->where('type', 'return')->sum('amount')) - ($client->payments->where('type', 'credit')->sum('amount')) 
@@ -108,13 +106,13 @@
 						      </div>
 						      <div class="modal-body" >
 						        <h4 >
-						        	Are you sure to delete <b>{{$client->name}}</b>?
+						        	¿Estás seguro de eliminar? <b>{{$client->name}}</b>?
 						        </h4>
 						        <br>
 						        @if(count($client->sells) == 0 && count($client->purchases) == 0)
 						        @else
 						        	<h4 style="color: red;">
-						        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{$client->name}} has too much transactions, so it can't be deleted!</h4>
+						        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{$client->name}} tiene demasiadas transacciones, por lo que no se puede eliminar.</h4>
 						        @endif
 						      </div>
 						      <div class="modal-footer">
@@ -157,12 +155,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!--s<div class="form-group">
                         {!! Form::label('Company Name', trans('core.company_name'), ['class' => 'col-sm-3']) !!}
                         <div class="col-sm-9">
                             {!! Form::text('company_name', Request::get('company_name'), ['class' => 'form-control']) !!}
                         </div>
-                    </div>  
+                    </div>  -->
 
                     <div class="form-group">
                         {!! Form::label('Phone No', trans('core.phone'), ['class' => 'col-sm-3']) !!}
@@ -181,7 +179,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-                    {!! Form::submit('Search', ['class' => 'btn btn-primary', 'data-disable-with' => trans('core.searching')]) !!}
+                    {!! Form::submit('Buscar', ['class' => 'btn botom', 'data-disable-with' => trans('core.searching')]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

@@ -103,14 +103,14 @@ li.active a.list-group-item:focus,
 #nav-toggle span:before,
 #nav-toggle span:after {
     color: #fff;
-    background: #00bca4;
+    background: #1b2f4c;
 }
 
 .font-secondary,
 .post-box .post-title,
 .inverse.carousel-wrapper .owl-controls .owl-buttons .owl-next,
 .inverse.carousel-wrapper .owl-controls .owl-buttons .owl-prev {
-    color: #00bca4;
+    color: #1b2f4c;
 }
 
 .post-box .post-title:hover {
@@ -434,16 +434,16 @@ li.active a.list-group-item > .glyph-icon,
 /* Charts */
 
 .xchart .color0 .line {
-    stroke: #00bca4;
+    stroke: #1b2f4c;
 }
 .xchart .color0 circle {
-    stroke: #00bca4;
+    stroke: #1b2f4c;
 }
 .xchart .color0 .line .fill {
     pointer-events: none;
 }
 .xchart .color0 rect {
-    fill: #00bca4;
+    fill: #1b2f4c;
 }
 .xchart .color0 circle {
     fill: #fff;
@@ -452,17 +452,17 @@ li.active a.list-group-item > .glyph-icon,
     fill: rgba(0, 188, 164, 0.06);
 }
 .xchart .color0.comp .line {
-    stroke: #00bca4;
+    stroke: #1b2f4c;
 }
 .xchart .color0.comp rect {
-    fill: #00bca4;
+    fill: #1b2f4c;
 }
 .xchart .color0.comp .fill {
     display: none;
 }
 .xchart .color0.comp circle,
 .xchart .color0.comp .pointer {
-    fill: #00bca4;
+    fill: #1b2f4c;
 }
 
 

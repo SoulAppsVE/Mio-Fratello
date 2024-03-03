@@ -8,15 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
     protected $fillable = [
         'name',
+        'code',
         'details',
         'cost_price',
         'mrp',
         'minimum_retail_price',
         'unit',
         'opening_stock',
+        'alert_quantity',
     ];
     
     public function category(){

@@ -13,7 +13,7 @@ class TasaSeed extends Seeder
     public function run()
     {
       $tasa = new Tasa;
-      $tasa->tasa= 200000;
+      $tasa->tasa= 37.00;
       $tasa->save();
     }
 }

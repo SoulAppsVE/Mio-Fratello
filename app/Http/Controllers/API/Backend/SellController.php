@@ -15,8 +15,10 @@ class SellController extends Controller
     public function post (Request $request) {
     	$customer = $request->get('customer');
         $enableProductTax = settings('product_tax');
-        
+        $ref=$request->get('reference_no');
+
         $row = Transaction::where('transaction_type', 'sell')->withTrashed()->get()->count() > 0 ? Transaction::where('transaction_type', 'sell')->withTrashed()->get()->count() + 1 : 1;
+        //$ref_no = "SL-".ref($row);
         $ref_no = "SL-".ref($row);
         $total = 0;
         $totalProductTax = 0;
@@ -104,6 +106,7 @@ class SellController extends Controller
                     $payment->type = 'credit';
                     $payment->reference_no = $ref_no;
                     $payment->note = "Paid for Invoice ".$ref_no;
+                    //$payment->note = $ref;
                 $payment->save();
             }
         });

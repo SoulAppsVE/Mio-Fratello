@@ -35,8 +35,8 @@
 					</div>
 				</div>
 
-			    <div class="bg-default content-box text-center pad20A mrg25T">
-                    <input class="btn btn-lg btn-primary" type="submit" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
+			    <div class="bg-default  content-box text-center pad20A mrg25T">
+                    <input class="btn btn-lg botom" type="submit" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
                 </div>
 			{!! Form::close() !!}
 		</div>

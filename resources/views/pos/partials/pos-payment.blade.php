@@ -26,10 +26,10 @@
 			    	</select>
 		    	</div>
 			</div>
-
-			<div class="row" v-if="paying_method != 'cash'">
+            <!--<div class="row" v-if="paying_method != 'cash'">-->
+			<div class="row" >
 		  		<div class="col-md-12">
-			    	<label>Reference No</label>
+			    	<label>Referencia / Nota</label>
 			    	<input type="text" v-model="reference_no" class="form-control" style="border-radius: 0px !important;">
 		    	</div>
 			</div>
@@ -39,10 +39,10 @@
 
 		  <table class="table table-bordered" style="background-color: #f9f9f9;">
 		  	<tr style="font-size: 25px;">
-		  		<td width="15%">Total Items : </td>
+		  		<td width="20%">Total Items : </td>
 		  		<td width="15%"> @{{totalQuantity}}</td>
 		  		<td width="25%">Total por Pagar : </td>
-		  		<td width="45%">@{{ parseFloat(netTotal).toFixed(2) }} / @{{ parseFloat(netTotal * dolar).toFixed(2) }} Bs</td>
+		  		<td width="40%">@{{ parseFloat(netTotal).toFixed(2) }} $ / @{{ formatPrice(netTotal * dolar) }} Bs</td>
 		  	</tr>
 
 		  	<!-- <tr>
@@ -72,7 +72,7 @@
       </div>
       <div class="modal-footer">
       	<button  class="btn btn-primary btn-block" @click.prevent="postSell" >
-      		Submit
+      		Pagar
       	</button>
       </div>
     </div>

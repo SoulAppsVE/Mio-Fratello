@@ -11,7 +11,7 @@
 @section('main-content')   
 	<div class="panel-body">
 		<table class="table table-bordered" >
-			<thead class="{{settings('theme')}}">
+			<thead style="background-color:#1b2f4c ">
 				<td class="text-center font-white">{{trans('core.receipt')}}</td>
 				<td class="text-center font-white">{{trans('core.name')}}</td>
 				<td class="text-center font-white">{{trans('core.note')}}</td>

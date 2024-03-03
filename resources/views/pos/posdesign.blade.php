@@ -12,7 +12,7 @@
 					<div class="col-md-4" style="border: 2px solid #ddd;">
 						<div class="row pad5A">
 							<div class="col-md-10 pad5A">
-								<select class="form-control" v-model="customer"  data-live-search="true">
+								<select class="form-control" v-model="customer"  data-live-search="true" v-select>
 						      		<option v-for="customerData in customers" :value="customerData.id">
 						      			@{{customerData.first_name + ' ' + customerData.last_name}}
 						      		</option>
@@ -27,16 +27,16 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<input type="text" class="form-control" v-model="barcode" @keyup.prevent="getProductByBarcode"  placeholder="Scan your barcode" />
+								<input type="text" class="form-control" v-model="barcode" @keyup.prevent="getProductByBarcode"  placeholder="Codigo de Producto" />
 							</div>
 						</div>
-
+                      
 						<div style="min-height: 380px; overflow-y: scroll; ">
 							<table class="table table-bordered">
 								<tr class=" {{settings('theme')}} pos-table-header" >
-									<td width="30%" class="text-center">{{trans('core.product')}}</td>
-									<td width="10%" class="text-center">{{trans('core.quantity')}}</td>
-									<td width="25%" class="text-center">{{trans('core.unit_price')}}</td>
+									<td width="35%" class="text-center">{{trans('core.product')}}</td>
+									<td width="25%" class="text-center">{{trans('core.quantity')}}</td>
+									<td width="20%" class="text-center">Precio</td>
 									<td width="25%" class="text-center">{{trans('core.sub_total')}}</td>
 
 									<td width="10%" class="text-center">
@@ -45,20 +45,31 @@
 								</tr>
 
 								<tr v-for="product in selectedProducts" :key="product.uuid">
-									<td class="text-center">
+									<td class="text-center" style="font-size:13px;" >
 										@{{ product.name }}
 									</td>
 
+									<td class="text-center" >
+										<!--<input type="text" v-model='product.sell_quantity' class="form-control text-center" id="input-cantidad" onkeypress='return event.charCode >= 8 && event.charCode <= 57' @keyup.enter="addQuantity(product)">-->
+                                      <input type="text" v-model='product.sell_quantity' class="form-control text-center" id="input-cantidad" @keyup.enter="addQuantity(product)">         
+                                      <!--<input type="text" v-model='product.sell_quantity' class="form-control text-center" id="input-cantidad" @keyup.enter="addQuantity(product)" @change="checkStock(product)"> -->   
+                                        <i class="fa fa-refresh" @click.prevent="addQuantity(product)"></i>
+                                        <p v-if="product.sell_quantity > product.quantity" style="color: red; font-size: 10px; font-weight: bold; text-align: center;">
+                                            <span>Error: Cantidad no disponible. Stock actual: @{{product.quantity}}</span>
+                                            <span  :disabled="disabled = 1"></span>
+                                        </p>
+                                        <p v-else style="color: red; font-size: 10px; font-weight: bold; text-align: center;">
+                                            <span v-if="product.quantity > 0">STOCK: @{{product.quantity}} </span>
+                                            <span  :disabled="disabled = 0"></span>
+                                        </p>                                      
+									</td>
 									<td class="text-center">
-										<input type="text" v-model='product.sell_quantity' class="form-control text-center" onkeypress='return event.charCode <= 57 && event.charCode != 32' @keyup.prevent="addQuantity(product)">
+										<!--@{{ product.mrp  }}-->
+										<input type="text" v-model='product.mrp' class="form-control text-center" onkeypress='return event.charCode >= 8 && event.charCode <= 57' readonly>
 									</td>
 
-									<td class="text-center">
-										@{{ product.mrp  }}
-									</td>
-
-									<td class="text-center">
-										@{{ parseFloat(product.mrp * product.sell_quantity).toFixed(2) }} $ / @{{ parseFloat(product.mrp * product.sell_quantity * dolar).toFixed(2) }} Bs
+									<td class="text-center" style="font-size:13px;">
+										@{{ parseFloat(product.mrp * product.sell_quantity).toFixed(2) }} $ / @{{ formatPrice(product.mrp * product.sell_quantity * dolar) }} Bs
 									</td>
 
 									<td @click.prevent="removeFromSelected(product)" class="text-center" style="cursor: pointer;">
@@ -81,11 +92,15 @@
 											<td width="25%" height="25px" align="right">
 												<div>@{{totalQuantity}}</div>
 											</td>
-											<td width="25%" height="25px" align="right">
+											<!--<td width="25%" height="25px" align="right">
 												{{trans('core.total')}}:
+											</td>-->
+											<td width="25%" height="25px" align="right">
+												Sub-Total:
 											</td>
 											<td width="25%" height="25px" align="right">
-												<div >@{{parseFloat(subTotal * dolar).toFixed(2)}}</div>
+												<!--<div >@{{ formatPrice((subTotal * dolar)-(subTotal * dolar)*16/100) }}</div>-->
+												<div >@{{ formatPrice((subTotal * dolar)) }}</div>
 											</td>
 										</tr>
 									</table>
@@ -94,10 +109,10 @@
 
 							<div class="row pos-footer">
 								<div class="col-md-12 padLpadR0">
-									<!--<table class="pos-table">
+									<table class="pos-table">
 										<tr>
 											<td width="30%" height="25px">
-												{{trans('core.discount')}} :
+												Descuento % :
 											</td>
 											<td width="20%" height="25px">
 												<input type="text" v-model='discount' class="pos-discount-input"/>
@@ -106,10 +121,11 @@
 												{{trans('core.amount')}}:
 											</td>
 											<td width="25%" height="25px" align="right">
-												<div id="">@{{discountAmount}} </div>
+												<!--<div id="">@{{discountAmount}} </div>-->
+												<div id="">@{{ formatPrice((discountAmount * dolar)) }} </div>
 											</td>
 										</tr>
-									</table>-->
+									</table>
 								</div> <!--Col Ends-->
 							</div> <!--Row Ends-->
 
@@ -117,11 +133,12 @@
 								<div class="col-md-12 padLpadR0">
 									<table class="pos-table">
 										<tr>
-											<td width="75%" height="25px" align="right">
+											<!--<td width="75%" height="25px" align="right">
 												{{trans('core.vat')}}:
-											</td>
+											</td>-->
 											<td width="50%" height="25px" align="right">
-												<div >@{{invoiceTax}}</div>
+												<!--<div >@{{invoiceTax}}</div>-->
+												<!--<div >@{{ formatPrice((subTotal * dolar)*16/100)}}</div>-->
 											</td>
 										</tr>
 									</table>
@@ -132,11 +149,14 @@
 								<div class="col-md-12 padLpadR0">
 									<table class="pos-table">
 										<tr>
-											<td width="50%" height="30px">
+											<!--<td width="50%" height="30px">
 												{{trans('core.total_payable')}}:
+											</td>-->
+											<td width="50%" height="30px">
+												Total a Pagar:
 											</td>
 											<td width="50%" height="30px" align="right">
-												<div id="total_payable">@{{ parseFloat(netTotal * dolar).toFixed(2)}}</div>
+												<div id="total_payable">@{{ formatPrice(netTotal * dolar)}}</div>
 											</td>
 										</tr>
 									</table>
@@ -164,7 +184,7 @@
 						<div class="panel-body">
 							<div class="row" style="margin-left: 0px; margin-right: 0px;">
 								<div class="col-md-12" style="padding-left: 15px; padding-right: 15px; padding-top: 10px;">
-									<input type="text" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;" placeholder="Search" v-model="search" @keyup.prevent="getProductBySearch"/>
+									<input type="text" class="form-control" style="border: 1px solid #3a3a3a; color: #010101;" placeholder="Buscar productos nombre / código" v-model="search" @keyup.prevent="getProductBySearch"/>
 								</div>
 							</div>
 
@@ -178,7 +198,7 @@
 											@click="loadProducts('all')"
 
 										>
-											Frequentes
+											Todos
 										</a>
 
 										@foreach($categories as $category)
@@ -204,63 +224,85 @@
 									  <div class="b"></div>
 									  <div class="c"></div>
 									  <div class="d"></div>
-									</div>
-
-									<!-- <div class='loader loader1'>
-									  <div>
-									    <div>
-									      <div>
-									        <div>
-									          <div>
-									            <div></div>
-									          </div>
-									        </div>
-									      </div>
-									    </div>
-									  </div>
-									</div> -->
-
+                                  </div>
 								</center>
 							</div>
 
 						  	<div v-else class="" style="min-height: 535px;">
+                              
 						  		<div role="allTab" class="tab-pane active" id="all">
-						    		<div class="col-md-12" >
-										<div class="col-md-2 pos-product-col" v-for="product in products" :key="product.id"
-											@click.prevent="addToSelected(product)" style="min-height: 170px; max-height: 170px; background-color: #FFF;">
+						    		<div class="row">
+										<div class="col-md-3 pos-product-col" v-for="product in products" :key="product.id"
+											@click.prevent="addToSelected(product)" v-if="product.quantity > 0"  style="min-height: 170px; background-color: #FFF;">
+                                                <center>
+												<img v-if="product.image" :src="'/uploads/products/' + product.image"  class="img-responsive img-rounded" :alt="product.name">
+												<img v-else src="{{asset('uploads/products/8NKeIGlWVSCE.png')}}" class="img-responsive img-rounded" :alt="product.name">
+
+												<small >@{{product.name}} / @{{product.code}}</small><br>
+												<small v-if="product.quantity > 0">
+													<b><font style="size: 1px;color: red;">En Stock: @{{product.quantity}}</font></b>
+												</small>
+												<small v-else>Fuera de Stock</small>
+                                               </center>
+										</div>
+									</div>
+						    	</div>                              
+                              
+                              
+                                <!--<div role="allTab" class="tab-pane active" id="all">
+						    		<div class="col-md-12 row" >
+										<div class="col-6 col-md-4 col-lg-3 pos-product-col" v-for="product in products" :key="product.id"
+											@click.prevent="addToSelected(product)" v-if="product.quantity > 0" style="min-height: 170px; max-height: 170px; background-color: #FFF;">
 											<center>
 												<img v-if="product.image" :src="'/uploads/products/' + product.image" class="img-responsive img-rounded" :alt="product.name">
 												<img v-else src="{{asset('uploads/products/8NKeIGlWVSCE.png')}}" :alt="product.name" class="img-responsive img-rounded">
 
 												<p style="min-height: 60px;">@{{product.name}}</p>
 												<small v-if="product.quantity > 0">
-													<b>En Stock: @{{product.quantity}}</b>
+													<b><font size="2">En Stock: @{{product.quantity}}</font></b>
 												</small>
 												<small v-else>Fuera de Stock</small>
 											</center>
 										</div>
 									</div>
-						    	</div>
+						    	</div>-->
 
 						    	<!-- @{{selectedProducts}} -->
 
 							    @foreach($categories as $category)
+                              
 							  		<div role="tabpanel" class="tab-pane" id="tab{{$category->id}}">
-							    		<div class="col-md-12" >
-											<div class="col-md-2 pos-product-col" v-for="product in products" :key="product.id" @click.prevent="addToSelected(product)" style="min-height: 170px; background-color: #FFF;">
+							    		<div class="row">
+											<div class="col-md-3 pos-product-col" v-if="product in products" :key="product.id" @click.prevent="addToSelected(product)"  v-if="product.quantity >= 0" style="margin: 1px;">
+												 <center>
+													<img v-if="product.image" :src="'/uploads/products/' + product.image" :alt="product.name" class="img-responsive img-rounded">
+													<img v-else src="{{asset('uploads/products/8NKeIGlWVSCE.png')}}" :alt="product.name" class="img-responsive img-rounded">
+													<small>@{{product.name}}</small><br>
+													<small v-if="product.quantity >= 0">
+														<b><font style="size: 1px;color: red;">Stock: @{{product.quantity}}</font></b>
+													</small>
+													<small v-else>Fuera de Stock</small>
+												  </center>
+											</div>
+										</div>
+							    	</div>                              
+                              
+							  		<!--<div role="tabpanel" class="tab-pane" id="tab{{$category->id}}">
+							    		<div class="col-md-12 row" >
+											<div class="col-6 col-md-4 col-lg-3 pos-product-col" v-if="product in products" :key="product.id" @click.prevent="addToSelected(product)"  v-if="product.quantity >= 0" style="min-height: 170px; background-color: #FFF;">
 												<center>
 													<img v-if="product.image" :src="'/uploads/products/' + product.image" :alt="product.name" class="img-responsive img-rounded">
 													<img v-else src="{{asset('uploads/products/8NKeIGlWVSCE.png')}}" :alt="product.name" class="img-responsive img-rounded">
 
 													<p>@{{product.name}}</p>
 													<small v-if="product.quantity >= 0">
-														Stock: @{{product.quantity}}
+														<font size="2">Stock: @{{product.quantity}}</font>
 													</small>
 													<small v-else>Fuera de Stock</small>
 												</center>
 											</div>
 										</div>
-							    	</div>
+							    	</div>-->
 							    @endforeach
 						  	</div>
 						</div> <!-- panel-body Ends-->
@@ -284,7 +326,20 @@
 
 @section('js')
     @parent
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $(".float").change(function() {
+            $(this).val(parseFloat($(this).val()).toFixed(2));
+        });
+    });
+      
+    /*$(document).ready(function() {
+        $('.select').select2();
+    });   */     
+    </script>
     <script src="/assets/js-core/lodash.js"></script>
+    <link rel="stylesheet" href="/assets/js-core/select2.min.css">
+    <script src="/assets/js-core/select2.min.js"></script>
 	<script src="/assets/js-core/vue.js"></script>
     <script src="/assets/js-core/axios.min.js"></script>
     <script>
@@ -292,6 +347,33 @@
     	axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
 		axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+      
+		function updateFunction (el, binding) {
+		  // get options from binding value. 
+		  // v-select="THIS-IS-THE-BINDING-VALUE"
+		  let options = binding.value || {};
+
+		  // set up select2
+		  $(el).select2(options).on("select2:select", (e) => {
+		    // v-model looks for
+		    //  - an event named "change"
+		    //  - a value with property path "$event.target.value"
+		    el.dispatchEvent(new Event('change', { target: e.target }));
+		  });
+		}
+		Vue.directive('select', {
+		  inserted: updateFunction ,
+		  componentUpdated: updateFunction,
+		});
+
+		function formatFunction (state) {
+		  var $state = $(
+		    '<span style="color: red">' + state.text + '</span>'
+		  );
+		  return $state;
+		}
+          
+      
     	var app = new Vue({
 		    el: '#app',
 		    data: {
@@ -310,6 +392,7 @@
 		        products: [],
 		        selectedProducts: {},
 		        barcode: '',
+                product: '',
 		        discount: 0,
 		        enableInvoiceTax: {{ settings('invoice_tax') ?: 0 }},
 		        invoice_tax_rate: {{ settings('invoice_tax_rate') ?: 0 }},
@@ -320,10 +403,15 @@
 		    	search: '',
 		    	loading: false,
 		    },
+		    created: function() {
+				this.loadDolar()
+                this.loadClients()
+      			this.loadProducts('all')
+       		},
 		    computed: {
 		    	totalQuantity: function () {
 		    		return _.reduce(this.selectedProducts, function(result, product) {
-					  return result + parseInt(product.sell_quantity)
+					  return result + parseFloat(product.sell_quantity)
 					}, 0)
 		    	},
 
@@ -363,10 +451,32 @@
 
 		    },
 		    methods:{
-		    	addQuantity: function (product) {
-		    		var quantityToAdd = parseInt(product.sell_quantity)
-		    		this.addToSelected(product, quantityToAdd, true)
-		    	},
+            
+                          
+			    formatPrice(value) {
+			        let val = (value/1).toFixed(2).replace('.', ',')
+			        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+			    },
+                        
+                addQuantity: function (product) {
+                    // Convertir el valor de la cantidad vendida a un número
+                    var quantityToAdd = parseFloat(product.sell_quantity);
+                    // Verificar si la cantidad vendida es mayor que el stock disponible
+                    if (quantityToAdd > product.quantity) {
+                        // La cantidad vendida es mayor que el stock disponible, reiniciar la cantidad vendida al valor del stock disponible
+                        product.sell_quantity = product.quantity;
+                        swal({
+                            icon: 'warning',
+                            title: 'Cantidad No Disponible',
+                            text: 'Stock actual: ' + product.quantity,
+                            confirmButtonText: 'OK',
+                        });
+                    }
+                    // Convertir la cantidad vendida nuevamente a un número
+                    product.sell_quantity = parseFloat(product.sell_quantity);
+                    this.addToSelected(product, product.sell_quantity, true);  
+                },
+
 		    	resetClient: function () {
 		    		this.addCustomer = {
 			          	first_name: '',
@@ -457,12 +567,14 @@
 			    }, 300),
 
 			    addToSelected: function (product, quantityToAdd = 1, fresh = false) {
+                        
+                  
 			    	var exists = this.selectedProducts[product.id]
 			    	if (fresh) {
 			    		product.sell_quantity = 0
 			    	}
 			    	if (exists !== undefined) {
-			    		product.sell_quantity = parseInt(this.selectedProducts[product.id].sell_quantity) + quantityToAdd
+			    		product.sell_quantity = parseFloat(this.selectedProducts[product.id].sell_quantity) + quantityToAdd
 			    		product.uuid = _.uniqueId('product_')
 			    		this.selectedProducts = _.omit(this.selectedProducts, product.id)
 			    		this.$set(this.selectedProducts, product.id, product)
@@ -477,20 +589,23 @@
 			    },
 
 			    postSell: function () {
+                           
+                  
+                  
 		    		var self = this
 		    		if(self.totalQuantity <= 0){
-		        		 swal("Sorry", "Please Select Product Before Payment ", "warning");
+		        		 swal("Disculpe", "Seleccione el producto antes del pago ", "warning");
 		        		return false;
 		        	}
 
 		        	if(parseFloat(self.paid) < self.netTotal){
-		        		 swal("Sorry", "Paid amount can\'t be less than Net Total " + self.netTotal, "warning");
+		        		 swal("Disculpe", "El monto pagado no puede ser menor que el total neto " + self.netTotal, "warning");
 		        		return false;
 		        	}
 
-		    		axios.post('/admin/pos/sell/save', {customer: this.customer, sells: this.selectedProducts, paid: this.paid, method: this.paying_method, discount_amount: this.discountAmount, invoice_tax: this.invoiceTax, })
+		    		axios.post('/admin/pos/sell/save', {customer: this.customer, sells: this.selectedProducts, paid: this.paid, method: this.paying_method, discount_amount: this.discountAmount, invoice_tax: this.invoiceTax, reference_no: this.reference_no,})
 		    			.then(function (response) {
-		    				swal('success', 'success', 'success')
+		    				swal('Eviado con Éxito','success')
 		    				var transactionId = response.data.id
 		    				//self.selectedProducts = {}
 		    				window.location.href = 'pos/sell/invoice/' + transactionId;
@@ -506,7 +621,7 @@
 
 		    mounted: function () {
       			this.loadClients()
-				this.loadDolar();
+				this.loadDolar()
       			this.loadProducts('all')
 		    }
 		});

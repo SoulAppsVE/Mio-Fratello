@@ -21,7 +21,8 @@
     "slimscroll": "^0.9.1",
     "sparklines": "^1.0.0",
     "sweetalert2": "^6.6.6",
-    "tween.js": "^16.6.0"
+    "tween.js": "^16.6.0",
+    "vue-currency-filter": "^5.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

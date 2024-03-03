@@ -10,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{asset('assets/css-core/bootstrap.css')}}" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="{{asset('assets/css-core/printer.css')}}" rel="stylesheet">
-    @if(app()->getLocale() == 've')
+    @if(app()->getLocale() == 'es')
       <!-- <link rel="stylesheet" href="/assets/css-core/bootstrap.rtl.min.css">
       <link rel="stylesheet" href="/assets/css-core/theme-rtl.css"> -->
     @endif 
@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script type="text/javascript">
     $(document).ready(function(){
         window.print();
-        window.close();
+        //window.close();
     })
 </script>
 </body>

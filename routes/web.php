@@ -11,14 +11,13 @@
 |
 */
 
+
 Route::get('/', 'HomeController@getIndex')->middleware(['auth', 'revalidate'])->name('home');
 Route::get('home', 'HomeController@getIndex')->middleware(['auth', 'revalidate'])->name('home');
 Route::get('logout','UserController@logout')->name('logout');
 Route::get('lock', 'UserController@lock')->middleware('auth')->name('lock');
 Route::get('locked', 'UserController@locked')->name('locked');
 Route::post('locked', 'UserController@unlock')->name('unlock');
-//Route::get('verify-purchase', 'SettingsController@verifyPurchase')->name('verify-purchase');
-//Route::post('verify-purchase', 'SettingsController@postVerifyPurchase')->name('verify-purchase-post');
 
 Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'revalidate'] ], function(){
 
@@ -34,8 +33,8 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'revalidate'] ], funct
 
 	Route::get('/cashin/today', 'HomeController@todayCashIn')->middleware('permission:cash.view')->name('cashin.today');
 	Route::get('/cashout/today', 'HomeController@todayCashOut')->middleware('permission:cash.view')->name('cashout.today');
-	Route::get('/transactions/today', 'HomeController@todayTransaction')->middleware('permission:cash.view')->name('transactions.today');
-	Route::get('/invoice/today', 'HomeController@todayInvoice')->middleware('permission:cash.view')->name('invoice.today');
+	Route::get('/transactions/today', 'HomeController@todayTransaction')->middleware('permission:sell.manage')->name('transactions.today');
+	Route::get('/invoice/today', 'HomeController@todayInvoice')->middleware('permission:sell.manage')->name('invoice.today');
 	Route::post('/invoice/today', 'HomeController@postTodayInvoice');
 
 	Route::get('/bill/today', 'HomeController@todaysBill')->middleware('permission:cash.view')->name('bill.today');
@@ -128,7 +127,13 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'revalidate'] ], funct
 
 	//Transaction Model
 	Route::model('transaction', 'App\Transaction');
+  
+    //Nuevas rutas 
 
+    Route::get('transaction/client', 'PaymentController@getList')->middleware('permission:transaction.view')->name('payment.client');
+
+	Route::post('transaction/client', 'PaymentController@postList');
+  
 	/*=======================================================
 	Purchase route
 	=========================================================*/
@@ -136,12 +141,68 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'revalidate'] ], funct
 	Route::get('purchase', 'PurchaseController@getIndex')->name('purchase.index');
 	Route::post('purchase', 'PurchaseController@postIndex');
 
+
 	Route::get('purchase/new', 'PurchaseController@getNewPurchase')->middleware('permission:purchase.create')->name('purchase.item');
+
+
 	Route::post('purchase/new', 'PurchaseController@postPurchase')->name('permission:purchase.create')->name('purchase.post');
 
 	Route::get('purchase/details/{transaction}', 'PurchaseController@purchaseDetails')->name('purchase.details');
 	Route::get('purchase/{transaction}/invoice', 'PurchaseController@purchasingInvoice')->name('purchase.invoice');
-  Route::post('purchase/delete','PurchaseController@deletePurchase')->name('purchase.delete');
+    Route::post('purchase/delete','PurchaseController@deletePurchase')->name('purchase.delete');
+
+
+    // OJO ORDEN DE COMPRAS
+	Route::get('purchase/order', 'PurchaseController@getOrderPurchase')->middleware('permission:purchase.create')->name('purchase.order');
+
+	Route::post('purchase/orderc', 'PurchaseController@postOrder')->name('permission:purchase.create')->name('purchase.orderc');
+
+	Route::get('purchase/ordercs', 'PurchaseController@getOrderc')->middleware('permission:purchase.create')->name('purchase.ordercs');
+
+	Route::get('purchase/{id}/invoiceorderc', 'PurchaseController@orderInvoice')->name('purchase.invoiceorderc');
+
+	Route::post('orderc/delete','PurchaseController@deleteOrder')->name('orderc.delete');
+
+
+
+	// DETALLE
+
+	Route::get('orderc/{id}', 'PurchaseController@getEditOrderc')->middleware('permission:purchase.create')->name('orderc.edit');
+
+	Route::post('/ordercd/update', 'PurchaseController@updateOrdercd');
+
+	Route::post('/ordercd/delete','PurchaseController@deleteOrdercd');
+
+    Route::post('/addorden', 'PurchaseController@addOrder')->name('permission:purchase.create');
+
+
+
+   // OJO COTIZACIONES
+
+
+    // OJO
+	Route::get('sell/quotation', 'PurchaseController@getQuotationPurchase')->middleware('permission:purchase.create')->name('sell.quotation');
+
+	Route::post('sell/quotation', 'PurchaseController@postQuotation')->name('permission:purchase.create')->name('sell.quotation');
+
+	Route::get('sell/quotations', 'PurchaseController@getQuotation')->middleware('permission:purchase.create')->name('sell.quotations');
+
+	Route::get('sell/{id}/invoicequotation', 'PurchaseController@quotationInvoice')->name('sell.invoicequotation');
+
+	Route::post('quotation/delete','PurchaseController@deleteQuotation')->name('quotation.delete');
+
+	
+
+	// DETALLE
+
+	Route::get('quotation/{id}', 'PurchaseController@getEditQuotation')->middleware('permission:purchase.create')->name('quotation.edit');
+
+	Route::post('/quotationd/update', 'PurchaseController@updateQuotationd');
+
+	Route::post('/quotationd/delete','PurchaseController@deleteQuotationd');
+
+    Route::post('/addquotation', 'PurchaseController@addQuotation')->name('permission:purchase.create');
+
 
 
 	/*========================================================
@@ -337,6 +398,19 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'revalidate'] ], funct
 	Route::get('api/v1/purchase/{id}/products', 'PurchaseController@getProductsByPurchaseId');
 
 });
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/uploads/products/{filename}', function ($filename) {
+    $path = public_path('uploads/products/' . $filename);
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+})->where('filename', '.*');
+
 
 //Route for Artisan commands
 Route::get('refreshpos', 'SettingsController@refresh');

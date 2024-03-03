@@ -18,7 +18,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="panel-layout">
               <div class="panel-box">
-                  <div class="panel-content bg-primary">
+                  <div class="panel-content bg-primary" style="background-color: #1b2f4c;">
                       <div class="image-content font-white">
                           <div class="center-vertical">
                               <div class="meta-box center-content">
@@ -60,7 +60,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="panel-layout">
               <div class="panel-box">
-                  <div class="panel-content bg-blue-alt">
+                  <div class="panel-content bg-blue-alt" style="background-color: #1b2f4c;">
                       <div class="image-content font-white">
                           <div class="center-vertical">
                               <div class="meta-box center-content">
@@ -68,7 +68,7 @@
                                     <i class="fa fa-file-text"></i>
                                   </h4>
                                   <h3 class="meta-heading">
-                                      {{trans('core.bill_info')}}
+                                      Info. Orden de Compra
                                   </h3>
                               </div>
                           </div>
@@ -100,7 +100,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="panel-layout">
               <div class="panel-box">
-                  <div class="panel-content bg-purple">
+                  <div class="panel-content bg-purple" style="background-color: #1b2f4c;">
                       <div class="image-content font-white">
                           <div class="center-vertical">
                               <div class="meta-box center-content">
@@ -144,7 +144,7 @@
                           </li>
                           
                           <li class="col-md-12 list-group-item">
-                              {{trans('core.due')}}: 
+                              Deuda: 
                               {{settings('currency_code')}}
                               {{twoPlaceDecimal($transaction->net_total - $transaction->paid)}}
                           </li>
@@ -161,19 +161,19 @@
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                   <li class="active">
-                    <a href="#items" data-toggle="tab">
+                    <a href="#items" data-toggle="tab" style="background-color: #1b2f4c;">
                       {{ trans('core.purchase_items') }}
                     </a>
                   </li>
                   <li>
-                    <a href="#payments" data-toggle="tab">
+                    <a href="#payments" data-toggle="tab" style="background-color: #1b2f4c;">
                       {{ trans('core.payment_history') }}
                     </a>
                   </li>
                   
                   @if(auth()->user()->can('purchase.manage'))
                   <li>
-                    <a href="#make-payment" data-toggle="tab">
+                    <a href="#make-payment" data-toggle="tab" style="background-color: #1b2f4c;"> 
                       {{ trans('core.make_payment') }}
                     </a>
                   </li>
@@ -212,7 +212,7 @@
 
     <a class="btn btn-alt btn-warning btn-xs" target="_BLINK" href="{{route('purchase.invoice', $transaction)}}">
       <i class="fa fa-print"></i>
-      {{trans('core.print_bill')}}
+      IMPRIMIR
     </a>
   </div>
 @stop

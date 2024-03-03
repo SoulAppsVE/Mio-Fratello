@@ -16,6 +16,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class posController extends Controller
 {
@@ -87,7 +88,8 @@ class posController extends Controller
 
                 //update quantity of product after every sell
                 $product = $sell->product;
-                $product->quantity = $product->quantity - intval($sell_item['sell_quantity']);
+                //$product->quantity = $product->quantity - intval($sell_item['sell_quantity']);
+                $product->quantity = $product->quantity - $sell_item['sell_quantity'];
                 $product->save();
             }
 
@@ -107,6 +109,7 @@ class posController extends Controller
             $transaction = new Transaction;
                 $transaction->reference_no = $ref_no;
                 $transaction->client_id = $customer;
+                $transaction->user_id = Auth::id();
                 $transaction->transaction_type = 'sell';
                 $transaction->total_cost_price = $total_cost_price;
                 $transaction->discount = $discount;
@@ -131,7 +134,8 @@ class posController extends Controller
                     $payment->method = $request->get('method');
                     $payment->type = 'credit';
                     $payment->reference_no = $ref_no;
-                    $payment->note = "Paid for Invoice ".$ref_no;
+                    //$payment->note = "Paid for Invoice ".$ref_no;
+                    $payment->note = $request->get('reference_no');
                     $payment->date = Carbon::now()->format('Y-m-d H:i:s');
                 $payment->save();
             }
@@ -150,7 +154,8 @@ class posController extends Controller
         $transaction = Transaction::findorFail($id);
         $tasa = Tasa::all()->last();
         $dolar = $tasa->tasa;
-        return view('pos.invoice', compact('transaction','dolar'));
+        $clients = Client::all();
+        return view('pos.invoice', compact('transaction','dolar','clients'));
     }
 
     /**

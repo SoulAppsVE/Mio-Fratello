@@ -19,7 +19,7 @@
       <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="panel-layout">
             <div class="panel-box">
-                <div class="panel-content bg-primary">
+                <div class="panel-content bg-primary" style="background-color: #1b2f4c;">
                     <div class="image-content font-white">
                         <div class="center-vertical">
                             <div class="meta-box center-content">
@@ -57,7 +57,7 @@
       <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="panel-layout">
             <div class="panel-box">
-                <div class="panel-content bg-blue-alt">
+                <div class="panel-content bg-blue-alt" style="background-color: #1b2f4c;">
                     <div class="image-content font-white">
                         <div class="center-vertical">
                             <div class="meta-box center-content">
@@ -65,7 +65,7 @@
                                   <i class="fa fa-file-text"></i>
                                 </h4>
                                 <h3 class="meta-heading">
-                                    {{trans('core.invoice_info')}}
+                                    Info. Orden de Compra
                                 </h3>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                 <div class="panel-content bg-white" style="min-height: 190px;">
                     <ul class="list-group list-group-separator mrg0A row list-group-icons">
                         <li class="col-md-12 list-group-item">
-                          {{trans('core.invoice_no')}}: 
+                          N° Orden de Compra: 
                           {{$transaction->reference_no}}
                           @if($transaction->pos == 1)
                             (POS)
@@ -84,7 +84,8 @@
 
                         <li class="col-md-12 list-group-item">
                           {{trans('core.date')}}: 
-                          {{carbonDate($transaction->date, 'y-m-d')}}
+                          <!--{{carbonDate($transaction->date, 'y-m-d')}} -->
+                          {{ date('d/m/Y h:i A', strtotime($transaction->date)) }}
                         </li>
                         <li class="col-md-12 list-group-item">
                           {{trans('core.time')}}: 
@@ -97,9 +98,9 @@
       </div> <!-- /.col -->
 
       <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="panel-layout">
+        <div class="panel-layout" >
             <div class="panel-box">
-                <div class="panel-content bg-purple">
+                <div class="panel-content bg-purple" style="background-color: #1b2f4c;">
                     <div class="image-content font-white">
                         <div class="center-vertical">
                             <div class="meta-box center-content">
@@ -148,7 +149,7 @@
                         @if($transaction->return == 1 || ($transaction->net_total - $transaction->paid) > 0 )
                           <li class="col-md-12 list-group-item">
                               @if($transaction->net_total - $transaction->paid > 0)
-                                {{trans('core.due')}}:
+                                Deuda:
                                 {{settings('currency_code')}}
                                 {{twoPlaceDecimal(($transaction->net_total) - $transaction->paid)}}
                               @else
@@ -186,11 +187,11 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#items" data-toggle="tab">
+                  <a href="#items" data-toggle="tab" style="background-color: #1b2f4c;">
                     {{ trans('core.sale_items') }}
                   </a>
                 </li>
-                <li>
+                <!--<li>
                   <a href="#payments" data-toggle="tab">
                     {{ trans('core.payment_history') }}
                   </a>
@@ -201,7 +202,7 @@
                   <a href="#make-payment" data-toggle="tab">
                     {{ trans('core.make_payment') }}
                   </a>
-                </li>
+                </li>-->
                 @endif
             </ul>
 
@@ -243,14 +244,9 @@
 
       <a class="btn btn-alt btn-warning btn-xs" target="_BLINK" href="{{route('sell.invoice', $transaction)}}">
         <i class="fa fa-print"></i>
-        {{trans('core.print_invoice')}}
+        Imprimir Orden de Compra
       </a>
 
-     
-      <a class="btn btn-alt btn-purple btn-xs" target="_BLINK" href="{{route('pos.invoice', $transaction)}}">
-        <i class="fa fa-print"></i>
-        {{trans('core.print_pos_invoice')}}
-      </a>
       
   </div>
 

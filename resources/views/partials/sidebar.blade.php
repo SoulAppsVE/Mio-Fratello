@@ -1,4 +1,4 @@
-<div id="page-sidebar" class="@if(settings('theme')){{settings('theme')}} @else bg-gradient-1 @endif font-inverse">
+<div id="page-sidebar" class="@if(settings('theme')) @else bg-gradient-1 @endif font-inverse"  style="background-color:#1B2F4C;" >
   <div class="scroll-sidebar">
         
     <ul id="sidebar-menu">
@@ -6,24 +6,18 @@
         <li @if(currentRoute()=="home") class="no-menu active" @else class="no-menu" @endif>
             <a href="{{ route('home') }}">
                 <i class='fa fa-th'></i> 
-                <span>{{ trans('core.home')}}</span>
+                <span>Inicio</span>
             </a>
         </li>
-        
+        @if(auth()->user()->can('category.view'))
         <li @if(currentRoute()=="category.index") class="no-menu active" @else class="no-menu" @endif>
             <a href="{{route('category.index')}}">
                 <i class='fa fa-tag'></i>
                 <span>{{ trans('core.category')}}</span>
             </a>
         </li>
-
-        <li @if(currentRoute()=="subcategory.index") class="no-menu active" @else class="no-menu" @endif>
-            <a href="{{route('subcategory.index')}}"> 
-                <i class='fa fa-tags'></i>
-                <span>{{ trans('core.subcategory')}}</span>
-            </a>
-        </li>
-
+        @endif
+        @if(auth()->user()->can('product.view'))
         <li>
             <a href="#">
                 <i class='fa fa-cubes'></i> 
@@ -35,185 +29,121 @@
                     <li>
                         <a href="{{route('product.index')}}">
                             <i class=''></i> 
-                            <span>{{ trans('core.product_list')}}</span>
+                            <span>Lista de Productos</span>
                         </a>
                     </li>
+       <!--             @if(auth()->user()->can('product.create'))
                     <li>
                         <a href="{{route('product.new')}}">
                             <i class=''></i> 
-                            <span>{{ trans('core.add_new_product')}} </span>
+                            <span>Crear Producto </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{route('product.upload')}}">
-                            <i class=''></i> 
-                            <span>{{ trans('core.upload_bulk_product')}} </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('product.print_barcode')}}">
-                            <i class=''></i> 
-                            <span>{{ trans('core.print_barcode')}} </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('product.print_barcode_by_purchase')}}">
-                            <i class=''></i> 
-                            <span>{{ trans('core.print_barcode_by_purchase')}} </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('damage.index')}}">
-                            <i class=''></i> 
-                            <span>Damaged Items</span>
-                        </a>
-                    </li>
+                    @endif-->
                 </ul>
             </div>
         </li>
-
+        @endif
+        @if(auth()->user()->can('customer.view'))
         <li>
             <a href="#"><i class='fa fa-users'></i> <span>Usuarios</span></a>
 
             <div class="sidebar-submenu">
                 <ul>
+                    @if(auth()->user()->can('customer.view'))
                     <li>
                         <a href="{{route('client.index')}}">
                             <i class=''></i> 
                             <span>{{ trans('core.customer')}}</span>
                         </a>
                     </li>
+                    @endif
+             <!--       @if(auth()->user()->can('supplier.view'))
                     <li>
                         <a href="{{route('purchaser.index')}}">
                             <i class=''></i> 
                             <span>{{ trans('core.supplier')}} </span>
                         </a>
                     </li>
-
+                    @endif-->
+                    @if(auth()->user()->can('user.manage'))
                     <li>
                         <a href="{{route('user.index')}}">
                             <i class=''></i> 
                             <span>{{ trans('core.user')}} </span>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </li>
-
+        @endif
+ <!--       @if(auth()->user()->can('purchase.view'))
         <li >
             <a href="#"><i class="fa fa-ship"></i> <span>{{ trans('core.purchase')}}</span></a>
             <div class="sidebar-submenu">
                 <ul>
                     <li>
                         <a href="{{route('purchase.index')}}">
-                            <span>{{ trans('core.purchase_list')}}</span>
+                            <span>Lista de Compras</span>
                         </a>
                     </li>
+                    @if(auth()->user()->can('purchase.create'))
                     <li>
                         <a href="{{route('purchase.item')}}">
-                            <span>{{ trans('core.add_new_purchase')}}</span>
+                            <span>Crear Compra</span>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </li>
-
+        @endif-->
+        @if(auth()->user()->can('sell.view'))
         <li>
             <a href="#"><i class="fa fa-shopping-cart"></i> <span>{{ trans('core.sell')}}</span></a>
             <div class="sidebar-submenu">
                 <ul>
                     <li>
                         <a href="{{route('sell.index')}}">
-                            <span>{{ trans('core.sell_list')}}</span>
+                            <span>Lista de Ventas</span>
                         </a>
                     </li>
+      <!--              @if(auth()->user()->can('sell.create'))
                     <li>
                         <a href="{{route('sell.form')}}">
-                            <span>{{ trans('core.add_new_sell')}}</span>
+                            <span>Crear Venta</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{route('sell.pos')}}">
-                            <span>{{ trans('core.pos_sale')}}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('return.sell')}}">
-                            <span>{{ trans('core.return_sale')}}</span>
-                        </a>
-                    </li>
+                    @endif-->
                 </ul>
             </div>
         </li>
-          
-        <li class="no-menu">
-            <a href="{{route('payment.list')}}">
-               <i class="fa fa-money"></i>                  
-                <span>{{trans('core.transaction')}}</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="#">
-                <i class="fa fa-usd"></i>
-                <span>{{ trans('core.expense')}}</span>
-            </a>
-            <div class="sidebar-submenu">
-                <ul>
-                    <li>
-                        <a href="{{route('expense.index')}}">
-                            <span>{{ trans('core.expense')}}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('expense.category.index')}}">
-                            <span>Expense Category</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
+         @endif 
+         @if(auth()->user()->can('admins.manage'))
         <li>
             <a href="#"><i class="fa fa-cog"></i><span> {{ trans('core.settings')}}</span></a>
             <div class="sidebar-submenu">
                 <ul>
                     <li>
                         <a href="{{route('settings.index')}}">
-                            <span>{{ trans('core.general_settings')}}</span>
+                            <span>Configuración General</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('role.index')}}">
-                            <span>{{ trans('core.role')}}</span>
+                            <span>Permisos y Roles</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="{{route('tax.index')}}">
-                            <span>{{ trans('core.tax')}}</span>
-                        </a>
-                    </li>
-                    <li>
+         <!--           <li>
                         <a href="{{route('tasa.index')}}">
                             <span>Tasa Dolar</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="{{route('settings.backup')}}">
-                            <span>{{ trans('core.backup')}}</span>
-                        </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </li> 
-
-        <li class="no-menu">
-            <a href="{{route('warehouse.index')}}">
-               <i class="fa fa-industry"></i>                  
-                <span>{{ trans('core.warehouse')}}</span>
-            </a>
-        </li>
+        @endif
 
         @if(auth()->user()->can('report.view'))
         <li class="no-menu">

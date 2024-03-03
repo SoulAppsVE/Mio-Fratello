@@ -36,5 +36,5 @@
       </button>
     </form>
 @else
-  <h1>No Due</h1>
+  <h1>No tiene Deuda</h1>
 @endif

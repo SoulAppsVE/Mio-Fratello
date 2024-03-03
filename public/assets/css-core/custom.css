@@ -355,3 +355,18 @@ border-radius: 50%; }
 .bg-light-skyblue{
   background-color: #C3E8EC;
 }
+
+.botom {
+    background-color: #1b2f4c;
+    border-color: #1b2f4c;
+    color: white; /* Cambia el color del texto a blanco */
+    transition: background-color 0.3s, border-color 0.3s; /* Agrega una transición suave */
+}
+
+.botom:hover,
+.botom:active {
+    background-color: #2c466e; /* Cambia el color de fondo al hacer hover o clic */
+    border-color: #2c466e; /* Cambia el color del borde al hacer hover o clic */
+    color: white;
+}
+

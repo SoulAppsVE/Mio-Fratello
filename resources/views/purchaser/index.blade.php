@@ -11,7 +11,7 @@
 @section('main-content')
 	<div class="panel-heading">
 		@if(auth()->user()->can('supplier.create'))
-			<a href="{{route('purchaser.new')}}" class="btn btn-success btn-alt btn-xs" >
+			<a href="{{route('purchaser.new')}}" class="btn botom btn-alt btn-xs" >
 				<i class='fa fa-plus'></i> 
 				{{trans('core.add_new_supplier')}}
 			</a>
@@ -30,7 +30,7 @@
 	            </a>
 	        </span>
         @else
-            <a class="btn btn-primary btn-alt btn-xs pull-right" id="searchButton">
+            <a class="btn botom btn-alt btn-xs pull-right" id="searchButton">
 				<i class="fa fa-search"></i>
 				{{ trans('core.search') }}
 			</a>
@@ -40,10 +40,9 @@
 	<div class="panel-body">
 		<div class="table-responsive" style="min-height: 150px;">
 			<table class="table table-bordered">
-				<thead class="{{settings('theme')}}">
+				<thead style="background-color:#1b2f4c ">
 					<td class="text-center font-white"># &nbsp;&nbsp;</td>
 					<td class="text-center font-white">{{trans('core.name')}}</td>
-					<td class="text-center font-white">{{trans('core.company_name')}}</td>
 					<td class="text-center font-white">{{trans('core.phone')}}</td>
 					<td class="text-center font-white">{{trans('core.address')}}</td>
 					<td class="text-center font-white">{{trans('core.actions')}}</td>
@@ -54,7 +53,6 @@
 						<tr>
 							<td class="text-center">{{$loop->iteration}}</td>
 							<td class="text-center">{{title_case($purchaser->name)}}</td>
-							<td class="text-center">{{title_case($purchaser->company_name)}}</td>
 							
 							<td class="text-center">
 								@if($purchaser->phone)
@@ -109,13 +107,13 @@
 						      </div>
 						      <div class="modal-body" style="color:black;">
 						        <h4 >
-						        	Are you sure to delete <b>{{$purchaser->name}}</b>?
+						        	¿Estás seguro de eliminar? <b>{{$purchaser->name}}</b>?
 						        </h4>
 						        <br>
 						        @if(count($purchaser->sells) == 0 && count($purchaser->purchases) == 0)
 						        @else
 						        	<h4 style="color: red;">
-						        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{$purchaser->name}} has too much transactions, so it can't be deleted!</h4>
+						        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{$purchaser->name}} tiene demasiadas transacciones, por lo que no se puede eliminar.</h4>
 						        @endif
 						      </div>
 						     <div class="modal-footer">
@@ -147,7 +145,7 @@
                 {!! Form::open(['class' => 'form-horizontal']) !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> {{ trans('core.search').' '.trans('core.purchase') }}</h4>
+                    <h4 class="modal-title">Buscar Proveedor</h4>
                 </div>
 
                 <div class="modal-body">                  
@@ -158,12 +156,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         {!! Form::label('Company Name', trans('core.company_name'), ['class' => 'col-sm-3']) !!}
                         <div class="col-sm-9">
                             {!! Form::text('company_name', Request::get('company_name'), ['class' => 'form-control']) !!}
                         </div>
-                    </div>  
+                    </div>  -->
 
                     <div class="form-group">
                         {!! Form::label('Phone No', trans('core.phone'), ['class' => 'col-sm-3']) !!}
@@ -182,7 +180,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-                    {!! Form::submit('Search', ['class' => 'btn btn-primary', 'data-disable-with' => trans('core.searching')]) !!}
+                    {!! Form::submit('Buscar', ['class' => 'btn botom', 'data-disable-with' => trans('core.searching')]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

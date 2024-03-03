@@ -14,7 +14,11 @@ use App\Exports\ProductExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
 
+  
 class ProductController extends Controller
 {
     private $searchParams = ['name', 'code'];
@@ -26,6 +30,10 @@ class ProductController extends Controller
 
     public function getIndex(Request $request)
     {
+ 
+      
+        //$products = Product::all();
+      
         $products = Product::orderBy('name', 'asc');
 
         if($request->get('name')) {
@@ -39,6 +47,9 @@ class ProductController extends Controller
         }
 
         return view('products.index')->withProducts($products->paginate(20));
+        //return view('products.index',compact('products'));
+    
+      
     }
 
 
@@ -99,15 +110,14 @@ class ProductController extends Controller
         $product->subcategory_id = $request->get('subcategory_id');
         $product->name = $request->get('name');
         $product->code = strtoupper($request->get('code'));
-
         $product->cost_price = $request->get('cost_price');
         $product->mrp = $request->get('mrp');
         $product->minimum_retail_price = $request->get('minimum_retail_price');
-        /*$product->tax_id = $request->get('tax_id');*/
         $product->unit = $request->get('unit');
-        /*$product->details = $request->get('details');*/
-        $product->status = $request->get('status') ? $request->get('status') : 0;
+        $product->status = 1;
 
+        //$product->porcent = $request->get('porcent'); 
+      
         //opening stock
         if($product->id){
             $current_stock = $product->quantity;
@@ -128,7 +138,6 @@ class ProductController extends Controller
             $destination_path = public_path().'/uploads/products/';
             $filename = $random_name.'.'.$file_extension;
             $request->file('image')->move($destination_path,$filename);
-
             $product->image = $filename;
         }
 
@@ -317,7 +326,8 @@ class ProductController extends Controller
 
                 $product = new Product;
                     $product->name = $rowData['name'];
-                    $product->code = $code;
+                    //$product->code = $code;
+                    $product->code = $rowData['code'];
                     $product->category_id = $category_id;
                     $product->subcategory_id = null;
                     $product->quantity = $rowData['opening_stock'];
@@ -328,6 +338,7 @@ class ProductController extends Controller
                     $product->unit = $rowData['unit'];
                     $product->status = 1;
                     $product->opening_stock = $rowData['opening_stock'];
+                    $product->alert_quantity = $rowData['alert_quantity'];
                 $product->save();
             }
         }
@@ -342,7 +353,8 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
     */
     public function getExcelDownload () {
-        $products = Product::all();
+        //$products = Product::all();
+        $products = DB::table('products')->select('code','name','quantity','unit','mrp')->get();
         return Excel::download(new ProductExport($products), 'product.xlsx');
 
     }

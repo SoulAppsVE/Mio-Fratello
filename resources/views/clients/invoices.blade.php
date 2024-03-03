@@ -20,20 +20,20 @@
 
 	<div class="panel-body">
 		<table class="table table-bordered table-striped">
-			<thead class="{{settings('theme')}}">
+			<thead style="background-color:#1b2f4c ">
 				<td class="text-center font-white">#</td>
 				<td class="text-center font-white">
 					@if($client->client_type == 'purchaser')
-						{{trans('core.bill_no')}}
+					    N° Orden de Compra
 					@else
-						{{trans('core.invoice_no')}}
+						N° Orden de Compra
 					@endif
 				</td>
 	            <td class="text-center font-white">
 	            	@if($client->client_type == 'purchaser')
 						{{trans('core.supplier')}}
 					@else
-						{{trans('core.customer')}}
+						{{trans('core.customer')}} 
 					@endif
 	            </td>
 	            <td class="text-center font-white">{{trans('core.total_amount')}}</td>
@@ -57,7 +57,8 @@
 	                    	{{$invoice->paid}}
 	                    </td>
 	                    <td>
-	                    	{{ carbonDate($invoice->created_at, 'y-m-d') }}
+							{{ date('d/m/Y h:i A', strtotime($invoice->created_at)) }}
+	                    	<!--{{ carbonDate($invoice->created_at, 'y-m-d') }}-->
 	                    </td>
 	                    
 	                    <td>
@@ -75,7 +76,7 @@
 	                        	</a>
 	                            <a target="_BLINK" href="{{route('sell.invoice', $invoice)}}" class="btn btn-warning btn-alt btn-xs">
 	                             	<i class="fa fa-print"></i>
-	                             	{{trans('core.invoice')}}
+	                             	Orden de Compra
 	                            </a>
 	                        @endif   
 	                    </td>

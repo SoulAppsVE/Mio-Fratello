@@ -5,7 +5,7 @@
 @stop
 
 @section('breadcrumb')
-	Total Received Today
+	Total Recibido Hoy
 @stop
 
 @section('main-content')

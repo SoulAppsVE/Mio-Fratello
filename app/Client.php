@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
-    protected $fillable = ['id'];
+    protected $fillable = ['id','first_name','last_name','email','phone','address','client_type'];
     /**
      * Get full name attribute
      * */

@@ -17,11 +17,8 @@
 	<h3 class="title-hero">{{trans('core.add_new_purchase')}}</h3>
 
 	<form method="post" id="app" class="form-horizontal bordered-row">
-
-		<!-- <div class="well">@{{purchases}}</div> -->
 		{{ csrf_field() }}
 		<div style="margin-top: 20px;">
-			@if(settings('enable_purchaser') == 1)
 			<div class="form-group">
 			    <label class="col-md-offset-2 col-md-2  control-label">
 			    	{{trans('core.supplier_name')}}:
@@ -35,12 +32,11 @@
 			      </select>
 			    </div>
 		  	</div>
-		  	@endif
 		</div>
 
     	<div>
     		<table class="table table-bordered bg-purchase">
-    			<thead class="{{settings('theme')}}">
+    			<thead style="background-color:#1b2f4c ">
 					<tr>
 						<td class="text-center font-white" style="width: 25%;">
 							{{trans('core.product')}}
@@ -88,9 +84,7 @@
 					<tr>
 						<td colspan="{{colSpanNumber()}}" @if(!rtlLocale()) style="text-align: right; font-weight: bold;" @endif>
 							{{trans('core.total')}} 
-							<span  class=" font-size-9">
-								{{trans('core.excluding_tax')}}
-							</span>
+		
 						</td>
 						<td colspan="2">
 							<input type="text" class="form-control text-center" :value="total" disabled="true" />
@@ -165,7 +159,7 @@
 							<select v-model="method" class="form-control selectpicker">
 							  <option value="cash">{{trans('core.cash')}}</option>
 							  <option value="card">{{trans('core.card')}}</option>
-							  <option value="cheque">{{trans('core.cheque')}}</option>
+							  <option value="cheque">Transferencia</option>
 							  <option value="others">{{trans('core.others')}}</option>
 							</select>
 						</td>
@@ -200,7 +194,7 @@
 
 					<tr>
 						<td colspan="6">
-							<button type="submit" @click.prevent="postForm" :disabled="submitted" class="btn btn-success pull-right">
+							<button type="submit" @click.prevent="postForm" :disabled="submitted" class="btn botom pull-right">
 							<i class="fa fa-spinner fa-pulse fa-fw" v-if="submitted"></i>  
 							{{trans('core.submit')}} 
 							</button>
@@ -252,7 +246,7 @@
 			<button @click.prevent="remove(id)" class="btn btn-danger" v-if="id != 1">
 				<i class="fa fa-times"></i>
 			</button>
-			<button @click.prevent="add()" class="btn btn-success" v-else >
+			<button @click.prevent="add()" class="btn botom" v-else >
 				<i class="fa fa-plus"></i>
 			</button>
 		</td>

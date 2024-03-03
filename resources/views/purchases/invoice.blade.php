@@ -1,4 +1,4 @@
-@extends('app')
+@extends('printer')
 
 <style>
 	thead tr th{
@@ -79,7 +79,7 @@
 	          	 		{{trans('core.date')}} :
 	          	 	</td>
 	          	 	<td>
-	          	 		{{carbonDate($transaction->purchases->first()->date, 'y-m-d')}}
+						{{ date('d/m/Y h:i A', strtotime($transaction->purchases->first()->date)) }}
 	          	 	</td>
 	          	 </tr>
 	          </table>
@@ -243,7 +243,7 @@
 	    <div class="row">
 	    	<div class="col-md-12" style="margin-left: 20px;">
 		    	<span class="amount-in-words">
-			    	{{trans('core.amount')}} (In Words)
+			    	{{trans('core.amount')}} 
 			        <br>
 			        <b>{{settings('currency_code')}} {{numberFormatter($transaction->net_total)}}</b>
 			    	<br>
@@ -270,7 +270,7 @@
 	        <div class="col-sm-offset-2 col-sm-4 pull-right" >
 	          	<span>&nbsp;</span>
 	    		<br><br><br>
-	    		for <b>{{settings('site_name')}}</b>
+	    		por <b>{{settings('site_name')}}</b>
 	    		<br><br>
 	    		{{trans('core.authorized_signature')}}
 	        </div>

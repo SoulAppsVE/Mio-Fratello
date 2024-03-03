@@ -5,7 +5,7 @@
 @stop
 
 @section('breadcrumb')
-	<a href="{{route('expense.index')}}">Expense List</a>
+	<a href="{{route('expense.index')}}">Lista de gastos</a>
 	 &nbsp;>&nbsp;
 	Create Expense
 @stop

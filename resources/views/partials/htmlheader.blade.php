@@ -19,12 +19,12 @@
   <style type="text/css">
     #header-logo .logo-content-big {
         @if(settings('site_logo'))
-          background: url({!! json_encode(asset('uploads/site/'. settings('site_logo')))!!}) left 50% no-repeat;
+          background: url({!! json_encode(asset('uploads/site/'. settings('site_logo')))!!}) left 80% no-repeat;
         @endif
     }
 
     .logo-content-small {
-        background: url({!! json_encode(asset('img/small-logo-white.png'))!!}) left 50% no-repeat;
+        background: url({!! json_encode(asset('img/logo.png'))!!}) left 50% no-repeat;
         left: 10px !important;
         width: 50px !important;
     }
@@ -52,8 +52,8 @@
       border: 1px solid #d1ccc0;  
       position: absolute;
       border-radius: 50%;
-      border-bottom: 1px solid #164A7F;
-      border-top: 1px solid #164A7F;
+      border-bottom: 1px solid #1b2f4c;
+      border-top: 1px solid #1b2f4c;
       -webkit-animation: spin-right 2s linear infinite;
       animation: spin-right 2s linear infinite;
     }
@@ -64,8 +64,8 @@
       border: 1px solid #d1ccc0; 
       border-radius: 50%;
       margin: 5px 5px; 
-      border-bottom: 1px solid #164A7F;
-      border-top: 1px solid #164A7F;
+      border-bottom: 1px solid #1b2f4c;
+      border-top: 1px solid #1b2f4c;
       -webkit-animation: spin-left 1s linear infinite;
       animation: spin-left 2s linear infinite;
     }
@@ -77,8 +77,8 @@
       border: 1px solid #d1ccc0; 
       border-radius: 50%;
       margin: -82px 10px; 
-      border-bottom: 1px solid #164A7F;
-      border-top: 1px solid #164A7F;
+      border-bottom: 1px solid #1b2f4c;
+      border-top: 1px solid #1b2f4c;
       -webkit-animation: spin-right 2s linear infinite;
       animation: spin-right 2s linear infinite;
     }
@@ -90,8 +90,8 @@
       border: 1px solid #d1ccc0; 
       border-radius: 50%;
       margin: -77px 15px; 
-      border-bottom: 1px solid #164A7F;
-      border-top: 1px solid #164A7F; /*16a085*/
+      border-bottom: 1px solid #1b2f4c;
+      border-top: 1px solid #1b2f4c; /*16a085*/
       -webkit-animation: spin-left 1s linear infinite;
       animation: spin-left 1s linear infinite;
     }

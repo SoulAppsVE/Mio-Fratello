@@ -30,8 +30,8 @@
               <table class="table table-bordered">
                 <tr>
                   <th style="width: 10px">#</th>
-                  <th>Paid Amount</th>
-                  <th>Date</th>
+                  <th>Monto de pago</th>
+                  <th>Fecha</th>
                 </tr>
 
                 <?php 
@@ -58,8 +58,8 @@
                 <table class="table table-bordered">
                   <thead>
                     <th>Total</th>
-                    <th>Paid</th>
-                    <th>Due</th>
+                    <th>Pago</th>
+                    <th>Deuda</th>
                   </thead>
 
                   <tbody>
@@ -87,7 +87,7 @@
 		              	</form>
 		            @else
 		            	<marquee>
-		            		<h4 style="color: green;">All Payment Clear</h4>
+		            		<h4 style="color: green;">Todo el pago claro</h4>
 		            	</marquee>
 		            @endif
 	            </div>

@@ -5,11 +5,11 @@
 @stop
 
 @section('contentheader')
-  {{$product->name}} Details
+  {{$product->name}} Detalle
 @stop
 
 @section('breadcrumb')
-  <a href="{{route('product.index')}}">Products</a>
+  <a href="{{route('product.index')}}">Productos</a>
   <li>{{$product->name}}</li>
 @stop
 
@@ -49,17 +49,17 @@
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <b>{{trans('core.created')}}:</b> 
-                  <span class="pull-right">{{carbonDate($product->created_at, 'y-m-d')}}</span>
+                  <span class="pull-right">{{ date('d/m/Y h:i A', strtotime($product->created_at)) }}</span>
                 </li>
                 <li class="list-group-item">
                   <b>{{trans('core.status')}}:</b> 
                   <span class="pull-right">
                     @if($product->status == 1)
                       <span style="color: green;" >
-                        <i class="fa fa-check"></i> Active
+                        <i class="fa fa-check"></i> Activo
                       </span>
                     @else
-                      <span style="color: red;"><i class="fa fa-times"></i> Inactive</span>
+                      <span style="color: red;"><i class="fa fa-times"></i> Inactivo</span>
                     @endif
                   </span>
                 </li>
@@ -73,25 +73,25 @@
         <div class="col-md-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active">
-                <a href="#details{{$product->id}}" data-toggle="tab">
+              <li class="active" >
+                <a href="#details{{$product->id}}" data-toggle="tab" style="background-color:#1b2f4c ">
                   {{trans('core.details')}}
                 </a>
               </li>
-              <li>
-                  <a href="#timeline{{$product->id}}" data-toggle="tab">{{trans('core.purchase_history')}}
+     <!--         <li>
+                  <a href="#timeline{{$product->id}}" style="background-color:#1b2f4c " data-toggle="tab">{{trans('core.purchase_history')}}
                   </a>
-              </li>
+              </li>-->
               <li>
-                <a href="#sell{{$product->id}}" data-toggle="tab">
+                <a href="#sell{{$product->id}}" data-toggle="tab" style="background-color:#1b2f4c ">
                   {{trans('core.sell_history')}}
                 </a>
               </li>
-              <li>
+              <!--<li>
                 <a href="#damage{{$product->id}}" data-toggle="tab">
                   {{trans('core.damage_history')}}
                 </a>
-              </li>
+              </li>-->
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="details{{$product->id}}">
@@ -104,6 +104,7 @@
               @endif
 
               <div class="row">
+                <br>
                 <div class="col-md-12">
                   <label>{{trans('core.cost_price')}}</label>
                   <input type="text" class="form-control" value="{{settings('currency_code')}} {{$product->cost_price}}" disabled="true">
@@ -111,15 +112,15 @@
               </div>
 
               <div class="row">
-                <div class="col-md-6">
-                    <label>{{trans('core.mrp')}}</label>
+                <div class="col-md-12">
+                    <label>Precio de Venta</label>
                     <input type="text" class="form-control" value="{{settings('currency_code')}} {{$product->mrp}} " disabled="true">
                 </div>
 
-                <div class="col-md-6">
+                <!--<div class="col-md-6">
                     <label>{{trans('core.minimum_retails_price')}}</label>
                     <input type="text" class="form-control" value="{{settings('currency_code')}} {{$product->minimum_retail_price}} " disabled="true">
-                </div>
+                </div>-->
               </div>
             </form>
             <hr>
@@ -179,7 +180,7 @@
                 <tbody style="background-color: #fff;" id="myTable">
                   @foreach($product->purchases as $purchase)
                     <tr>
-                      <td class="text-center">{{carbonDate($purchase->date, 'h:i:s')}}</td>
+                      <td class="text-center">{{ date('d/m/Y h:i A', strtotime($purchase->date)) }}</td>
                       <td class="text-center">{{$purchase->client->name}}</td>
                       <td class="text-center">{{$purchase->quantity}}</td>
                     </tr>
@@ -191,7 +192,7 @@
 
               <div class="tab-pane" id="sell{{$product->id}}">
                 @if($product->sells->count() == 0)
-                    <h1>No sell</h1> 
+                    <h1>No hay ventas</h1> 
                 @else
                   <table class="table table-bordered">
                     <tr class="bg-khaki">
@@ -202,7 +203,7 @@
 
                       @foreach($product->sells as $sell)
                         <tr>
-                          <td class="text-center">{{carbonDate($sell->date, 'h:i:s')}}</td>
+                          <td class="text-center">{{ date('d/m/Y h:i A', strtotime($sell->date)) }}</td>
                           <td class="text-center">{{$sell->client->name}}</td>
                           <td class="text-center">{{$sell->quantity}}</td>
                         </tr>

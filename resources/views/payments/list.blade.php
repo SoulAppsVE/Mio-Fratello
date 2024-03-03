@@ -38,7 +38,7 @@
             </a>
         </span>
         @else
-            <a class="btn btn-primary btn-alt btn-xs pull-right" id="searchButton" style="border-radius: 0px !important;" >
+            <a class="btn botom btn-alt btn-xs pull-right" id="searchButton" style="border-radius: 0px !important;" >
                 <i class="fa fa-search"></i>
                 {{ trans('core.search') }}
             </a>
@@ -86,7 +86,7 @@
 
         <div class="table-responsive" id="tableDIv">
     		<table class="table table-bordered table-striped" >
-    			<thead class="{{settings('theme')}}">
+    			<thead style="background-color:#1b2f4c;">
                     <td class="text-center font-white">{{trans('core.date')}}</td>
     				<td class="text-center font-white">{{trans('core.receipt_no')}}</td>
                     <td class="text-center font-white">{{trans('core.invoice_no')}}</td>
@@ -101,7 +101,8 @@
     				@foreach($payments as $payment)
     					<tr>
                             <td class="text-center tooltip-button" data-placement="bottom" title="{{ carbonDate($payment->date, 'g:i:a') }}">
-                                {{carbonDate($payment->date, 'y-m-d')}}
+                                <!--{{carbonDate($payment->date, 'y-m-d')}}-->
+                                {{ date('d/m/Y h:i A', strtotime($payment->date)) }}
                             </td>
 
     						<td class="text-center">#{{ref($payment->id)}}</td>

@@ -12,7 +12,7 @@
 
 	<div class="panel-heading">
 		@if(auth()->user()->can('user.create'))
-			<a href="{{route('user.new')}}" class="btn btn-success btn-alt btn-xs" style="border-radius: 0px !important;">
+			<a href="{{route('user.new')}}" class="btn botom btn-alt btn-xs" style="border-radius: 0px !important;">
 				<i class='fa fa-plus'></i> 
 				{{ trans('core.add_new_user') }}
 			</a>
@@ -31,7 +31,7 @@
 	            </a>
 	        </span>
         @else
-            <a class="btn btn-primary btn-alt btn-xs pull-right" id="searchButton">
+            <a class="btn botom btn-alt btn-xs pull-right" id="searchButton">
 				<i class="fa fa-search"></i>
 				{{ trans('core.search') }}
 			</a>
@@ -41,7 +41,7 @@
 	<div class="panel-body">
 
 		<table class="table table-bordered">
-			<thead class="{{settings('theme')}}">
+			<thead style="background-color:#1b2f4c ">
 				<td class="text-center font-white">#</td>
 				<td class="text-center font-white">{{trans('core.name')}}</td>
 				<td class="text-center font-white">{{trans('core.email')}}</td>
@@ -97,16 +97,16 @@
 					      <div class="modal-header">
 					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					        <h4 class="modal-title" id="myModalLabel">
-					        	{{$user->first_name}} {{$user->last_name}} is currently @if($user->inactive == 1) Inactive @else Active @endif
+					        	{{$user->first_name}} {{$user->last_name}} está actualmente @if($user->inactive == 1) Activo @else Activo @endif
 					        </h4>
 					      </div>
 					      <div class="modal-body">
-					        Do you want to @if($user->inactive == 1) Activate  @else Deactivate @endif this user
+					        ¿Desea @if($user->inactive == 1) eliminar  @else eliminar @endif este usuario?
 					      </div>
 
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
-					        <button type="submit" class="btn btn-danger">Yes</button>
+					        <button type="submit" class="btn btn-danger">Sí</button>
 					      </div>
 					      </form>
 					    </div>
@@ -130,7 +130,7 @@
                 {!! Form::open(['class' => 'form-horizontal']) !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> {{ trans('core.search').' '.trans('core.customer') }}</h4>
+                    <h4 class="modal-title"> Buscar Usuario</h4>
                 </div>
 
                 <div class="modal-body">                  
@@ -151,7 +151,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-                    {!! Form::submit('Search', ['class' => 'btn btn-primary', 'data-disable-with' => trans('core.searching')]) !!}
+                    {!! Form::submit('Buscar', ['class' => 'btn botom', 'data-disable-with' => trans('core.searching')]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

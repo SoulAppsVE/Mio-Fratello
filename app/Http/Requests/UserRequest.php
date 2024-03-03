@@ -30,8 +30,8 @@ class UserRequest extends Request
         $rules = [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,'.$userId,
-            'warehouse_id' => 'required',
+            'email' => 'required|email|unique:users,email,'.$userId
+           // 'warehouse_id' => 'required',
         ];
 
         if(!$userId){

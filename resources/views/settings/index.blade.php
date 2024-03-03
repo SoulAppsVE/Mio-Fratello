@@ -62,12 +62,12 @@
 		    if ((file = this.files[0])) {
 		        img = new Image();
 		        img.onload = function() {
-		        	if(this.width > 190 || this.height > 34){
+		        	if(this.width > 120 || this.height > 40){
 		        		swal({
 						  title: 'Invalid Image Size',
 						  type: 'warning',
 						  html:
-						    '<small>Logo size should be (width=<b>190px</b>) x (height=<b>34px</b>) <br>Size of Logo you are tryining to Upload is '+this.width+'px x '+this.height+'px</small>',
+						    '<small>Logo size should be (width=<b>120px</b>) x (height=<b>40px</b>) <br>Size of Logo you are tryining to Upload is '+this.width+'px x '+this.height+'px</small>',
 						  showCloseButton: true,
 						})
 		        	}

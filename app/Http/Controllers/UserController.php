@@ -14,6 +14,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Exceptions\ValidationException;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -86,7 +87,7 @@ class UserController extends Controller
         }
         $user->address = $request->get('address');
         $user->phone = $request->get('phone');
-        $user->warehouse_id = $request->get('warehouse_id');
+        $user->warehouse_id = 1;
 
         if($request->hasFile('image')){
             $file = $request->file('image');
@@ -231,7 +232,7 @@ class UserController extends Controller
 
     }
 
-    public function postStatus (Request $request) {
+ /*   public function postStatus (Request $request) {
         $user = User::findorFail($request->get('user_id'));
         $status = ($user->inactive == 1) ? 0 : 1;
 
@@ -241,5 +242,55 @@ class UserController extends Controller
         $message = trans('core.changes_saved');
         return redirect()->route('user.index')->withSuccess($message);
 
+    }*/
+
+ /*   public function postStatus(Request $request) {
+        $userId = $request->get('user_id');
+    
+        // Buscar al usuario por su ID
+        $user = User::findOrFail($userId);
+    
+        // Verificar si el usuario está activo
+        if ($user->inactive == 0) {
+            // Si el usuario ya está inactivo, eliminarlo de la base de datos
+            $user->delete();
+    
+            // Mensaje de éxito
+            $message = 'Usuario eliminado con éxito';
+        } else {
+            // Si el usuario ya está inactivo, eliminarlo de la base de datos
+            $user->delete();
+    
+            // Mensaje de éxito
+            $message = 'Usuario eliminado con éxito';
+        }
+    
+        // Redirigir al listado de usuarios con un mensaje de éxito
+        return redirect()->route('user.index')->withSuccess($message);
+    }*/
+
+    public function postStatus(Request $request) {
+        $userId = $request->get('user_id');
+    
+        // Verificar si el usuario está activo
+        $inactive = DB::table('users')->where('id', $userId)->value('inactive');
+    
+        if ($inactive == 0) {
+            // Eliminar al usuario de la base de datos
+            DB::table('users')->where('id', $userId)->delete();
+    
+            // Mensaje de éxito
+            $message = 'Usuario eliminado con éxito';
+        } else {
+            // Eliminar al usuario de la base de datos
+            DB::table('users')->where('id', $userId)->delete();
+    
+            // Mensaje de éxito
+            $message = 'Usuario eliminado con éxito';
+        }
+    
+        // Redirigir al listado de usuarios con un mensaje de éxito
+        return redirect()->route('user.index')->withSuccess($message);
     }
+    
 }

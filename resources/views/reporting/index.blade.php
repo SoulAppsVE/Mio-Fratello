@@ -28,7 +28,7 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Product Report" data-toggle="modal" data-target="#productModal">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de producto" data-toggle="modal" data-target="#productModal">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
@@ -36,7 +36,7 @@
     </div>
     <!--Product Report-->
 
-    <!--Purchase Report-->
+    <!--Purchase Report
     <div class="col-md-4">
       <div class="tile-box tile-box-alt bg-purple">
           <div class="tile-header">
@@ -51,13 +51,13 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Purchase Report" data-toggle="modal" data-target="#purchaseModal">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de compra" data-toggle="modal" data-target="#purchaseModal">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
       </div>
     </div>
-    <!--Purchase Report Ends-->
+    Purchase Report Ends-->
 
     <!--Sell Report-->
     <div class="col-md-4">
@@ -73,7 +73,7 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Sales Report" data-toggle="modal" data-target="#sellsModal">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de ventas" data-toggle="modal" data-target="#sellsModal">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
@@ -81,7 +81,7 @@
     </div>
     <!--Sell Report Ends-->
 
-    <!-- <div class="col-md-3 hidden">
+    <div class="col-md-3 hidden">
       <div class="tile-box tile-box-alt bg-green">
           <div class="tile-header">
               
@@ -94,12 +94,12 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Clients Report" data-toggle="modal" data-target="#clientModal">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de clientes" data-toggle="modal" data-target="#clientModal">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
       </div>
-    </div> -->
+    </div>
 
     <!--Stock Report-->
     <div class="col-md-4">
@@ -116,7 +116,7 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Stock Report" data-toggle="modal" data-target="#stockModal">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de existencias" data-toggle="modal" data-target="#stockModal">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
@@ -139,58 +139,13 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Category Report" data-toggle="modal" data-target="#categoryModal">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de categoría" data-toggle="modal" data-target="#categoryModal">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
       </div>
     </div>
     <!-- Category Report Ends -->
-
-    <!-- Subcategory Report -->
-    <div class="col-md-4">
-      <div class="tile-box tile-box-alt"  style="background-color: #4e7d75;color: #fff;">
-          <div class="tile-header">
-              
-          </div>
-          <div class="tile-content-wrapper">
-              <i class="glyph-icon fa fa-tags"></i>
-              <div class="tile-content">
-                <span>
-                  {{trans('core.subcategory')}} <br>
-                  <small>{{trans('core.report')}}</small>
-                </span>
-              </div>
-          </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Category Report" data-toggle="modal" data-target="#subcategoryModal">
-              {{trans('core.view_report')}}
-              <i class="glyph-icon icon-arrow-right"></i>
-          </a>
-      </div>
-    </div>
-    <!-- Subcategory Report Ends-->
-
-    <!-- Warehouse Report -->
-    <div class="col-md-4">
-      <div class="tile-box tile-box-alt bg-black" style="margin-top: 5px;">
-          <div class="tile-header">
-              
-          </div>
-          <div class="tile-content-wrapper">
-              <i class="glyph-icon fa fa-industry"></i>
-              <div class="tile-content">
-                <span>
-                  {{trans('core.warehouse')}}
-                  <br><small>{{trans('core.report')}}</small>
-                </span>
-              </div>
-          </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Warehouse Report" data-toggle="modal" data-target="#warehouseModal">
-              {{trans('core.view_report')}}
-              <i class="glyph-icon icon-arrow-right"></i>
-          </a>
-      </div>
-    </div>
     <!-- Warehouse Report Ends-->
 
     <!-- Profit Report -->
@@ -208,7 +163,7 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Profit Report" data-toggle="modal" data-target="#profitModal">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de ganancias" data-toggle="modal" data-target="#profitModal">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
@@ -217,14 +172,14 @@
     <!-- Profit Report Ends-->
 
     <!-- Due Report -->
-    <div class="col-md-4">
+    <!--<div class="col-md-4">
       <div class="tile-box tile-box-alt" style="margin-top: 5px;background-color: #5ec019; color: white;">
           <div class="tile-header"></div>
           <div class="tile-content-wrapper">
               <i class="glyph-icon fa fa-usd"></i>
               <div class="tile-content">
                 <span>
-                  Due 
+                  Deuda 
                   <br>
                   <small>
                     {{trans('core.report')}}
@@ -232,12 +187,12 @@
                 </span>
               </div>
           </div>
-          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="View Profit Report" data-toggle="modal" data-target="#dueReport">
+          <a href="#" class="tile-footer tooltip-button" data-placement="bottom" title="Ver informe de deudas" data-toggle="modal" data-target="#dueReport">
               {{trans('core.view_report')}}
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
       </div>
-    </div>
+    </div>-->
     <!-- Due Report -->
 </div>
 
@@ -254,12 +209,12 @@
           </h4>
         </div>
         <div class="modal-body">
-          <div class="form-group"> 
+          <div class="form-group"  style="visibility: hidden"> 
             <div class="row">
-               {!! Form::label('Branch', 'Branch', ['class' => 'col-sm-2']) !!} 
+               {!! Form::label('Sucursal', 'Sucursal', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10"> 
                 <select class="form-control selectpicker" name="warehouse_id" data-live-search = true>
-                    <option value="all">ALL Branches</option>
+                    <option value="all">TODAS LAS SUCURSALES</option>
                     @foreach($warehouses as $warehouse)
                       <option value="{{$warehouse->id}}">
                         {{$warehouse->name}}
@@ -272,7 +227,7 @@
 
           <div class="form-group"> 
             <div class="row">
-               {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
+               {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10"> 
                 {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
               </div>
@@ -281,7 +236,7 @@
 
           <div class="form-group">
               <div class="row">
-                {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -292,7 +247,7 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">
               {{trans('core.close')}}
             </button>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn botom">
               {{trans('core.generate_report')}}
             </button>
           </div>
@@ -310,15 +265,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Sells Report</h4>
+          <h4 class="modal-title">Informe de Ventas</h4>
         </div>
         <div class="modal-body">
           <div class="form-group"> 
-            <div class="row">
-               {!! Form::label('Branch', 'Branch', ['class' => 'col-sm-2']) !!} 
+            <div class="row" style="visibility: hidden">
+               {!! Form::label('Sucursal', 'Sucursal', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10"> 
                 <select class="form-control selectpicker" name="warehouse_id" data-live-search = true>
-                    <option value="all">ALL Branches</option>
+                    <option value="all">TODAS LAS SUCURSALES</option>
                     @foreach($warehouses as $warehouse)
                       <option value="{{$warehouse->id}}">
                         {{$warehouse->name}}
@@ -331,7 +286,7 @@
           
           <div class="form-group"> 
             <div class="row">
-               {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
+               {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10"> 
                 {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
               </div>
@@ -340,7 +295,7 @@
 
            <div class="form-group">
               <div class="row">
-                {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -349,7 +304,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-            <button type="submit" class="btn btn-primary">{{trans('core.generate_report')}}</button>
+            <button type="submit" class="btn botom">{{trans('core.generate_report')}}</button>
           </div>
         </div>
       </div>
@@ -365,15 +320,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Product Report</h4>
+          <h4 class="modal-title">Informe de producto</h4>
         </div>
         <div class="modal-body">
           <div class="form-group">
             <div class="row">
-              {!! Form::label('Product', 'Product', ['class' => 'col-sm-2']) !!} 
+              {!! Form::label('Producto', 'Producto', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10">   
                 <select class="form-control selectpicker" name="product_id" data-live-search = true>
-                  <option value="all">ALL PRODUCTS</option>
+                  <option value="all">TODOS LOS PRODUCTOS</option>
                   @foreach($products as $product)
                     <option value="{{$product->id}}">
                       {{$product->name}}
@@ -386,10 +341,27 @@
 
           <div class="form-group"> 
             <div class="row">
-               {!! Form::label('Branch', 'Branch', ['class' => 'col-sm-2']) !!} 
+               {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
+              <div class="col-sm-10"> 
+                {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
+              </div>
+            </div>  
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
+              <div class="col-sm-10">   
+                {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="visibility: hidden"> 
+            <div class="row">
+               {!! Form::label('Sucursal', 'Sucursal', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10"> 
                 <select class="form-control selectpicker" name="warehouse_id" data-live-search = true>
-                    <option value="all">ALL BRANCHES</option>
+                    <option value="all">TODAS LAS SUCURSALES</option>
                     @foreach($warehouses as $warehouse)
                       <option value="{{$warehouse->id}}">
                         {{$warehouse->name}}
@@ -399,28 +371,9 @@
               </div>
             </div>  
           </div>
-
-          <div class="form-group"> 
-            <div class="row">
-               {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
-              <div class="col-sm-10"> 
-                {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
-              </div>
-            </div>  
-          </div>
-
-          <div class="form-group">
-            <div class="row">
-              {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
-              <div class="col-sm-10">   
-                {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
-              </div>
-            </div>
-          </div>
-
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-            <button type="submit" class="btn btn-primary">{{trans('core.generate_report')}}</button>
+            <button type="submit" class="btn botom">{{trans('core.generate_report')}}</button>
           </div>
         </div>
       </div>
@@ -436,12 +389,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Client Report</h4>
+          <h4 class="modal-title">Reporte de Cliente</h4>
         </div>
         <div class="modal-body">
             <div class="form-group"> 
               <div class="row">
-                 {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
+                 {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10"> 
                   {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -450,7 +403,7 @@
 
            <div class="form-group">
               <div class="row">
-                {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -459,10 +412,10 @@
 
             <div class="form-group">
               <div class="row">
-                {!! Form::label('Product', 'Product', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Producto', 'Producto', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   <select class="form-control selectpicker" name="client_id" data-live-search = true>
-                    <option value="all">ALL CLIENT</option>
+                    <option value="all">TODOS LOS CLIENTES</option>
                     @foreach($clients as $client)
                       <option value="{{$client->id}}">
                         {{$client->name}}
@@ -475,7 +428,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-            <button type="submit" class="btn btn-primary">{{trans('core.generate_report')}}</button>
+            <button type="submit" class="btn botom">{{trans('core.generate_report')}}</button>
           </div>
         </div>
       </div>
@@ -496,10 +449,10 @@
         <div class="modal-body">
             <div class="form-group">
               <div class="row">
-                {!! Form::label('Product', 'Product', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Producto', 'Producto', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   <select class="form-control selectpicker" name="product_id" data-live-search = true>
-                    <option value="all">ALL PRODUCT</option>
+                    <option value="all">TODOS LOS PRODUCTOS</option>
                     @foreach($products as $product)
                       <option value="{{$product->id}}">
                         {{$product->name}}
@@ -512,7 +465,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-            <button type="submit" class="btn btn-primary">{{trans('core.generate_report')}}</button>
+            <button type="submit" class="btn botom">{{trans('core.generate_report')}}</button>
           </div>
         </div>
       </div>
@@ -533,7 +486,7 @@
         <div class="modal-body">
             <div class="form-group"> 
               <div class="row">
-                 {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
+                 {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10"> 
                   {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -542,7 +495,7 @@
 
            <div class="form-group">
               <div class="row">
-                {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -551,10 +504,10 @@
 
             <div class="form-group">
               <div class="row">
-                {!! Form::label('Category', 'Category', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Categoría', 'Categoría', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   <select class="form-control selectpicker" name="category_id" data-live-search = true>
-                    <option value="all">ALL CATEGORIES</option>
+                    <option value="all">TODA LAS CATEGORÍAS</option>
                     @foreach($categories as $category)
                       <option value="{{$category->id}}">
                         {{$category->category_name}}
@@ -566,8 +519,8 @@
             </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">{{trans('core.generate_report')}}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn botom">{{trans('core.generate_report')}}</button>
           </div>
         </div>
       </div>
@@ -583,12 +536,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Subcategory Report</h4>
+          <h4 class="modal-title">Informe de subcategoría</h4>
         </div>
         <div class="modal-body">
             <div class="form-group"> 
               <div class="row">
-                 {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
+                 {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10"> 
                   {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -597,7 +550,7 @@
 
            <div class="form-group">
               <div class="row">
-                {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>
@@ -606,10 +559,10 @@
 
             <div class="form-group">
               <div class="row">
-                {!! Form::label('sub_category', 'SubCategory', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('sub_category', 'Sub-Categoría', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   <select class="form-control selectpicker" name="subcategory_id" data-live-search = true>
-                    <option value="all">ALL SUB-CATEGORIES</option>
+                    <option value="all">TODAS LAS SUB-CATEGORÍAS</option>
                       @foreach($categories as $category)
                          <optgroup label="{{$category->category_name}}">
                            @foreach($category->subcategories as $subcategory)
@@ -644,15 +597,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Branch Report</h4>
+          <h4 class="modal-title">Reporte Sucursal</h4>
         </div>
         <div class="modal-body">
           <div class="form-group">
             <div class="row">
-              {!! Form::label('Product', 'Product', ['class' => 'col-sm-2']) !!} 
+              {!! Form::label('Producto', 'Producto', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10">   
                 <select class="form-control selectpicker" name="product_id" data-live-search = true>
-                  <option value="all">ALL PRODUCT</option>
+                  <option value="all">TODOS LOS PRODUCTOS</option>
                   @foreach($products as $product)
                     <option value="{{$product->id}}">
                       {{$product->name}} 
@@ -666,10 +619,10 @@
 
           <div class="form-group">
             <div class="row">
-              {!! Form::label('branch', 'Branch', ['class' => 'col-sm-2']) !!} 
+              {!! Form::label('Sucursal', 'Sucursal', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10">   
                 <select class="form-control selectpicker" name="warehouse_id" data-live-search = true>
-                  <option value="all">ALL BRANCHES</option>
+                  <option value="all">TODAS LAS SUCURSALES</option>
                     @foreach($warehouses as $warehouse)
                       <option value="{{$warehouse->id}}">
                         {{$warehouse->name}}
@@ -700,16 +653,16 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Profit Report</h4>
+          <h4 class="modal-title">Informe de Ganancias</h4>
         </div>
         <div class="modal-body">
 
-          <div class="form-group">
+          <div class="form-group"  style="visibility: hidden">
             <div class="row">
-              {!! Form::label('branch', 'Branch', ['class' => 'col-sm-2']) !!} 
+              {!! Form::label('Sucursal', 'Sucursal', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10">   
                 <select class="form-control selectpicker" name="warehouse_id" data-live-search = true>
-                  <option value="all">ALL BRANCHES</option>
+                  <option value="all">TODAS LAS SUCURSALES</option>
                     @foreach($warehouses as $warehouse)
                       <option value="{{$warehouse->id}}">
                         {{$warehouse->name}}
@@ -722,7 +675,7 @@
 
           <div class="form-group"> 
             <div class="row">
-               {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
+               {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10"> 
                 {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
               </div>
@@ -731,7 +684,7 @@
 
           <div class="form-group">
             <div class="row">
-              {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
+              {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10">   
                 {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
               </div>
@@ -742,7 +695,7 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">
               {{trans('core.close')}}
             </button>
-            <button type="submit" class="btn btn-primary">{{trans('core.generate_report')}}</button>
+            <button type="submit" class="btn botom">{{trans('core.generate_report')}}</button>
           </div>
         </div>
       </div>
@@ -758,15 +711,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Due Report</h4>
+          <h4 class="modal-title">Reporte de Deuda</h4>
         </div>
         <div class="modal-body">
           <div class="form-group">
               <div class="row">
-                {!! Form::label('Customer', 'Customer', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Cliente', 'Cliente', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   <select class="form-control selectpicker" name="client_id" data-live-search = true>
-                    <option value="all">ALL CUSTOMER</option>
+                    <option value="all">TODOS LOS CLIENTES</option>
                     @foreach($clients as $client)
                       <option value="{{$client->id}}">
                         {{$client->first_name}}
@@ -780,7 +733,7 @@
 
           <div class="form-group"> 
             <div class="row">
-               {!! Form::label('From', 'From', ['class' => 'col-sm-2']) !!} 
+               {!! Form::label('Desde', 'Desde', ['class' => 'col-sm-2']) !!} 
               <div class="col-sm-10"> 
                 {!! Form::text('from', Request::get('from'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
               </div>
@@ -789,7 +742,7 @@
 
            <div class="form-group">
               <div class="row">
-                {!! Form::label('To', 'To', ['class' => 'col-sm-2']) !!} 
+                {!! Form::label('Hasta', 'Hasta', ['class' => 'col-sm-2']) !!} 
                 <div class="col-sm-10">   
                   {!! Form::text('to', Request::get('to'), ['class' => 'form-control dateTime','placeholder'=>"yyyy-mm-dd"]) !!}
                 </div>

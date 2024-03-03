@@ -92,9 +92,7 @@
 					<tr>
 						<td colspan="{{colSpanNumber()}}" @if(!rtlLocale()) style="text-align: right; font-weight: bold;" @endif>
 							{{trans('core.total')}} 
-							<span class=" font-size-9">
-								{{trans('core.excluding_tax')}}
-							</span>
+		
 						</td>
 						<td colspan="2" style="font-size: 20px; font-weight: bold; text-align: justify; color: #223BC4;">
 							&#2547; @{{total}}

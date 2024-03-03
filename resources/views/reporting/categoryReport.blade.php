@@ -20,9 +20,11 @@
 	<div id="printableArea" class="panel-body">
 		<h4 class="text-center">	
 			<b>{{trans('core.report_category')}}:</b>
-		 	{{carbonDate($from, 'y-m-d')}} 
+		 	<!--{{carbonDate($from, 'y-m-d')}}-->
+			 {{ \Carbon\Carbon::parse($from)->toDateString() }}
 		 	<b>{{trans('core.to')}}</b> 
-		 	{{carbonDate($to, 'y-m-d')}} 
+		 	<!--{{carbonDate($to, 'y-m-d')}} -->
+			 {{ \Carbon\Carbon::parse($to)->toDateString() }}
 		 </h4>
 	 
 		<table class="table table-bordered" width="100%">	

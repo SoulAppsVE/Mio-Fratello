@@ -1,17 +1,17 @@
 @extends('app')
 
 @section('title')
-	Add Damage Items
+	Agregar Items Dañados
 @stop
 
 @section('breadcrumb')
-	Add Damage Items
+	Agregar Items Dañados
 @stop
 
 @section('main-content')
 
 <div class="panel-body">
-	<h3 class="title-hero">Add Damage Items</h3>
+	<h3 class="title-hero">Agregar Items Dañados</h3>
 
 	<form method="post" id="app">
 		{{ csrf_field() }}

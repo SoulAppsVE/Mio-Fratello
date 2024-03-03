@@ -12,7 +12,7 @@
 
 <div class="panel-heading">
 	@if(auth()->user()->can('category.create'))
-		<a href="{{route('category.new')}}" class="btn btn-success btn-alt btn-xs">
+		<a href="{{route('category.new')}}" class="btn btn-alt btn-xs botom">
 			<i class='fa fa-plus'></i> 
 			{{trans('core.add_new_category')}}
 		</a>
@@ -25,13 +25,13 @@
             	{{ trans('core.clear') }}
             </a>
 
-            <a class="btn btn-primary btn-alt btn-xs" id="searchButton">
+            <a class="btn botom btn-alt btn-xs" id="searchButton">
             	<i class="fa fa-search"></i> 
             	{{ trans('core.modify_search') }}
             </a>
         </span>
     @else
-        <a class="btn btn-primary btn-alt btn-xs pull-right" id="searchButton">
+        <a class="btn botom btn-alt btn-xs pull-right" id="searchButton">
 			<i class="fa fa-search"></i> {{ trans('core.search') }}
 		</a>
     @endif
@@ -39,11 +39,10 @@
 
 <div class="panel-body">
 	<div class="table-responsive" style="min-height: 300px;">
-		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
-			<thead class="{{settings('theme')}}">
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" >
+			<thead  style="background-color:#1b2f4c ">
 				<td class="text-center font-white">#</td>
 				<td class="text-center font-white">{{trans('core.name')}}</td>
-				<td class="text-center font-white">{{trans('core.subcategory')}}</td>
 				<td class="text-center font-white">{{trans('core.actions')}}</td>
 			</thead>
 
@@ -52,13 +51,6 @@
 					<tr>
 						<td class="text-center">{{$loop->iteration}}</td>
 						<td class="text-center">{{$category->category_name}}</td>
-						<td class="text-center">
-							<ol>
-								@foreach($category->subcategories as $subcategory)
-									<li>{{$subcategory->name}}</li>
-								@endforeach
-							</ol>
-						</td>
 						<td class="text-center">
 							@if(auth()->user()->can('category.manage'))
 								<a href="{{route('category.edit',$category)}}" class="btn btn-info btn-alt btn-xs">
@@ -98,7 +90,7 @@
 					        @endif
 					      </div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 					        <button type="submit" class="btn btn-danger">
 					        	{{trans('core.delete')}}
 					        </button>
@@ -140,7 +132,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-                {!! Form::submit('Search', ['class' => 'btn btn-primary', 'data-disable-with' => trans('core.searching')]) !!}
+                {!! Form::submit('Buscar', ['class' => 'btn botom', 'data-disable-with' => trans('core.searching')]) !!}
             </div>
             {!! Form::close() !!}
         </div>

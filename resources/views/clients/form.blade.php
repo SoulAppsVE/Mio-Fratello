@@ -2,7 +2,7 @@
 
 @section('title')
 	@if($client->id)
-		Editing {{$client->name}}
+		Editar {{$client->name}}
 	@else	
 		{{trans('core.add_new_customer')}}
 	@endif
@@ -24,7 +24,7 @@
 
 	    <h3 class="title-hero">
 			@if($client->id)
-				Editing <b>{{$client->name}}</b>
+				Editar <b>{{$client->name}}</b>
 			@else	
 				{{trans('core.add_new_customer')}}
 			@endif
@@ -35,14 +35,14 @@
 
 			{!! Form::hidden('id', $client->id) !!}
 			<div class="form-group">
-				<label class="col-sm-3 control-label">{{ trans('core.first_name') }}<span class="required">*</span></label>
+				<label class="col-sm-3 control-label">Nombre<span class="required">*</span></label>
 				<div class="col-sm-6">
 					{!! Form::text('first_name', $client->first_name, ['class' => 'form-control']) !!}
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-3 control-label">{{ trans('core.last_name') }}</label>
+				<label class="col-sm-3 control-label">CI/RIF</label>
 				<div class="col-sm-6">
 					{!! Form::text('last_name', $client->last_name, ['class' => 'form-control']) !!}
 				</div>
@@ -69,14 +69,14 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<!--<div class="form-group">
 				<label class="col-sm-3 control-label">{{ trans('core.company_name') }}</label>
 				<div class="col-sm-6">
 					{!! Form::text('company_name', $client->company_name, ['class' => 'form-control']) !!}
 				</div>
-			</div>
+			</div>-->
 
-			<div class="form-group">
+			<!--<div class="form-group">
 				<label class="col-sm-3 control-label">
 					{{ trans('core.account_no') }}
 				</label>
@@ -92,7 +92,7 @@
 				<div class="col-sm-6">
 					{!! Form::text('previous_due', $client->provious_due, ['class' => 'form-control', 'onkeypress'=> 'return event.charCode <= 57 && event.charCode != 32']) !!}
 				</div>
-			</div>
+			</div>-->
 			
 
 			@if($client->client_type != 'purchaser')
@@ -107,7 +107,7 @@
 		</div>
 
 	    <div class="bg-default content-box text-center pad20A mrg25T">
-            <input type="submit" class="btn btn-lg btn-primary" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
+            <input type="submit" class="btn btn-lg botom" id="submitButton" value="{{ trans('core.save') }}" onclick="submitted()">
         </div>
 
 	{!! Form::close() !!}

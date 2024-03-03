@@ -1,4 +1,4 @@
-@extends('app')
+@extends('printer')
 
 <style>
   thead tr th{
@@ -13,7 +13,8 @@
         <div class="col-xs-12">
           <h4 class="page-header" >
             @if(!empty(settings('site_logo')))
-              <img src="{!! asset('uploads/site/'.settings('site_logo')) !!}" style="height: 100px; width: auto;">
+              <!--<img src="{!! asset('img/ferretodo.jpg') !!}" style="height: 84px; width: 190px;">-->
+            <p><strong>{{settings('site_name')}}</strong></p>
             @else
                 <p>{{settings('site_name')}}</p>
             @endif

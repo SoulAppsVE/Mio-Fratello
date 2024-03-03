@@ -2,7 +2,11 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\Quotation;
+use App\Quotationd;
 use App\Tax;
+use App\Orderc;
+use App\Ordercd;
 use App\Client;
 use App\Payment;
 use App\Product;
@@ -16,7 +20,7 @@ use App\Http\Requests\ItemRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PurchaseRequest;
 use App\Exceptions\ValidationException;
-
+use Illuminate\Support\Facades\Input;
 
 class PurchaseController extends Controller
 {
@@ -59,7 +63,7 @@ class PurchaseController extends Controller
 
         return view('purchases.index')
                 ->withSuppliers($suppliers)
-                ->withTransactions($transactions->paginate(20));
+                ->withTransactions($transactions->paginate(10));
     }
 
     /**
@@ -276,6 +280,7 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.index')->withSuccess($message);
     }
 
+
     public function getProductsByPurchaseId(Request $request, $purchaseId)
     {
         $purchaseId = $purchaseId;
@@ -292,5 +297,260 @@ class PurchaseController extends Controller
 
         return $products;
     }
+
+    // ORDENES DE COMPRA
+
+    public function getOrderPurchase(Request $request){
+        $purchase = new Purchase;
+        $suppliers = Client::where('client_type', 'purchaser')->where('id', '!=', 2)->get();
+        $products = Product::orderBy('name', 'asc')->where('status',1)->select('id','name','cost_price', 'mrp', 'quantity', 'tax_id', 'code')->get();
+        return view('purchases.order')
+                        ->withPurchase($purchase)
+                        ->withSuppliers($suppliers)
+                        ->withProducts($products);
+    }
+
+    public function postOrder(PurchaseRequest $request)
+    {   
+  
+          $total = 0;
+          $orderc = new Orderc();
+          $orderc->client_id = $request->get('supplier');
+          $orderc->date = Carbon::parse($request->get('date'))->format('Y-m-d');
+          $orderc->save();
+
+          //Guardo los Detalles
+          $purchases = $request->get('purchases');
+
+          foreach ($purchases as $purchase_item) {
+          
+          $total = $total + $purchase_item['subtotal'];
+          $ordercd = new Ordercd();
+          $ordercd->orderc_id = $orderc->id;
+          $ordercd->product_id = $purchase_item['product_id'];
+          $ordercd->quantity = $purchase_item['quantity'];
+          $ordercd->subtotal= $purchase_item['subtotal'];
+          $ordercd->save();
+
+          }
+
+       $message = trans('core.changes_saved');
+       return redirect()->back()->withSuccess($message);
+        
+    }
+
+    public function getEditOrderc($id) {
+
+        $orderc = Orderc::findOrFail($id);
+        $ordercds= Ordercd::join('products','ordercds.product_id','=','products.id')
+        ->select('ordercds.id','ordercds.quantity','ordercds.product_id','ordercds.subtotal','products.name','products.cost_price')
+        ->where('ordercds.orderc_id','=',$orderc->id)
+        ->orderBy('ordercds.id', 'desc')->get();
+
+        $suppliers = Client::where('client_type', 'purchaser')->where('id', '!=', 2)->get();
+        $products = Product::orderBy('name', 'asc')->where('status',1)->select('id','name','cost_price', 'mrp', 'quantity', 'tax_id', 'code')->get();
+        return view('purchases.editorder',compact('orderc','suppliers','products','ordercds'));
+    }
+
+    public function getOrderc(Request $request)
+    {   
+       $ordercs = Orderc::orderBy('ordercs.id', 'desc')->paginate(10);;
+
+       return view('purchases.ordercs')->withOrdercs($ordercs);
+    }
+
+    public function orderInvoice($id)
+    {
+        $orderc = Orderc::find($id);
+
+        $ordercd= Ordercd::join('products','ordercds.product_id','=','products.id')
+        ->select('ordercds.id','ordercds.quantity','ordercds.subtotal','products.name','products.cost_price')
+        ->where('ordercds.orderc_id','=',$orderc->id)
+        ->orderBy('ordercds.id', 'desc')->get();
+
+        return view('purchases.invoiceorder', compact('orderc','ordercd'));
+    }
+
+    public function deleteOrder(Request $request) {
+
+        $orderc = Orderc::findorFail($request->get('id'));
+
+        $orderc->delete();
+
+        $message = trans('core.deleted');
+        return redirect()->route('purchase.ordercs')->withSuccess($message);
+    }
+
+    
+     public function addOrder(PurchaseRequest $request)
+    {   
+
+          //Guardo los Detalles
+          $purchases = $request->get('purchases');
+          $total = 0;
+          foreach ($purchases as $purchase_item) {
+          
+          $total = $total + $purchase_item['subtotal'];
+          $ordercd = new Ordercd();
+          $ordercd->orderc_id = $request->get('norden');
+          $ordercd->product_id = $purchase_item['product_id'];
+          $ordercd->quantity = $purchase_item['quantity'];
+          $ordercd->subtotal= $purchase_item['subtotal'];
+          $ordercd->save();
+
+          }
+
+       $message = trans('core.changes_saved');
+       return redirect()->back()->withSuccess($message);
+        
+    }
+
+    public function deleteOrdercd(Request $request) {
+
+        $ordercd = Ordercd::find($request->id);
+        $ordercd->delete();
+
+        return $ordercd;
+    }
+
+    public function updateOrdercd(Request $request)
+    {   
+          $ordercd = Ordercd::findOrFail($request->id);
+          $ordercd->quantity = $request->quantity;
+          $ordercd->subtotal= $request->subtotal;
+          $ordercd->update();
+
+       return response ()->json ( $ordercd);
+        
+    }
+
+    // COTIZACIONES 
+  
+
+    public function getQuotationPurchase(Request $request){
+        $purchase = new Purchase;
+        $suppliers = Client::where('client_type', 'customer')->where('id', '!=', 2)->get();
+        $products = Product::orderBy('name', 'asc')->where('status',1)->select('id','name','cost_price', 'mrp', 'quantity', 'tax_id', 'code')->get();
+        return view('purchases.quotation')
+                        ->withPurchase($purchase)
+                        ->withSuppliers($suppliers)
+                        ->withProducts($products);
+    }
+
+      public function postQuotation(PurchaseRequest $request)
+    {   
+  
+          $total = 0;
+          $quotation = new Quotation();
+          $quotation->client_id = $request->get('supplier');
+          $quotation->date = Carbon::parse($request->get('date'))->format('Y-m-d');
+          $quotation->save();
+
+          //Guardo los Detalles
+          $purchases = $request->get('purchases');
+
+          foreach ($purchases as $purchase_item) {
+          
+          $total = $total + $purchase_item['subtotal'];
+          $quotationd = new Quotationd();
+          $quotationd->quotation_id = $quotation->id;
+          $quotationd->product_id = $purchase_item['product_id'];
+          $quotationd->quantity = $purchase_item['quantity'];
+          $quotationd->subtotal= $purchase_item['subtotal'];
+          $quotationd->save();
+
+          }
+
+       $message = trans('core.changes_saved');
+       return redirect()->back()->withSuccess($message);
+        
+    }
+
+    public function getEditquotation($id) {
+
+        $quotation = Quotation::findOrFail($id);
+        $quotationd= Quotationd::join('products','quotationds.product_id','=','products.id')
+        ->select('quotationds.id','quotationds.quantity','quotationds.product_id','quotationds.subtotal','products.name','products.mrp')
+        ->where('quotationds.quotation_id','=',$quotation->id)
+        ->orderBy('quotationds.id', 'desc')->get();
+
+        $suppliers = Client::where('client_type', 'customer')->where('id', '!=', 2)->get();
+        $products = Product::orderBy('name', 'asc')->where('status',1)->select('id','name','cost_price', 'mrp', 'quantity', 'tax_id', 'code')->get();
+        return view('purchases.editquotation',compact('quotation','suppliers','products','quotationd'));
+    }
+
+    public function getQuotation(Request $request)
+    {   
+       $quotations = Quotation::orderBy('quotations.id', 'desc')->paginate(10);;
+
+       return view('purchases.quotations')->withquotations($quotations);
+    }
+
+    public function quotationInvoice($id)
+    {
+        $quotation = Quotation::find($id);
+
+        $quotationd= Quotationd::join('products','quotationds.product_id','=','products.id')
+        ->select('quotationds.id','quotationds.quantity','quotationds.subtotal','products.name','products.mrp')
+        ->where('quotationds.quotation_id','=',$quotation->id)
+        ->orderBy('quotationds.id', 'desc')->get();
+
+        return view('purchases.invoicequotation', compact('quotation','quotationd'));
+    }
+
+
+       public function deleteQuotation(Request $request) {
+
+        $quotation = Quotation::findorFail($request->get('id'));
+
+        $quotation->delete();
+
+        $message = trans('core.deleted');
+        return redirect()->route('sell.quotations')->withSuccess($message);
+    }
+
+    
+     public function addQuotation(PurchaseRequest $request)
+    {   
+
+          //Guardo los Detalles
+          $purchases = $request->get('purchases');
+          $total = 0;
+          foreach ($purchases as $purchase_item) {
+          
+          $total = $total + $purchase_item['subtotal'];
+          $quotationd = new Quotationd();
+          $quotationd->quotation_id = $request->get('norden');
+          $quotationd->product_id = $purchase_item['product_id'];
+          $quotationd->quantity = $purchase_item['quantity'];
+          $quotationd->subtotal= $purchase_item['subtotal'];
+          $quotationd->save();
+
+          }
+
+       $message = trans('core.changes_saved');
+       return redirect()->back()->withSuccess($message);
+        
+    }
+
+    public function deleteQuotationd(Request $request) {
+
+        $quotationd = Quotationd::find($request->id);
+        $quotationd->delete();
+
+        return $quotationd;
+    }
+
+    public function updateQuotationd(Request $request)
+    {   
+          $quotationd = Quotationd::findOrFail($request->id);
+          $quotationd->quantity = $request->quantity;
+          $quotationd->subtotal= $request->subtotal;
+          $quotationd->update();
+
+       return response ()->json ( $quotationd);
+        
+    } 
+
 
 }

@@ -27,7 +27,7 @@
             </a>
         </span>
         @else
-            <a class="btn btn-alt btn-primary btn-xs pull-right" id="searchButton" style="border-radius: 0px !important;" >
+            <a class="btn btn-alt botom btn-xs pull-right" id="searchButton" style="border-radius: 0px !important;" >
                 <i class="fa fa-search"></i>
                 {{ trans('core.search') }}
             </a>
@@ -36,9 +36,9 @@
 
 	<div class="panel-body">
 		<table class="table table-bordered table-striped">
-			<thead class="{{settings('theme')}}">
+			<thead style="background-color:#1b2f4c ">
 				<td class="text-center font-white">{{trans('core.time')}}</td>
-				<td class="text-center font-white">{{trans('core.bill_no')}}</td>
+				<td class="text-center font-white">N° Orden de Compra</td>
 	            <td class="text-center font-white">{{trans('core.supplier')}}</td>
 	            <td class="text-center font-white">{{trans('core.net_total')}}</td>
 	            <td class="text-center font-white">{{trans('core.paid')}}</td>
@@ -75,7 +75,7 @@
 	                    <td class="text-center">   
 	                    	<a target="_BLINK" href="{{route('purchase.invoice', $bill)}}" class="btn btn-warning btn-alt btn-xs">
 	                    		<i class="fa fa-print"></i>
-	                    		{{trans('core.bill')}}
+	                    		Orden de Compra
 	                    	</a>
 	                    	<a href="{{route('purchase.details', $bill)}}" class="btn btn-alt btn-purple btn-xs">
 	                    		{{trans('core.details')}}

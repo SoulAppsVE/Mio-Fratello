@@ -15,7 +15,7 @@ class CreateTasasTable extends Migration
     {
         Schema::create('tasas', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('tasa');
+            $table->decimal('tasa',10,2);
             $table->timestamps();
         });
     }

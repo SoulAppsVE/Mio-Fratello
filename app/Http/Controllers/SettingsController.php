@@ -94,7 +94,7 @@ class SettingsController extends Controller
             $imageSize = getimagesize($file);
             $width = $imageSize[0];
             $height = $imageSize[1];
-            if($width > 190 || $height > 34){
+            if($width > 150 || $height > 84){
                 $warning = "Invalid Image Size";
                 return redirect()->back()->withWarning($warning);
             }

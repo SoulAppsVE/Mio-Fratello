@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('contentheader')
-	{{$user->name}}'s {{ trans('core.profile') }}
+	{{$user->name}} {{ trans('core.profile') }}
 @stop
 
 @section('breadcrumb')
@@ -87,12 +87,12 @@
           		{{csrf_field()}}
           	  <input type="hidden" name="user_id" value="{{$user->id}}">
               <div class="form-group">
-                <label for="inputName" class="col-sm-2 control-label">First Name</label>
+                <label for="inputName" class="col-sm-2 control-label">Primer Nombre</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" id="inputName" value="{{$user->first_name}}" name="first_name" @if($user->hasRole('Super User')) disabled="true" title="You Can't Edit This Section" @endif>
+                  <input type="text" class="form-control" id="inputName" value="{{$user->first_name}}" name="first_name" @if($user->hasRole('Super User')) disabled="true" title="No puedes editar esta sección" @endif>
                 </div>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" id="inputName" value="{{$user->last_name}}" name="last_name" @if($user->hasRole('Super User')) disabled="true" title="You Can't Edit This Section" @endif>
+                  <input type="text" class="form-control" id="inputName" value="{{$user->last_name}}" name="last_name" @if($user->hasRole('Super User')) disabled="true" title="No puedes editar esta sección" @endif>
                 </div>
 
               </div>
@@ -100,7 +100,7 @@
                 <label class="col-sm-2 control-label">{{ trans('core.email') }}</label>
 
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" value="{{$user->email}}" name="email" @if($user->hasRole('Super User')) disabled="true" title="You Can't Edit This Section" @endif>
+                  <input type="email" class="form-control" value="{{$user->email}}" name="email" @if($user->hasRole('Super User')) disabled="true" title="No puedes editar esta sección" @endif>
                 </div>
               </div>
               <div class="form-group">
@@ -140,7 +140,7 @@
                   {{ trans('core.old_password') }}
                 </label>
                 <div class="col-sm-10">
-                  <input id="password" type="password" class="form-control" placeholder="Type your old password"  name="old_password">
+                  <input id="password" type="password" class="form-control" placeholder="Escribe tu antigua contraseña"  name="old_password">
 
                   <!-- Alert Message Shows on Password Match State -->
                   <p id="correct" style="color: green;">
@@ -160,7 +160,7 @@
                     {{ trans('core.new_password') }}
                   </label>
                   <div class="col-sm-10">
-                    <input id="new_password" type="password" class="form-control" placeholder="Type Your New Password"  name="password" required>
+                    <input id="new_password" type="password" class="form-control" placeholder="Escriba su nueva contraseña"  name="password" required>
                   </div>
                 </div>
 
@@ -169,12 +169,12 @@
                     {{ trans('core.re_type_password') }}
                   </label>
                   <div class="col-sm-10">
-                    <input id="new_pass_conf" type="password" class="form-control" placeholder="Re Type Password"  name="confirm_password" required>
+                    <input id="new_pass_conf" type="password" class="form-control" placeholder="Vuelva a escribir la contraseña"  name="confirm_password" required>
                     <p id="match" style="color: green;">
-                      <i class="fa fa-check"></i> Password Match
+                      <i class="fa fa-check"></i> Coincidencia de contraseña
                     </p>
                     <p id="mis_match" style="color: red;">
-                      <i class="fa fa-times"></i> Your Passwords don't Match
+                      <i class="fa fa-times"></i> Tus contraseñas no coinciden
                     </p>
                   </div>
                 </div>

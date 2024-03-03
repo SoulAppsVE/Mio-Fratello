@@ -18,7 +18,7 @@
         @if(auth()->user()->can('sell.create'))
             <a 
                 href="{{route('sell.form')}}" 
-                class="btn btn-success btn-alt btn-xs" 
+                class="btn botom btn-alt btn-xs" 
                 style="border-radius: 0px !important;" 
             >
                 <i class='fa fa-plus'></i> 
@@ -42,13 +42,13 @@
                 </a>
             </span>
         @else
-            <a class="btn btn-primary btn-alt btn-xs pull-right" id="searchButton">
+            <a class="btn botom btn-alt btn-xs pull-right" id="searchButton">
                 <i class="fa fa-search"></i>
                 {{ trans('core.search') }}
             </a>
         @endif
 
-        <input type="button" class="btn btn-alt bg-purple btn-xs" onclick="showSummary()" id="summaryBtn" value="Summary">
+        <input type="button" class="btn btn-alt bg-purple btn-xs" onclick="showSummary()" id="summaryBtn" value="Resumen">
     </div>
 
     <div class="panel-body">
@@ -61,7 +61,7 @@
                     <td @if(rtlLocale()) style="text-align: right;" @endif>
                         {{settings('currency_code')}}
                         {{twoPlaceDecimal($total)}} 
-                        <span class="font-size-9">{{trans('core.excluding_vat_and_tax')}}</span>
+                       
                     </td>
                 </tr>
 
@@ -104,7 +104,7 @@
                     <td @if(rtlLocale()) style="text-align: right;" @endif>
                         {{settings('currency_code')}}
                         {{twoPlaceDecimal($total_cost_price)}}
-                        <span class="font-size-9">{{trans('core.excluding_vat_and_tax')}}</span>
+                        
                     </td>
                 </tr>
 
@@ -122,10 +122,11 @@
 
         <div class="table-responsive" style="min-height: 300px;" id="tableDIv">
         	<table class="table table-bordered table-striped">
-                <thead  class="{{settings('theme')}}">
+                <thead  style="background-color:#1b2f4c ">
                     <td class="text-center font-white" width="17%">{{trans('core.date')}}</td>
-                    <td class="text-center font-white" width="15%">{{trans('core.invoice_no')}}</td>
+                    <td class="text-center font-white" width="15%">N° Orden de Compra</td>
                     <td class="text-center font-white" width="15%">{{trans('core.customer')}}</td>
+                    <td class="text-center font-white" width="15%">Vendedor</td>
                     <td class="text-center font-white" width="15%">{{trans('core.net_total')}}</td>
                     <td class="text-center font-white" width="13%">{{trans('core.paid')}}</td>
                     <td class="text-center font-white" width="10%">{{trans('core.actions')}}</td>
@@ -138,7 +139,8 @@
                                 @if($transaction->return_invoice)
                                    <i class="fa fa-retweet" style="color: orange;"></i>
                                 @endif
-                                {{ carbonDate($transaction->date, 'y-m-d') }}
+                                <!--{{ carbonDate($transaction->date, 'y-m-d') }}-->
+                                 {{ date('d/m/Y h:i A', strtotime($transaction->date)) }}
                             </td>
 
                             <td class="text-center" width="20%">
@@ -151,7 +153,9 @@
                             <td class="text-center" width="15%">
                                 {{$transaction->client->name}}
                             </td>
-
+                            <td class="text-center" width="15%">
+                                {{$transaction->user->first_name}}
+                            </td>
                             <td class="text-center">
                                 {{settings('currency_code')}} 
                                 {{twoPlaceDecimal($transaction->net_total)}} 
@@ -177,19 +181,19 @@
                                     <li>
                                         <a target="_BLANK" href="{{route('sell.invoice', $transaction)}}">
                                             <i class="fa fa-file" style="color: #edb426;"></i> 
-                                            {{trans('core.invoice')}}
+                                            Orden de Compra
                                         </a> 
                                     </li>
                                     
                                     @if(auth()->user()->can('return.create'))
                                         @if(!$transaction->return_invoice)
                                             @if($transaction->return != 1)
-                                            <li>
+                                            <!--<li>
                                                 <a href="{{route('sell.return', $transaction)}}">
                                                     <i class="fa fa-backward" style="color: #0ad629;"></i>
                                                     {{trans('core.return')}}
                                                 </a>
-                                            </li>
+                                            </li>-->
                                             @endif
                                         @endif
                                     @endif
@@ -215,7 +219,7 @@
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    Are you sure to delete the sell #<b>{{$transaction->reference_no}}</b>?
+                                    ¿Estás segura de eliminar la venta? #<b>{{$transaction->reference_no}}</b>?
                                 </h4>
                               </div>
                               <div class="modal-body">
@@ -229,10 +233,10 @@
                                 <hr>
                                 <b>Total: {{$transaction->total}} {{settings('currency_code')}}</b>
                                 <br>
-                                <b>Paid: {{$transaction->paid}} {{settings('currency_code')}}</b>
+                                <b>Pagado: {{$transaction->paid}} {{settings('currency_code')}}</b>
                                 <br /><br />
 
-                                <div class="alert alert-success alert-red">If you delete this sell, all the transactions of this sale will also be deleted.</div>
+                                <div class="alert alert-success alert-red">Si eliminas esta venta, también se eliminarán todas las transacciones de esta venta.</div>
                                 
                               </div>
                               <div class="modal-footer">
@@ -260,7 +264,7 @@
 
     <div class="pull-right" id="tableFooterDIv" style="display: none;">
         <small>
-        <b>*Note:</b> Profit Calculation has been done without Vat/Tax
+        
         </small>
     </div>
 
@@ -277,7 +281,7 @@
                 <div class="modal-body">                  
                     <div class="form-group">
                         <label class="col-sm-3" @if(rtlLocale()) style="text-align: left;" @endif>
-                            {{trans('core.invoice_no')}}
+                            N° Orden de Compra
                         </label>
                         <div class="col-sm-9">
                             {!! Form::text('invoice_no', Request::get('invoice_no'), ['class' => 'form-control']) !!}
@@ -289,14 +293,14 @@
                             {{trans('core.customer')}}
                         </label>
                         <div class="col-sm-9">
-                            {!! Form::select('customer', $customers, Request::get('customer'), ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'placeholder' => 'Please select a customer']) !!}
+                            {!! Form::select('customer', $customers, Request::get('customer'), ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'placeholder' => 'Seleccione un cliente']) !!}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3" @if(!rtlLocale()) style="text-align: left;" @endif>{{trans('core.type')}}</label>
                         <div class="col-sm-9">
-                            {!! Form::select('type', ['0' => 'ALL', 'pos' => 'POS'], Request::get('type'), ['class' => 'form-control selectpicker']) !!}
+                            {!! Form::select('type', ['0' => 'Todos'], Request::get('type'), ['class' => 'form-control selectpicker']) !!}
                         </div>
                     </div>
 
@@ -322,7 +326,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-                    {!! Form::submit('Search', ['class' => 'btn btn-primary', 'data-disable-with' => trans('core.searching')]) !!}
+                    {!! Form::submit('Buscar', ['class' => 'btn botom', 'data-disable-with' => trans('core.searching')]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -347,8 +351,8 @@
             var y = document.getElementById("tableDIv");
             var z = document.getElementById("tableFooterDIv");
             var elem = document.getElementById("summaryBtn");
-            if (elem.value=="Summary") elem.value = "Sales List";
-            else elem.value = "Summary";
+            if (elem.value=="Resumen") elem.value = "Lista de Ventas";
+            else elem.value = "Resumen";
             if (x.style.display === "none") {
                 x.style.display = "block";
                 z.style.display = "block";

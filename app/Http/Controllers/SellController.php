@@ -17,6 +17,7 @@ use App\Http\Requests\ItemRequest;
 use App\Http\Requests\SellRequest;
 use App\Http\Controllers\Controller;
 use App\Exceptions\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class SellController extends Controller
 {
@@ -81,7 +82,7 @@ class SellController extends Controller
         
         return view('sells.index')
                 ->withCustomers($customers)
-                ->withTransactions($transactions->paginate(20))
+                ->withTransactions($transactions->paginate(10))
                 ->with('net_total', $net_total)
                 ->with('invoice_tax', $invoice_tax)
                 ->with('product_tax', $product_tax)
@@ -110,7 +111,7 @@ class SellController extends Controller
     public function getNewsell(Request $request){
         $sell = new Sell;
         $customers = Client::where('client_type','!=', 'purchaser')->where('id', '!=', 1)->get();
-        $products = Product::orderBy('name', 'asc')->where('status', 1)->select('id','name','cost_price', 'mrp','minimum_retail_price','quantity', 'tax_id', 'code')->get();
+        $products = Product::orderBy('name', 'asc')->where('status', 1)->where('quantity', '>', 0)->select('id','name','cost_price', 'mrp','minimum_retail_price','quantity', 'tax_id', 'code')->get();
         return view('sells.new')
                         ->withSell($sell)
                         ->withCustomers($customers)
@@ -183,7 +184,7 @@ class SellController extends Controller
                 $sell->save();
 
                 $product = $sell->product;
-                $product->quantity = $product->quantity - intval($sell_item['quantity']);
+                $product->quantity = $product->quantity - $sell_item['quantity'];
                 $product->save();
             }
 
@@ -213,6 +214,7 @@ class SellController extends Controller
             $transaction = new Transaction;
                 $transaction->reference_no = $ref_no;
                 $transaction->client_id = $customer;
+                $transaction->user_id = Auth::id();
                 $transaction->transaction_type = 'sell';
                 $transaction->total_cost_price = $total_cost_price;
                 $transaction->discount = $discountAmount;
@@ -241,7 +243,7 @@ class SellController extends Controller
 
         //round(520.34345,2)
 
-        return response(['message' => 'Successfully saved transaction.']);
+        return response(['message' => 'Transacción guardada exitosamente.']);
     }
 
     /**

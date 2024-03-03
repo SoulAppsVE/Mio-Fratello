@@ -13,7 +13,7 @@
 	
 	<div class="panel-heading">
 		@if(auth()->user()->can('acl.manage'))
-			<a type="button" class="btn btn-success btn-xs " data-toggle="modal" data-target="#myModal">
+			<a type="button" class="btn botom btn-xs " data-toggle="modal" data-target="#myModal">
 			   <i class="fa fa-plus"></i> 
 			   {{trans('core.add_new_role')}}
 			</a>
@@ -21,10 +21,10 @@
 	</div>
 
 	<div class="panel-body">
-		<table class="table table-hover table-bordered" >
-			<thead class="table-header-color">
-				<td class="text-center">{{trans('core.role')}}</td>
-				<td class="text-center">{{trans('core.actions')}}</td>
+		<table class="table table-bordered" >
+			<thead style="background-color:#1b2f4c;">
+				<td class="text-center" style="color: #fff">{{trans('core.role')}}</td>
+				<td class="text-center" style="color: #fff">{{trans('core.actions')}}</td>
 			</thead>
 
 			<tbody>
@@ -79,7 +79,7 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">
             	{{trans('core.close')}}
             </button>
-            {!! Form::submit('Save', ['class' => 'btn btn-primary', 'data-disable-with' => 'Saving']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn botom', 'data-disable-with' => 'Saving']) !!}
           </div>
         {!! Form::close() !!}
 	    </div>

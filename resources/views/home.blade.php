@@ -28,13 +28,13 @@
                     {{settings('currency_code')}}
                     {{bangla_digit($todays_stats['total_selling_price'] )}}
 
-                    Bs {{bangla_digit($todays_stats['total_selling_price'] * $dolar)}}
+                    / Bs {{  number_format(($todays_stats['total_selling_price'] * $dolar),2,",","." ) }}
                     <small style="font-size: 12px !important;">
                       ({{trans('core.today')}})
                     </small>
                     <span>Ventas<b> ultimos 7 días</b></span>
                 </div>
-                <div class="bs-label bg-primary">Ventas</div>
+                <!--<div class="bs-label bg-primary">Ventas</div>-->
                 <div class="center-div sparkline-big-alt">{{ $lastSevenDaySells}}</div>
                 <div class="row list-grade">
                   @foreach($daynames as $dayname)
@@ -49,19 +49,23 @@
                     
                 </div>
             </div>
-            <div class="button-pane" style="background-color: #00ACA8;">
+            <div class="button-pane" style="background-color: #1b2f4c;">
                 <div class="size-md float-left">
+                  @if(auth()->user()->can('sell.manage'))
                     <a href="{{route('invoice.today')}}" style="color: white;">
-                        Ver Facturas Hoy
+                        Ver ordenes de hoy
                     </a>
+                   @endif
                 </div>
-                <a class="btn btn-default float-right tooltip-button"  href="{{route('invoice.today')}}" class="tooltip-button" data-placement="bottom" title="View Invoices">
-                    <i class="glyph-icon icon-caret-right"></i>
-                </a>
+                @if(auth()->user()->can('sell.manage'))
+                  <a class="btn btn-default float-right tooltip-button"  href="{{route('invoice.today')}}" class="tooltip-button" data-placement="bottom" title="Ver ordenes de hoy">
+                      <i class="glyph-icon icon-caret-right"></i>
+                  </a>
+                @endif
             </div>
         </div>
     </div>
-
+<!--
     <div class="col-md-4">
       <div class="dashboard-box dashboard-box-chart bg-white content-box">
           <div class="content-wrapper">
@@ -69,7 +73,7 @@
                   {{settings('currency_code')}}
                   {{bangla_digit($todays_stats['total_purchasing_price'])}}
 
-                  Bs {{bangla_digit($todays_stats['total_purchasing_price'])}}
+                  / Bs {{  number_format(($todays_stats['total_purchasing_price'] * $dolar),2,",","." ) }}
                   <small style="font-size: 12px !important;">
                     ({{trans('core.today')}})
                   </small>
@@ -89,15 +93,19 @@
                   @endforeach
               </div>
           </div>
-          <div class="button-pane" style="background-color: #984DFF;">
+          <div class="button-pane" style="background-color: #1b2f4c;">
               <div class="size-md float-left">
+                @if(auth()->user()->can('admins.manage'))
                   <a href="{{route('bill.today')}}" style="color: #FFF;">
                       Ver Facturas de Compras
                   </a>
+                @endif 
               </div>
-              <a href="{{route('bill.today')}}" class="btn btn-default float-right tooltip-button" data-placement="top" title="" data-original-title="View Bills">
-                  <i class="glyph-icon icon-caret-right"></i>
-              </a>
+              @if(auth()->user()->can('admins.manage'))
+                <a href="{{route('bill.today')}}" class="btn btn-default float-right tooltip-button" data-placement="top" title="" data-original-title="Ver facturas">
+                    <i class="glyph-icon icon-caret-right"></i>
+                </a>
+              @endif
           </div>
       </div>
     </div>
@@ -108,12 +116,14 @@
                 <div class="header" style="font-size: 20px !important;">
                     {{settings('currency_code')}}
                     {{bangla_digit($todays_stats['total_transactions_today'])}}
+
+                    / Bs {{  number_format(($todays_stats['total_transactions_today'] * $dolar),2,",","." ) }}
                     <small style="font-size: 12px !important;">
                       ({{trans('core.today')}})
                     </small>
                     <span>Transacciones <b> ultimos 7 días </b></span>
-                </div>
-                <div class="bs-label bg-green">Transacciones</div>
+                </div>-->
+                <!--<div class="bs-label bg-green">Transacciones</div>
                 <div class="center-div sparkline-big-alt">{{$lastSevenDayTransactions}}</div>
                 <div class="row list-grade">
                     @foreach($daynames as $dayname)
@@ -127,17 +137,21 @@
                     @endforeach
                 </div>
             </div>
-            <div class="button-pane" style="background-color: #2ECC71;">
+            <div class="button-pane" style="background-color: #1b2f4c;">
                 <div class="size-md float-left">
+                  @if(auth()->user()->can('sell.manage'))
                     <a href="{{route('transactions.today')}}" style="color: white;" >
                         Ver Transacciones Hoy
                     </a>
+                   @endif 
                 </div>
-                <a href="{{route('transactions.today')}}" class="btn btn-default float-right tooltip-button" data-placement="bottom" title="View Transaction">
-                    <i class="glyph-icon icon-caret-right"></i>
-                </a>
+                @if(auth()->user()->can('sell.manage'))
+                  <a href="{{route('transactions.today')}}" class="btn btn-default float-right tooltip-button" data-placement="bottom" title="Ver transacciones">
+                      <i class="glyph-icon icon-caret-right"></i>
+                  </a>
+                @endif
             </div>
-        </div>
+        </div>-->
     </div>
   </div>
   @endif
@@ -169,7 +183,7 @@
                 </span>
               </div>
           </div>
-          <a href="{{route('invoice.today')}}" class="tile-footer tooltip-button" data-placement="bottom" title="View Invoices">
+          <a href="{{route('invoice.today')}}" class="tile-footer tooltip-button" data-placement="bottom" title="Mirar la factura">
               View Invoices
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
@@ -200,17 +214,17 @@
                 </span>
               </div>
           </div>
-          <a href="{{route('bill.today')}}" class="tile-footer tooltip-button" data-placement="bottom" title="View Bills">
-              View Bills
+          <a href="{{route('bill.today')}}" class="tile-footer tooltip-button" data-placement="bottom" title="Ver facturas">
+              Ver Facturas
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
       </div>
 
-    </div> <!-- /.col -->
+   <!-- </div>  /.col -->
     <!--Total bill for today ends-->
 
 
-    <!--Total cash received today-->
+    <!--Total cash received today
     <div class="col-md-4 col-sm-6 col-xs-12 animated headShake">
     
       <div class="tile-box tile-box-alt {{settings('theme')}} font-white">
@@ -236,7 +250,7 @@
               <i class="glyph-icon icon-arrow-right"></i>
           </a>
       </div>
-    </div> <!-- /.col -->
+    </div> --><!-- /.col -->
 
     <!--Ends-->
   </div>
@@ -250,44 +264,48 @@
   <!-- Chart -->
   <div class="row">
     <div class="col-md-6 col-xs-12" >
+         @if(auth()->user()->can('admins.manage'))
         <div class="dashboard-box dashboard-box-chart bg-white content-box">
             <div class="content-wrapper">
-                <div class="header">Ventas vs Compras</div>
+                <div class="header">Ventas</div>
                 <canvas id="sellsvspurchase"></canvas>
             </div>
         </div>
+        @endif
     </div>
-
-
     <div class="col-md-6 col-xs-12" >
+      @if(auth()->user()->can('admins.manage'))
       <div class="dashboard-box dashboard-box-chart bg-white content-box">
           <div class="content-wrapper">
-            <div class="header">Stock</div>
+            <div class="header">Valor de inventario</div>
             <canvas id="stockChart" ></canvas>
           </div>
       </div>
+      @endif
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6 col-xs-12">
+      @if(auth()->user()->can('sell.manage'))
       <div class="dashboard-box dashboard-box-chart bg-white content-box">
           <div class="content-wrapper">
-            <div class="header">Productos mas Vendidos</div>
+            <div class="header">Productos más vendidos</div>
             <canvas id="productChart"></canvas>
           </div>
       </div>
+      @endif
     </div>
     
     <div class="col-md-6 col-xs-12">
+      @if(auth()->user()->can('profit.graph'))
       <div class="dashboard-box dashboard-box-chart bg-white content-box">
           <div class="content-wrapper">
             <div class="header">Ganancias</div>
-            @if(auth()->user()->can('profit.graph'))
             <canvas id="profit"></canvas>
-            @endif
           </div>
       </div>
+      @endif
     </div>
 
   </div>
@@ -318,16 +336,16 @@
                 label: 'Total Ventas',
                 data: obj2,
                 backgroundColor: [
-                    'rgba(46, 204, 113, 0.4)',
-                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(27, 47, 76, 0.4)',
+                    'rgba(255, 208, 13, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
                     
                 ],
                 borderColor: [
-                    'rgba(46, 204, 113, 1)',
-                    'rgba(54, 162, 235, 1)',
+                    'rgba(27, 47, 76, 1)',
+                    'rgba(255, 208, 13, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
@@ -374,14 +392,14 @@
             datasets: [{
                 data: stock,
                 backgroundColor: [
-                    "#AF7AC5",
+                    "#1b2f4c",
                     "#5499C7",
-                    '#52BE80'
+                    '#FFD00D'
                 ],
                 hoverBackgroundColor: [
-                    "#6C3483",
+                    "#1b2f4c",
                     "#1A5276",
-                    "#196F3D"
+                    "#FFD00D"
                 ]
             }]
         },
@@ -393,19 +411,14 @@
     var ctx3 = document.getElementById("sellsvspurchase");
     var months = <?php echo json_encode(array_reverse($months)); ?>;
     var sells = <?php echo json_encode(array_reverse($sells)); ?>;
-    var purchases = <?php echo json_encode(array_reverse($purchases)); ?>;
     var chart = new Chart(ctx3, {
       type: 'bar',
       data: {
         labels: months,
         datasets: [{
           label: ["Ventas"],
-          backgroundColor: "#039A93",
+          backgroundColor: "#1b2f4c",
           data: sells
-        }, {
-          label: ["Compras"],
-          backgroundColor: "#58D68D",
-          data: purchases
         }]
       },
 
@@ -444,7 +457,7 @@
               label: "{{trans('core.profit')}}",
               data: profits,
               borderColor: 'rgba(102,165,226, 0.2)',
-              backgroundColor: 'rgba(102,165,226, 0.7)',
+              backgroundColor: 'rgba(27,47,76, 0.7)',
               pointBorderColor: 'rgba(102,165,226, 0.5)',
               pointBackgroundColor: 'rgba(102,165,226, 0.2)',
               pointBorderWidth: 1

@@ -1,11 +1,11 @@
 @extends('app')
 
 @section('contentheader')
-	Expense Categories
+	Categoria de Gastos
 @stop
 
 @section('breadcrumb')
-	Expense Categories
+	Categoria de Gastos
 @stop
 
 @section('main-content')
@@ -14,7 +14,7 @@
 		@if(auth()->user()->can('expense.create'))
 			<a id="addButton" class="btn btn-success btn-alt btn-xs" style="border-radius: 0px !important;">
 				<i class='fa fa-plus'></i> 
-				Create New Expense Category
+				Crear nueva categoria de Gastos
 			</a>
 		@endif
 
@@ -46,7 +46,7 @@
     			<thead class="{{settings('theme')}}">
     				<td class="text-center font-white"># &nbsp;&nbsp;</td>
     				<td class="text-center font-white">{{trans('core.name')}}</td>
-                    <td class="text-center font-white">Amount</td>
+                    <td class="text-center font-white">Cantidad</td>
     				<td class="text-center font-white">{{trans('core.actions')}}</td>
     			</thead>
 

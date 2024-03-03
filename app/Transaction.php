@@ -12,7 +12,9 @@ class Transaction extends Model
     public function client(){
     	return $this->belongsTo('App\Client');
     }
-
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
     public function purchases() {
     	return $this->hasMany('App\Purchase', 'reference_no', 'reference_no');
     }

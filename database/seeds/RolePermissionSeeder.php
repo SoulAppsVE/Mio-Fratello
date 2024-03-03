@@ -18,154 +18,155 @@ class RolePermissionSeeder extends Seeder
 
         Role::truncate();
         //Create some roles
-        $su = Role::firstOrcreate(['name' => 'Super User']);
-        $admin = Role::firstOrcreate(['name' => 'Owner']);
-        $moderator = Role::firstOrcreate(['name' => 'Staff']);
+        $su = Role::firstOrcreate(['name' => 'Gerente']);
+        $admin = Role::firstOrcreate(['name' => 'Administrador']);
+        $moderator = Role::firstOrcreate(['name' => 'Vendedor']);
+        $moderatoralmac = Role::firstOrcreate(['name' => 'Almacenista']);
 
         // Create permissions
         Permission::truncate();
          $permissions = [
             "admin.access" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
             ],
             "admins.manage" => [
-                'Super User',
+                'Gerente',
+                'Administrador',
             ],
             "admins.create" => [
-                'Super User',
+                'Gerente',
+                'Administrador',
             ],
             "category.create" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador',
+                'Almacenista'
+            ],
+            "category.view" => [
+                'Gerente',
+                'Administrador',
+                'Almacenista'
             ],
             "category.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador',
+                'Almacenista'
             ],
             "product.create" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador',
+                'Almacenista'
             ],
             "product.manage" => [
-                'Super User',
-                'Owner',
+                'Gerente',
+                'Administrador',
+                'Vendedor',
+                'Almacenista'
             ],
             "product.view" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
+                'Vendedor',
+                'Almacenista'
             ],
             "customer.create" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
+                'Vendedor'
             ],
             "customer.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador',
+                'Vendedor',
             ],
             "customer.view" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
+                'Vendedor',
             ],
             "supplier.create" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
             ],
             "supplier.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "supplier.view" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
             ],
             "user.create" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "user.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "sell.create" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
+                'Vendedor',
+            ],
+            "sell.view" => [
+                'Gerente',
+                'Administrador',
+                'Vendedor',
             ],
             "sell.manage" => [
-                'Super User',
-                'Owner'
-            ],
-            "return.create" => [
-                'Super User',
-                'Owner',
-                'Staff'
+                'Gerente',
+                'Administrador',
+                'Vendedor',
             ],
             "purchase.create" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
+            ],
+            "purchase.view" => [
+                'Gerente',
+                'Administrador'
             ],
             "purchase.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "transaction.view" => [
-                'Super User',
-                'Owner'
-            ],
-            "expense.create" => [
-                'Super User',
-                'Owner'
-            ],
-            "expense.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "settings.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "acl.manage" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "acl.set" => [
-                'Super User',
-                'Owner'
-            ],
-            "tax.actions" => [
-                'Super User',
-                'Owner'
-            ],
-            "branch.create" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "report.view" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "profit.view" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "cash.view" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "profit.graph" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
             "tasa.actions" => [
-                'Super User',
-                'Owner'
+                'Gerente',
+                'Administrador'
             ],
         ];
 
@@ -181,8 +182,8 @@ class RolePermissionSeeder extends Seeder
         $su = User::firstOrCreate(
             [ 'email' => 'admin@admin.com' ],
             [
-                'first_name' => 'Super',
-                'last_name' => 'User',
+                'first_name' => 'Gerente',
+                'last_name' => 'General',
                 'password' => 'admin'
             ]
         );

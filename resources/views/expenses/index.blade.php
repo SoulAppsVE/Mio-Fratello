@@ -49,7 +49,7 @@
                 <thead class="{{settings('theme')}}">
                     <td class="text-center font-white"># &nbsp;&nbsp;</td>
                     <td class="text-center font-white">
-                        Expense Category
+                        Categoría de gastos
                     </td>
                     <td class="text-center font-white">
                         {{trans('core.amount')}}
@@ -81,7 +81,7 @@
                                 {{settings('currency_code')}}
                                 {{twoPlaceDecimal($expense->amount)}}
                             </td>
-                            <td class="text-center"> {{ carbonDate($expense->created_at, '') }} </td>
+                            <td class="text-center">{{ date('d/m/Y h:i A', strtotime($expense->created_at)) }} </td>
                             <td class="text-center">
                                 @if(auth()->user()->can('expense.manage'))
                                 <a href="#" 
@@ -117,7 +117,7 @@
                 Total: <b>{{settings('currency_code')}} {{$totalexpenses}}</b>
             </h3>
             <br>
-            <h5 style="text-align: right;">In words: {{twoPlaceDecimal($totalexpenses)}} Taka</h5>
+            <!--<h5 style="text-align: right;">In words: {{twoPlaceDecimal($totalexpenses)}} Taka</h5>-->
             <!--<h5 style="text-align: right;">In words: {{numberFormatter($totalexpenses)}} Taka</h5>-->
         </div>
 
@@ -147,8 +147,8 @@
                     </div>  
 
                     <div class="form-group">
-                        <label>Expense Category</label>
-                        <select class="form-control selectpicker" name="expense_category_id" data-live-search="true" title="Choose one of the following...">
+                        <label>Categoría de gastos</label>
+                        <select class="form-control selectpicker" name="expense_category_id" data-live-search="true" title="Elige uno de los siguientes...">
                             <option value="0">Others</option>
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">
@@ -194,11 +194,11 @@
                 <div class="modal-body">                  
                     <div class="form-group">
                         <div class="col-sm-3">
-                            <label>Expense Category</label>
+                            <label>Categoría de gastos</label>
                         </div>
                         <div class="col-sm-9">
                             <select class="form-control selectpicker" name="expense_category" data-live-search="true">
-                                <option value="0">Others</option>
+                                <option value="0">Otros</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}">
                                         {{$category->name}}
@@ -242,16 +242,16 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">
-                Delete Expense 
+                Eliminar Gasto
                 <span id="deleteExpenseName" ></span>
             </h4>
           </div>
           <div class="modal-body">
-            <h3>Are you sure you want to delete this expense?</h3>
+            <h3>¿Estás seguro de que quieres eliminar este gasto?</h3>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
           </div>
         </div>
       </div>
@@ -268,7 +268,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">
-                Edit Expense
+                Editar Gasto
             </h4>
           </div>
           <div class="modal-body">
@@ -278,8 +278,8 @@
             </div>
 
             <div class="form-group">
-                <label>Expense Category</label>
-                <select class="form-control selectpicker" name="expense_category_id" data-live-search="true" title="Choose one of the following..." id="editCategory">
+                <label>Categoría de gastos</label>
+                <select class="form-control selectpicker" name="expense_category_id" data-live-search="true" title="Elige uno de los siguientes..." id="editCategory">
                     <option value="0">Others</option>
                     @foreach($categories as $category)
                         <option value="{{$category->id}}" >
@@ -300,8 +300,8 @@
             </div>   
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-info">Update</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-info">Actualizar</button>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@
 		   	<div class="row">
 			    <div class="col-md-6">
 				    <label class="control-label">
-				    	{{ trans('core.first_name') }}
+				    	Nombre
 				    	<span class="required">*</span>
 				    </label>
 				    <input type="text" v-model="addCustomer.first_name" class="form-control">
@@ -22,7 +22,7 @@
 
 				<div class="col-md-6">
 					<label class="control-label">
-				    	{{ trans('core.last_name') }}
+				    	CI/RIF
 				    	<span class="required">*</span>
 				    </label>
 			    
@@ -67,8 +67,8 @@
 		  </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="customerModalClose">Close</button>
-        <button @click.prevent="postNewCustomer" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="customerModalClose">Cerrar</button>
+        <button @click.prevent="postNewCustomer" class="btn btn-primary">Guardar</button>
         </form>
       </div>
     </div>

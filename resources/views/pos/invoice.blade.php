@@ -9,12 +9,15 @@
 @stop
 
 @section('main-content')
-	<div id="printableArea">
-		<div id="invoice-POS">
+	<div >
+	   <div id="printableArea">
+		<div id="row">
+			<!--<div id="invoice-POS">-->
 		    <div id="top" style="border-bottom: 1px solid #EEE; margin-bottom: 8px;">
 			    <center>
-			      <!-- <div class="logo" style="background: url({{asset('uploads/site/'.settings('site_logo')) }}) no-repeat">
-			      </div> -->
+			      <!--<div class="logo" style="background: url({{asset('uploads/site/'.settings('site_logo')) }}) no-repeat">
+			      </div>-->
+			      <img src="{{asset('uploads/site/'.settings('site_logo')) }}">
 			      <div class="info"> 
 			        <h2>
 			        	<b>{{settings('site_name')}}</b>
@@ -35,17 +38,30 @@
 
 			    <div class="row ref">
 			    	<div class="col-md-12">
-			    		{{trans('core.invoice_no')}}:
+			    		<strong>Nota de Entrega: </strong>
 			    		{{$transaction->reference_no}}
 			    	</div>
 			    	<div class="col-md-12">
-			    		{{trans('core.date')}}:
-			    		{{carbonDate($transaction->created_at, '')}}
+			    		Fecha:
+                        {{ date('d/m/Y h:i A', strtotime($transaction->created_at)) }}
+			    		<!--{{carbonDate($transaction->created_at, '')}}-->
 			    	</div>
-			    	<div class="col-md-12">
-			    		{{trans('core.biller')}}:
-			    		{{Auth::user()->name}}
-			    	</div>
+			    	@foreach($clients as $row)
+			    	 @if($row->id == $transaction->client_id)
+				    	<div class="col-md-12">
+				    		Cliente: {{$row->first_name}}
+				    	</div>
+				    	<div class="col-md-12">
+				    		CI/RIF: {{$row->last_name}}
+				    	</div>
+				    	<div class="col-md-12">
+				    		Dirección:{{$row->address}}
+				    	</div>
+				    	<div class="col-md-12">
+				    		TELÉFONO:{{$row->phone}}
+				    	</div>                  
+				     @endif
+			    	@endforeach
 			    </div>
 			</div>
 			<!--End InvoiceTop-->
@@ -55,19 +71,20 @@
 				<div id="table">
 					<table class="table table-bordered">
 						<tr class="tabletitle" >
-							<td>
+							<td class="text-center">
 								<span class="table-header">Item</span>
 							</td>
-							<td>
+							<td class="text-center">
 								<span class="table-header">Cant</span>
 							</td>
-							<td>
+							<td class="text-center">
 								<span class="table-header">Precio</span>
 							</td>
-							<td>
+							<td class="text-center">
 								<span class="table-header">Sub Total</span>
 							</td>
 						</tr>
+                        <?php $subtotal=0; ?>  
 
 						@foreach($transaction->sells as $sell)
 						<tr class="service">
@@ -80,7 +97,7 @@
 							<td class="tableitem">
 								<p class="itemtext">
 									@if($sell->quantity > 0)
-										{{$sell->sub_total * $dolar / $sell->quantity}}
+										{{ number_format(($sell->sub_total * $dolar / $sell->quantity),2,",",".") }}
 									@else
 										0
 									@endif
@@ -89,50 +106,54 @@
 							<td class="tableitem">
 								<p class="itemtext">
 									<!-- {{settings('currency_code')}} -->
-									{{($sell->sub_total * $dolar)-($sell->sub_total * $dolar) * 16 /100}}
+									{{ number_format((($sell->sub_total * $dolar)),2,",",".")   }}
 								</p>
 							</td>
+							<?php  $subtotal = twoPlaceDecimal($subtotal + $sell->sub_total); ?> 
 						</tr>
 						@endforeach
 
-						<tr class="tabletitle">
-							<td class="Rate text-right" colspan="3">
-								<span class="table-footer">IVA: &nbsp;&nbsp;</span class="table-footer">
-								<!--<span class="table-footer">{{trans('core.total')}}: &nbsp;&nbsp;</span class="table-footer">-->	
-							</td>
-							<td class="payment">
-								<span class="table-footer">
-									<!-- {{settings('currency_code')}} -->
-									{{($transaction->total * $dolar) * 16 / 100 }}
-								</span class="table-footer">
-							</td>
-						</tr>
-
 						<!--<tr class="tabletitle">
 							<td class="Rate text-right" colspan="3">
-								<span class="table-footer">{{trans('core.discount')}}: &nbsp;&nbsp;</span class="table-footer">
+								<span class="table-footer">IVA: &nbsp;&nbsp;</span class="table-footer">
+								<span class="table-footer">{{trans('core.total')}}: &nbsp;&nbsp;</span class="table-footer">
 							</td>
 							<td class="payment">
 								<span class="table-footer">
-									<!-- {{settings('currency_code')}} 
-									{{$transaction->discount}}
+									 {{settings('currency_code')}} 
+									{{ number_format((($transaction->total * $dolar) * 16 / 100),2,",",".")  }}
 								</span class="table-footer">
 							</td>
 						</tr>-->
 
-						@if($transaction->total_tax > 0)
 						<tr class="tabletitle">
 							<td class="Rate text-right" colspan="3">
-								<span class="table-footer">{{trans('core.vat')}}: &nbsp;&nbsp;</span class="table-footer">
+								<span class="table-footer">SubTotal: &nbsp;&nbsp;</span class="table-footer">
+								<!--<span class="table-footer">ddd{{trans('core.net_total')}}: &nbsp;&nbsp;</span class="table-footer">	-->								
 							</td>
 							<td class="payment">
 								<span class="table-footer">
 									<!-- {{settings('currency_code')}} -->
-									{{$transaction->net_total }}
+									 {{number_format((($subtotal * $dolar)),2,",",".") }}
 								</span class="table-footer">
 							</td>
-						</tr>
-						@endif
+						</tr>	
+						<?php $porcentaje = 0;
+                            $porcentaje = ($transaction->discount) * 100 / $subtotal ;
+						?>
+
+						<tr class="tabletitle" style="font-size: 11px;">
+							<td class="Rate text-right" colspan="3">
+								<span >DESCUENTO: {{ $porcentaje }} % &nbsp;&nbsp;</span class="table-footer">
+							</td>
+							<td class="payment">
+								<span >
+									$
+									{{ number_format(($transaction->discount * $dolar),2,",",".") }}
+								</span class="table-footer">
+							</td>
+						</tr>   
+
 
 						<tr class="tabletitle">
 							<td class="Rate text-right" colspan="3">
@@ -142,36 +163,36 @@
 							<td class="payment">
 								<span class="table-footer">
 									<!-- {{settings('currency_code')}} -->
-									 {{$transaction->net_total * $dolar}}
+									 {{ number_format(($transaction->net_total * $dolar),2,",",".") }}
 								</span class="table-footer">
 							</td>
-						</tr>
-
-						<tr class="tabletitle">
-							<!--<td class="Rate text-right" colspan="3">
-								<span class="table-footer">{{trans('core.paid')}} Bs: &nbsp;&nbsp;</span class="table-footer">
+						</tr>		
+										                   
+                        <!-- CODIGO PERSONALIZADO
+						<tr class="tabletitle"> 
+							<td class="Rate text-right" colspan="3">
+								<span class="table-footer">Monto Referencial BVC: &nbsp;&nbsp;</span class="table-footer">
 							</td>
 							<td class="payment">
 								<span class="table-footer">
-								    {{settings('currency_code')}} 
-									{{$transaction->paid + $transaction->change_amount}}$ / {{$transaction->paid * $dolar + $transaction->change_amount}}Bs
+ 										
+ 										{{ number_format((($transaction->net_total * $dolar)),2,",",".")  }}
 								</span class="table-footer">
-							</td>-->
-						</tr>
-
-						@if($transaction->change_amount > 0)
+							</td>
+						</tr>--> 
+                         
+                        <!-- CODIGO REAL --> 
 						<!--<tr class="tabletitle">
 							<td class="Rate text-right" colspan="3">
-								<span class="table-footer">{{trans('core.change_amount')}}: &nbsp;&nbsp;</span class="table-footer">
+								<span class="table-footer">Monto Referencial : &nbsp;&nbsp;</span class="table-footer">
 							</td>
 							<td class="payment">
 								<span class="table-footer">
-									<!-- {{settings('currency_code')}} 
-									{{$transaction->change_amount}}
+ 										
+ 										{{ number_format((($transaction->net_total)),2,",",".")  }}
 								</span class="table-footer">
 							</td>
 						</tr>-->
-						@endif
 
 					</table>
 				</div><!--End Table-->
@@ -186,11 +207,11 @@
 
 			</div><!--End InvoiceBot-->
 
-			<div style="text-align: center;  font-size: 10px; color: black;">
-				Software By SIER.
+			<!--<div style="text-align: center;  font-size: 10px; color: black;">
+				Credito a 4 días
 				<br>
-				0412-1016309, rodriguezejl1@gmail.com
-			</div>
+				Pago en bolívares al cambio del día según página monitor dolar
+			</div>-->
 	  	</div><!--End Invoice-->
   	</div> <!--Printable Div Ends-->
 
@@ -224,7 +245,15 @@
             window.print();
             document.body.innerHTML = originalContents;
         }
-	</script>
 
+		$("#vendedor").change(mostrar);
+	        
+	    function mostrar(){
+	           vend = $('#vendedor').val();	
+	           //alert(vend);
+	           $(".com").css("display","none");
+	           $("#ven").html(vend);
+	        }
+	</script>
 
 @stop

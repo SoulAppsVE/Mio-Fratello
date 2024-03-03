@@ -49,24 +49,20 @@
 					{!! Form::textarea('address', $setting->address, ['class' => 'form-control', 'rows' => 3]) !!}
 			    </div>
 			</div>
-
 			<div class="form-group">
-				<label class="control-label col-sm-2">
-					{{trans('core.shop_owner')}}
-				</label>
-				<div class="col-sm-4"> 
-					{!! Form::text('owner_name', $setting->owner_name, ['class' => 'form-control']) !!}
-			    </div>
+                <label class="col-sm- control-label">
+                	{{trans('core.logo')}}
 
-			    <label class="control-label col-sm-2">
-			    	{{trans('core.currency')}}
-			    </label>
-				<div class="col-sm-4"> 
-					{!! Form::text('currency_code', $setting->currency_code, ['class' => 'form-control']) !!}
-			    </div>
-			</div>
-
-			<div class="form-group">
+                </label>
+                <div class="col-sm-12" style="margin-top: 10px">
+                    {!! Form::file('image', ['id' => 'file']) !!}
+					<br>
+					<small>
+						El tamaño del logotipo debe ser (width=120px) x (height=40px).
+					</small>
+                </div>
+            </div>
+			<div class="form-group" style="visibility: hidden">
                 <label class="control-label col-sm-2">
 			    	{{trans('core.theme')}}
 			    </label>
@@ -81,71 +77,7 @@
 					{!! Form::select('dashboard_style', [ 'chart-box' => 'Chart Box', 'tile-box' => 'Tile Box'], $setting->dashboard, ['class' => 'form-control']) !!}
 			    </div>
             </div>
-
-			<div class="form-group">
-                <label class="col-sm-2 control-label">
-                	{{trans('core.logo')}}
-                </label>
-                <div class="col-sm-10">
-                    {!! Form::file('image', ['id' => 'file']) !!}
-					<br>
-					<small>
-						Logo size should be (width=190px) x (height=34px).
-					</small>
-                </div>
-            </div>
-
-			<!-- <div class="form-group bg-khaki">
-				<h3 class="control-label col-sm-2 title-hero">
-		            {{trans('core.product_settings')}}
-		        </h3>
-			</div>
-
-			<div class="form-group">
-			    <label class="control-label col-sm-2">
-					{{trans('core.product_tax')}}
-				</label>
-				<div class="col-sm-10"> 
-					{!! Form::select('product_tax', ['0' => 'Disable', '1' => 'Enable'],null, ['class' => 'form-control']) !!}
-			    </div>
-			</div> -->
-
-			<div class="form-group bg-khaki">
-				<h3 class="control-label col-sm-3 title-hero">
-					{{trans('core.sell_n_purchase_settings')}}
-		        </h3>
-			</div>
-
-			<div class="form-group">
-				<label class="control-label col-sm-2">
-					{{trans('core.invoice_tax')}}
-				</label>
-				<div class="col-sm-4"> 
-					{!! Form::select('invoice_tax', ['0' => 'Disable', '1' => 'Enable'],null, ['class' => 'form-control', 'id' => 'invoice_tax',]) !!}
-			    </div>
-
-			    <div id="invoice_tax_rate"> 
-			    	<!-- @if(settings('invoice_tax') == 0) style="display: none;" @endif -->
-				    <label class="control-label col-sm-2">
-						{{trans('core.invoice_tax_rate')}}
-					</label>
-
-					<div class="col-sm-4">
-						<select class="form-control" name="invoice_tax_id">
-							@foreach($taxes as $tax)
-								<option value="{{$tax->id}}" @if($tax_rate == $tax->rate) selected @endif>
-									{{$tax->name}}
-								</option>
-							@endforeach
-						</select>
-
-						<span>Add VAT Rate?</span>
-						<a href="{{route('tax.index')}}" style="text-decoration: underline; padding: 10px; color: blue; ">Click Here</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
+			<div class="form-group" style="visibility: hidden">
 				<label class="control-label col-sm-2">
 				{{trans('core.enable_purchaser')}}
 				</label>
@@ -161,39 +93,9 @@
 			    </div>
 			</div>
 
-			<div class="form-group bg-khaki" >
-				<h3 class="control-label col-sm-2 title-hero">
-					{{trans('core.invoice_settings')}}
-		        </h3>
-			</div>
-
-			<div class="form-group">
-			    <label class="control-label col-sm-2">
-				{{trans('core.vat_no')}}
-				</label>
-				<div class="col-sm-10"> 
-					{!! Form::text('vat_no', $setting->vat_no, ['class' => 'form-control']) !!}
-			    </div>
-			</div>
-
-			<div class="form-group bg-khaki" >
-				<h3 class="control-label col-sm-2 title-hero">
-					{{trans('core.pos_settings')}}
-		        </h3>
-			</div>
-
-			<div class="form-group">
-			    <label class="control-label col-sm-2">
-				{{trans('core.pos_footer_text')}}
-				</label>
-				<div class="col-sm-10"> 
-					{!! Form::textarea('pos_invoice_footer_text', $setting->pos_invoice_footer_text, ['class' => 'form-control', 'rows' => '2']) !!}
-			    </div>
-			</div>
-
 			@if(auth()->user()->can('settings.manage'))
-		    <div class="bg-default content-box text-center pad20A mrg25T">
-                <button class="btn btn-lg btn-primary" type="submit">
+		    <div class="bg-default content-box text-center pad20A mrg25T" style="margin-top: 20px">
+                <button class="btn btn-lg botom" type="submit">
                 	{{ trans('core.save') }}
                 </button>
             </div>

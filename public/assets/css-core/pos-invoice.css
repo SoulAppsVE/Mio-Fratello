@@ -10,9 +10,10 @@
 #invoice-POS {
   font-family: 'Bank' !important;
   box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
-  padding: 2mm;
+  padding: 0.5mm;
   margin: 0 auto;
-  width: 60mm;
+  /*width: 140mm;*/
+  width: 58mm;
   background: #FFF;
 }
 #invoice-POS ::selection {
@@ -52,7 +53,7 @@
   min-height: 100px;
 }
 #invoice-POS #mid {
-  min-height: 80px;
+  min-height: 50px;
 }
 #invoice-POS #bot {
   min-height: 50px;
@@ -82,7 +83,7 @@
   text-align: right;
 }
 #invoice-POS table {
-  width: 100%;
+  width: 95%;
   border-collapse: collapse;
 }
 #invoice-POS .tabletitle {
@@ -92,8 +93,8 @@
 }
 
 #invoice-POS .tabletitle td{
-  padding: 3px 0px 3px 0px; 
-  text-align: center;
+  padding: 0px 0px 0px 0px; 
+  text-align: left;
 }
 
 #invoice-POS .service {
@@ -104,7 +105,7 @@
 }
 #invoice-POS .itemtext {
   font-size: 11.5px;
-  text-align: center;
+  text-align: left;
   /*padding: 8px;*/
   color: black;
 }
@@ -146,6 +147,6 @@
 }
 
 .service .tableitem {
-  padding: 3px 0px 3px 0px; 
-  text-align: center;
+  padding: 1px 0px 1px 0px; 
+  text-align: right;
 }

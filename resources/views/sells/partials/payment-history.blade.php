@@ -10,7 +10,10 @@
       </tr>
       @foreach($payments as $payment)
         <tr>
-          <td class="text-center">{{carbonDate($payment->date, 'g:i:a')}}</td>
+          <td class="text-center">
+            <!--{{carbonDate($payment->date, 'g:i:a')}}-->
+            {{ date('d/m/Y h:i A', strtotime($payment->date)) }}
+          </td>
           <td class="text-center">{{title_case($payment->method)}}</td>
           <td class="text-center">{{title_case($payment->note)}}</td>
           <td class="text-center">

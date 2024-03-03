@@ -26,6 +26,7 @@
           height: 100%;
           background: #fff;
           overflow: hidden;
+          background-color: #ffd00d;
       }
 
   </style>
@@ -33,35 +34,36 @@
 </head>
 <body>
 
-    <img src="/assets/image-resources/blurred-bg/blurred-bg-10.jpg" class="login-img wow fadeIn" alt="">
+    <!--<img src="/assets/image-resources/blurred-bg/blurred-bg-10.jpg" class="login-img wow fadeIn" alt="">-->
 
     <div class="center-vertical">
         <div class="center-content row">
 
             <div>
-                <center>
+            <center>
                   @if(settings('site_logo'))
-                  <img src="{!! asset('uploads/site/'.settings('site_logo')) !!}">
+                  <img src="{!! asset('img/logo.png') !!}" style="height: 84px; width: 190px;">
                   @else
-                  <img src="/img/intelle_stock_white.png" class="wow fadeIn">
+                  <img src="/img/logo.png" style="height: 84px; width: 190px;" class="wow fadeIn">
                   @endif
                 </center>
                 <br>
-
-                
+              <!--<center>
+              		<img src="{{asset('uploads/site/'.settings('site_logo')) }}">
+              </center>-->
                 <form role="form" method="POST" action="{{ route('login') }}" class="center-margin col-xs-11 col-sm-4">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="content-box wow bounceInDown modal-content">
-                        <h3 class="content-box-header content-box-header-alt bg-default">
+                        <!--<h3 class="content-box-header content-box-header-alt bg-default">
                             <span class="icon-separator">
                                 <i class="glyph-icon icon-cog"></i>
                             </span>
                             <span class="header-wrapper">
                                 {{settings('site_name')}}
-                                <small>Login to your account.</small>
+                                <small>Ingrese a su cuenta.</small>
                             </span>
-                        </h3>
+                        </h3>-->
 
                         @if($errors->any())
                         <div class="alert alert-close alert-danger">
@@ -83,26 +85,26 @@
                         
                         <div class="content-box-wrapper">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address:</label>
+                                <label for="exampleInputEmail1">Correo Electrónico:</label>
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon addon-inside bg-white font-primary">
                                         <i class="glyph-icon icon-envelope-o"></i>
                                     </span>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Correo Electrónico" name="email">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password:</label>
+                                <label for="exampleInputPassword1">Contraseña:</label>
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon addon-inside bg-white font-primary">
                                         <i class="glyph-icon icon-unlock-alt"></i>
                                     </span>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" name="password">
                                 </div>
                             </div>
 
-                            <button class="btn btn-success btn-block">Sign In</button>
+                            <button class="btn btn-success btn-block" style="background-color: #1b2f4c;border-color:#1b2f4c ">Entrar</button>
                         </div>
                     </div>
                 </form>

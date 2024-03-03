@@ -16,7 +16,7 @@
 @section('main-content')
     <div class="panel-heading" >
         @if (auth()->user()->can('purchase.create'))
-            <a href="{{route('purchase.item')}}" class="btn btn-success btn-alt btn-xs" style="border-radius: 0px !important;" >
+            <a href="{{route('purchase.item')}}" class="btn botom btn-alt btn-xs" style="border-radius: 0px !important;" >
                 <i class="fa fa-plus"></i> 
                 {{trans('core.add_new_purchase')}}
             </a>
@@ -35,13 +35,13 @@
                 </a>
             </span>
         @else
-            <a class="btn btn-primary btn-alt btn-xs pull-right" id="searchButton">
+            <a class="btn botom btn-alt btn-xs pull-right" id="searchButton">
                 <i class="fa fa-search"></i>
                 {{ trans('core.search') }}
             </a>
         @endif
 
-        <input type="button" class="btn btn-alt bg-purple btn-xs" onclick="showSummary()" id="summaryBtn" value="Summary">
+        <input type="button" class="btn btn-alt bg-purple btn-xs" onclick="showSummary()" id="summaryBtn" value="Resumen">
     </div> 
    
     <div class="panel-body">
@@ -81,9 +81,9 @@
 
         <div class="table-responsive" style="min-height: 250px;" id="tableDIv">
         	<table class="table table-bordered table-striped">
-                <thead class="{{settings('theme')}}">
+                <thead style="background-color:#1b2f4c ">
                     <td class="text-center font-white">{{trans('core.date')}}</td>
-                    <td class="text-center font-white">{{trans('core.bill_no')}}</td>
+                    <td class="text-center font-white">N° Orden de Compra</td>
                     <td class="text-center font-white">{{trans('core.supplier')}}</td>
                     <td class="text-center font-white">{{trans('core.net_total')}}</td>
                     <td class="text-center font-white">{{trans('core.paid')}}</td>
@@ -94,7 +94,8 @@
                     @foreach($transactions as $transaction)
                         <tr>
                             <td class="text-center tooltip-button" data-placement="bottom" title="{{ carbonDate($transaction->date, 'g:i:a') }}">
-                                {{ carbonDate($transaction->date, 'y-m-d') }}
+                                <!--{{ carbonDate($transaction->date, 'y-m-d') }}-->
+                                {{ date('d/m/Y h:i A', strtotime($transaction->date)) }}
                             </td>
                             
                             <td class="text-center">
@@ -132,9 +133,9 @@
                                         </a> 
                                     </li>
                                     <li>
-                                        <a target="_BLINK" href="{{route('purchase.invoice', $transaction)}}">
+                                        <a target="_BLANK" href="{{route('purchase.invoice', $transaction)}}">
                                             <i class="fa fa-print" style="color: #edb426;"></i>
-                                            {{trans('core.bill')}}
+                                            Orden de Compra
                                         </a>
                                     </li>
                                     
@@ -185,7 +186,7 @@
                 <div class="modal-body">                  
                     <div class="form-group">
                         <label class="col-sm-3" @if(rtlLocale()) style="text-align: left;" @endif>
-                            {{trans('core.bill_no')}}
+                            N° Referencia
                         </label>
                         <div class="col-sm-9">
                             {!! Form::text('bill_no', Request::get('bill_no'), ['class' => 'form-control']) !!}
@@ -198,7 +199,7 @@
                             {{trans('core.supplier')}}
                         </label>
                         <div class="col-sm-9">
-                            {!! Form::select('supplier', $suppliers, Request::get('supplier'), ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'placeholder' => 'Please select a supplier']) !!}
+                            {!! Form::select('supplier', $suppliers, Request::get('supplier'), ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'placeholder' => 'Seleccione un proveedor']) !!}
                         </div>
                     </div>
                     @endif
@@ -224,7 +225,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-                    {!! Form::submit('Search', ['class' => 'btn btn-primary', 'data-disable-with' => trans('core.searching')]) !!}
+                    {!! Form::submit('Buscar', ['class' => 'btn botom', 'data-disable-with' => trans('core.searching')]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -241,20 +242,20 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">
-                Delete Purchase 
+                Eliminar compra
                 <span id="deleteExpenseName" ></span>
             </h4>
           </div>
           <div class="modal-body">
-            <h3>Are you sure you want to delete this purchase?</h3>
+            <h3>¿Estás seguro de que deseas eliminar esta compra?</h3>
             <br>
             <h4 style="color: red;">
-                Note: If you delete this purchase, all the transactions of this purchase will also be deleted &amp; product will also adjusted.
+                Nota: Si elimina esta compra, todas las transacciones de esta compra también se eliminarán y se eliminarán. El producto también se ajustará.
             </h4>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
           </div>
         </div>
       </div>
@@ -286,8 +287,8 @@
             var x = document.getElementById("summaryDiv");
             var y = document.getElementById("tableDIv");
             var elem = document.getElementById("summaryBtn");
-            if (elem.value=="Summary") elem.value = "Purchase List";
-            else elem.value = "Summary";
+            if (elem.value=="Resumen") elem.value = "Lista de Compra";
+            else elem.value = "Resumen";
             if (x.style.display === "none") {
                 x.style.display = "block";
                 y.style.display = "none";

@@ -15,7 +15,7 @@
 @section('main-content')
 	<div class="panel-heading">
 		@if(auth()->user()->can('product.create')) 
-			<a href="{{route('product.new')}}" class="btn btn-success btn-alt btn-xs" style="border-radius: 0px !important;">
+			<a href="{{route('product.new')}}" class="btn botom btn-alt btn-xs" style="border-radius: 0px !important;">
 				<i class='fa fa-plus'></i> 
 				{{trans('core.add_new_product')}}
 			</a>
@@ -36,7 +36,7 @@
 	        </span>
         @else
 	        <span class="pull-right">	
-	        	<div class="btn-group" >
+	        	<!--<div class="btn-group" >
 	              <button type="button" class="btn btn-warning btn-alt btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                {{trans('core.download')}} <span class="caret"></span>
 	              </button>
@@ -48,9 +48,9 @@
 						</a>
 	                </li>
 	              </ul>
-	            </div>
+	            </div>-->
 
-	            <a class="btn btn-primary btn-alt btn-xs " id="searchButton">
+	            <a class="btn botom btn-alt btn-xs " id="searchButton">
 	            	<i class="fa fa-search"></i> 
 	            	{{ trans('core.search') }}
 	            </a>
@@ -61,7 +61,7 @@
 	<div class="panel-body">
 		<div class="table-responsive" style="min-height: 300px;">
 			<table class="table table-bordered table-striped">
-				<thead class="{{settings('theme')}}">
+				<thead style="background-color:#1b2f4c ">
 					<td class="text-center font-white"># &nbsp;&nbsp;</td>
 					<td class="text-center font-white">{{trans('core.name')}}</td>
 					<td class="text-center font-white">{{trans('core.in_stock')}}</td>
@@ -97,7 +97,6 @@
 											{{trans('core.edit')}}
 										</a>
                                     </li>
-
                                     <li>
                                         <a href="#" data-toggle="modal" data-target="#priceUpdate{{$product->id}}">
                                         <i class="fa fa-usd" style="color: #0ad629;"></i>
@@ -124,13 +123,6 @@
                                     </li>
                                     @endif
 
-                                    <!-- Print barcode of a product -->
-                                    <li>
-										<a href="{{route('single.print_barcode', $product)}}">
-											<i class="fa fa-barcode" style="color: purple;"></i>
-										 	{{trans('core.print_barcode')}}
-										</a>
-                                    </li>
                                   </ul>
                                 </div>
                             </td>
@@ -189,7 +181,7 @@
 						        @if(count($product->sells) == 0 && count($product->purchases) == 0)
 						        @else
 						        	<h4 style="color: red;">
-						        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>This product has too much transactions, so it can't be deleted!</h4>
+						        	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>¡Este producto tiene demasiadas transacciones, por lo que no se puede eliminar!</h4>
 						        @endif
 						      </div>
 						      <div class="modal-footer">
@@ -240,7 +232,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('core.close')}}</button>
-                    {!! Form::submit('Search', ['class' => 'btn btn-primary', 'data-disable-with' => trans('core.searching')]) !!}
+                    {!! Form::submit('Buscar', ['class' => 'btn botom', 'data-disable-with' => trans('core.searching')]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

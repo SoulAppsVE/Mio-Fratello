@@ -16,6 +16,7 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->string('reference_no');
             $table->integer('client_id');
+            $table->integer('user_id')->nullable();
             $table->string('transaction_type');
             $table->double('discount')->default(0);
             $table->double('total');

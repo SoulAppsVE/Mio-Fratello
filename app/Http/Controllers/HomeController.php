@@ -155,6 +155,14 @@ class HomeController extends Controller
             $sell_array = Sell::whereBetween('date' , [$from , $to]);
             $sells[] = $sell_array->sum('sub_total') + $total_selling_tax - $sellDiscount;
             
+
+            // EDUARDO RODRIGUEZ
+            // CALCULO GASTOS 
+            $expense_rows = Expense::whereBetween('created_at',[$from ,$to]);
+            $expenses[] = $expense_rows->sum('amount');
+
+
+
             $purchase_array = Purchase::whereBetween('date' , [$from , $to]);
             $purchases[] = $purchase_array->sum('sub_total') + $total_purchasing_tax - $purchaseDiscount;
 

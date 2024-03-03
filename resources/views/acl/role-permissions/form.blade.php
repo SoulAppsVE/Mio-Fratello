@@ -36,7 +36,7 @@
         @foreach($permissions as $permission)
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label col-sm-8"> {{ ucwords($permission->type).' '.ucwords($permission->name) }}</label>
+            <label class="control-label col-sm-8">{{ ucwords(trans("core.{$permission->name}")) . ' ' . ucwords(trans("core.{$permission->type}")) }}</label>
             <div class="col-sm-4">
               <input
                 type="checkbox"
@@ -56,7 +56,7 @@
       
 
       <div class="box-footer">
-        <button type="submit" class="btn btn-primary pull-right" style="margin-bottom: 10px;">{{trans('core.submit')}} </button>
+        <button type="submit" class="btn botom pull-right" style="margin-bottom: 10px;">{{trans('core.submit')}} </button>
       </div>
 
   </form>

@@ -27,20 +27,20 @@
             </a>
         </span>
         @else
-            <a class="btn btn-alt btn-primary btn-xs pull-right" id="searchButton" style="border-radius: 0px !important;" >
+            <a class="btn btn-alt botom btn-xs pull-right" id="searchButton" style="border-radius: 0px !important;" >
                 <i class="fa fa-search"></i>
                 {{ trans('core.search') }}
             </a>
         @endif
 
-        <input type="button" class="btn btn-alt bg-purple btn-xs" id="summaryBtn" value="Show Summary">
+        <input type="button" class="btn btn-alt bg-purple btn-xs" id="summaryBtn" value="Mostrar resumen">
     </div>
 
 	<div class="panel-body" id="todaySellTable">
 		<table class="table table-bordered table-striped">
-			<thead class="{{settings('theme')}}">
+			<thead style="background-color:#1b2f4c ">
 				<td class="text-center font-white">{{trans('core.time')}}</td>
-				<td class="text-center font-white">{{trans('core.invoice_no')}}</td>
+				<td class="text-center font-white">N° Orden de Compra</td>
                 <td class="text-center font-white">{{trans('core.client')}}</td>
                 <td class="text-center font-white">{{trans('core.items')}}</td>
                 <td class="text-center font-white">{{trans('core.total_amount')}}</td>
@@ -88,7 +88,7 @@
                         <td class="text-center">   
                         	<a target="_BLINK" href="{{route('sell.invoice', $invoice)}}" class="btn btn-alt btn-warning btn-xs">
                         		<i class="fa fa-print"></i>
-                        		{{trans('core.invoice')}}
+                        		Orden de Compra
                         	</a>
                         	<a href="{{route('sells.details', $invoice)}}" class="btn btn-alt btn-purple btn-xs" target="_BLINK">
                         		{{trans('core.details')}}
@@ -107,7 +107,7 @@
 
     <div class="panel-body" id="sellDetailsTable" style="display: none;">
         <center>
-            <h3 style="padding: 10px;">Todays Sales Summary</h3>    
+            <h3 style="padding: 10px;">Resumen de ventas de hoy</h3>    
         </center>
         
         <table style="width: 100%; font-weight: bold;" class="table table-bordered" >
@@ -118,7 +118,7 @@
                 <td @if(rtlLocale()) style="text-align: right;" @endif>
                     {{settings('currency_code')}}
                     {{twoPlaceDecimal($total)}} 
-                    <span class="font-size-9">{{trans('core.excluding_vat_and_tax')}}</span>
+                   
                 </td>
             </tr>
 
@@ -149,7 +149,7 @@
                 <td @if(rtlLocale()) style="text-align: right;" @endif>
                     {{settings('currency_code')}}
                     {{twoPlaceDecimal($total_cost_price)}}
-                    <span class="font-size-9">{{trans('core.excluding_vat_and_tax')}}</span>
+                   
                 </td>
             </tr>
 

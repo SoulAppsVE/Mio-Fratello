@@ -26,7 +26,7 @@
 
         <div class="panel-layout">
             <div class="panel-box">
-                <div class="panel-content bg-primary">
+                <div class="panel-content bg-primary" style="background-color: #1b2f4c;">
                     <div class="image-content font-white">
                         <div class="center-vertical">
                             <div class="meta-box center-content">
@@ -70,7 +70,7 @@
       <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="panel-layout">
             <div class="panel-box">
-                <div class="panel-content bg-blue-alt">
+                <div class="panel-content bg-blue-alt" style="background-color: #1b2f4c;">
                     <div class="image-content font-white">
                         <div class="center-vertical">
                             <div class="meta-box center-content">
@@ -121,12 +121,12 @@
       <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="panel-layout">
             <div class="panel-box">
-                <div class="panel-content bg-purple">
+                <div class="panel-content bg-purple" style="background-color: #1b2f4c;">
                     <div class="image-content font-white">
                         <div class="center-vertical">
                             <div class="meta-box center-content">
                                 <h3 class="meta-heading">
-                                  {{trans('core.total_invoice')}}
+                                  Total N° Orden de Compra
                                 </h3>
                                 <h4 class="meta-subheading">
                                   &nbsp;
@@ -159,23 +159,11 @@
     <!--second row-->
     <div class="row">
       <div class="col-md-12">
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                  <a href="#transaction_details" data-toggle="tab">
+          <div class="nav-tabs-custom" >
+            <ul class="nav nav-tabs" >
+                <li class="active" >
+                  <a href="#transaction_details" data-toggle="tab" style="background-color: #1b2f4c;">
                     {{ trans('core.transaction_details') }}
-                  </a>
-                </li>
-
-                <li>
-                  <a href="#payments" data-toggle="tab">
-                    {{ trans('core.payment_history') }}
-                  </a>
-                </li>
-
-                <li>
-                  <a href="#make-payment" data-toggle="tab">
-                    {{ trans('core.make_payment') }}
                   </a>
                 </li>
             </ul>
@@ -183,7 +171,7 @@
 
             <div class="tab-content">
               <!--transaction history-->
-              <div class="active tab-pane animated fadeIn" id="transaction_details" style="padding-bottom: 50px;">
+              <div class="active tab-pane animated fadeIn" id="transaction_details" style="padding-bottom: 50px;" >
                 @include('clients.partials.transaction-history')
               </div>
               <!--transaction history ends-->

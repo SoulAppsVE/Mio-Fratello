@@ -19,11 +19,13 @@
 	<div id="printableArea" class="panel-body">
 		<h4 class="text-center">	
 			<b>{{trans('core.report_product')}}:</b>
-		 	{{carbonDate($from, 'y-m-d')}} 
+		 	<!--{{carbonDate($from, 'y-m-d')}}-->
+			 {{ \Carbon\Carbon::parse($from)->toDateString() }}
 		 	<b>{{trans('core.to')}}</b> 
-		 	{{carbonDate($to, 'y-m-d')}}
+		 	<!--{{carbonDate($to, 'y-m-d')}}-->
+			 {{ \Carbon\Carbon::parse($to)->toDateString() }}
 		 	<br>
-		 	<b>{{trans('core.warehouse')}}: </b>{{$warehouse_name}}
+		 	<!--<b>{{trans('core.warehouse')}}: </b>{{$warehouse_name}}-->
 		 </h4>
 
 		 <br />
@@ -75,10 +77,7 @@
 	</div>
 	
 	<div class="pull-right visible-lg">
-		<small>
-		<b>*Note:</b> {{trans('core.total_profit')}} = {{trans('core.selling_goods_total_price')}} - {{trans('core.selling_goods_total_cost_price')}} 
-		{{(trans('core.excluding_tax'))}}
-		</small>
+
 	</div>
 
 @stop
